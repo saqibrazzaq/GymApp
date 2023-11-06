@@ -363,6 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Environment variable files
-*.env
-.env
 /api/.env
