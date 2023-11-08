@@ -63,18 +63,18 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
   {
     name: "Admin",
     href: "/admin",
-    children: [
-      {
-        name: "Register Admin",
-        subLabel: "Create a new Admin user",
-        href: "/admin/register-admin",
-      },
-      {
-        name: "New & Noteworthy",
-        subLabel: "Up-and-coming Designers",
-        href: "#",
-      },
-    ],
+    // children: [
+    //   {
+    //     name: "Register Admin",
+    //     subLabel: "Create a new Admin user",
+    //     href: "/admin/register-admin",
+    //   },
+    //   {
+    //     name: "New & Noteworthy",
+    //     subLabel: "Up-and-coming Designers",
+    //     href: "#",
+    //   },
+    // ],
   },
 ];
 
@@ -82,18 +82,18 @@ const NAV_ITEMS_SUPERADMIN: Array<NavItem> = [
   {
     name: "Super Admin",
     href: "/superadmin",
-    children: [
-      {
-        name: "Super Admin 1",
-        subLabel: "Create a new Admin user",
-        href: "/superadmin/1",
-      },
-      {
-        name: "Super Admin 2",
-        subLabel: "Second page",
-        href: "/superadmin/2",
-      },
-    ],
+    // children: [
+    //   {
+    //     name: "Super Admin 1",
+    //     subLabel: "Create a new Admin user",
+    //     href: "/superadmin/1",
+    //   },
+    //   {
+    //     name: "Super Admin 2",
+    //     subLabel: "Second page",
+    //     href: "/superadmin/2",
+    //   },
+    // ],
   },
 ];
 

@@ -6,13 +6,7 @@ import { setLoggedInUser } from "./storage/Redux/userAuthSlice";
 import { toastNotify } from "./Helper";
 import { Footer, Header } from "./layout";
 import { Home } from "./pages/Home";
-import {
-  AccessDenied,
-  ForgotPassword,
-  Login,
-  Register,
-  ResetPassword,
-} from "./pages/Auth";
+import { AccessDenied, ForgotPassword, Login, Register, ResetPassword } from "./pages/Auth";
 import { Private, Public } from "./pages/ZOther";
 import { AccountLayout } from "./layout/AccountLayout";
 import { AdminLayout } from "./layout/AdminLayout";

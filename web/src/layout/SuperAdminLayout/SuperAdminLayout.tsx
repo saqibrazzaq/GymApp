@@ -13,21 +13,22 @@ import {
   CountryDelete,
   CountryEdit,
   StateDelete,
+  StateEdit,
   States,
 } from "../../pages/SuperAdmin/Country";
-import StateEdit from "../../pages/SuperAdmin/Country/StateEdit";
+import { Currencies, CurrencyDelete, CurrencyEdit } from "../../pages/SuperAdmin/Currency";
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, href: "/superadmin" },
   {
-    name: "Countries",
+    name: "Country",
     icon: AiOutlineUnlock,
     href: "/superadmin/countries",
   },
   {
-    name: "SuperAdmin 2",
+    name: "Currency",
     icon: MdOutlineVerifiedUser,
-    href: "/superadmin/2",
+    href: "/superadmin/currencies",
   },
   { name: "SuperAdmin 3", icon: MdPerson, href: "/superadmin/3" },
 ];
@@ -45,23 +46,15 @@ const SuperAdminLayout = () => {
           <Route path="countries" element={<Countries />} />
           <Route path="countries/edit" element={<CountryEdit />} />
           <Route path="countries/:countryId/edit" element={<CountryEdit />} />
-          <Route
-            path="countries/:countryId/delete"
-            element={<CountryDelete />}
-          />
+          <Route path="countries/:countryId/delete" element={<CountryDelete />} />
           <Route path="countries/:countryId/states" element={<States />} />
-          <Route
-            path="countries/:countryId/states/edit"
-            element={<StateEdit />}
-          />
-          <Route
-            path="countries/:countryId/states/:stateId/edit"
-            element={<StateEdit />}
-          />
-          <Route
-            path="countries/:countryId/states/:stateId/delete"
-            element={<StateDelete />}
-          />
+          <Route path="countries/:countryId/states/edit" element={<StateEdit />} />
+          <Route path="countries/:countryId/states/:stateId/edit" element={<StateEdit />} />
+          <Route path="countries/:countryId/states/:stateId/delete" element={<StateDelete />} />
+          <Route path="currencies" element={<Currencies />} />
+          <Route path="currencies/edit" element={<CurrencyEdit />} />
+          <Route path="currencies/:currencyId/edit" element={<CurrencyEdit />} />
+          <Route path="currencies/:currencyId/delete" element={<CurrencyDelete />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Box>

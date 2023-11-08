@@ -23,37 +23,26 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import {
-  Link as RouteLink,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { PagedResponse } from "../../../models/Request";
 import { Common } from "../../../utility";
-import { CountryRes } from "../../../models/Country";
 import { toastNotify } from "../../../Helper";
 import { BackButton, RegularButton } from "../../../components/Buttons";
-import {
-  DeleteIconButton,
-  EditIconButton,
-  StateIconButton,
-} from "../../../components/Icons";
-import { CountryApi } from "../../../api";
+import { DeleteIconButton, EditIconButton } from "../../../components/Icons";
+import { CurrencyRes } from "../../../models/Currency";
+import { CurrencyApi } from "../../../api";
 import { ErrorDetails } from "../../../models/Error";
 
-const Countries = () => {
+const Currencies = () => {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(location.search);
   searchParams.set("pageSize", Common.DEFAULT_PAGE_SIZE.toString());
-  const [searchText, setSearchText] = useState<string>(
-    searchParams.get("searchText") ?? ""
-  );
-  const [pagedRes, setPagedRes] = useState<PagedResponse<CountryRes>>();
+  const [searchText, setSearchText] = useState<string>(searchParams.get("searchText") ?? "");
+  const [pagedRes, setPagedRes] = useState<PagedResponse<CurrencyRes>>();
   const navigate = useNavigate();
 
   useEffect(() => {
-    searchCountries();
+    searchCurrencies();
   }, [searchParams]);
 
   const updateSearchParams = (key: string, value: string) => {
@@ -75,11 +64,9 @@ const Countries = () => {
     }
   };
 
-  const searchCountries = () => {
-    CountryApi.search(Object.fromEntries(searchParams))
+  const searchCurrencies = () => {
+    CurrencyApi.search(Object.fromEntries(searchParams))
       .then((res) => {
-        //let userRes: PagedResponse<UserDto> = res;
-        // console.log(res);
         setPagedRes(res);
       })
       .catch((err) => {
@@ -91,12 +78,12 @@ const Countries = () => {
   const displayHeading = () => (
     <Flex>
       <Box>
-        <Heading fontSize={"xl"}>Search Countries</Heading>
+        <Heading fontSize={"xl"}>Search Currencies</Heading>
       </Box>
       <Spacer />
       <Box>
         <Link as={RouteLink} to={"edit"}>
-          <RegularButton text="Create Country" />
+          <RegularButton text="Create Currency" />
         </Link>
         <Link ml={2} onClick={() => navigate(-1)}>
           <BackButton />
@@ -105,7 +92,7 @@ const Countries = () => {
     </Flex>
   );
 
-  const displayCountries = () => (
+  const displayCurrencies = () => (
     <TableContainer>
       <Table variant="simple" size={"sm"}>
         <Thead>
@@ -118,17 +105,14 @@ const Countries = () => {
         <Tbody>
           {pagedRes?.pagedList ? (
             pagedRes.pagedList.map((item) => (
-              <Tr key={item.countryId}>
-                <Td>{item.countryCode}</Td>
-                <Td>{item.countryName}</Td>
+              <Tr key={item.currencyId}>
+                <Td>{item.code}</Td>
+                <Td>{item.name}</Td>
                 <Td>
-                  <Link as={RouteLink} to={item.countryId + "/states"}>
-                    <StateIconButton />
-                  </Link>
-                  <Link as={RouteLink} ms={2} to={item.countryId + "/edit"}>
+                  <Link as={RouteLink} ms={2} to={item.currencyId + "/edit"}>
                     <EditIconButton />
                   </Link>
-                  <Link as={RouteLink} ms={2} to={item.countryId + "/delete"}>
+                  <Link as={RouteLink} ms={2} to={item.currencyId + "/delete"}>
                     <DeleteIconButton />
                   </Link>
                 </Td>
@@ -149,8 +133,7 @@ const Countries = () => {
               >
                 Previous
               </Button>
-              Page {pagedRes?.metaData?.currentPage} of{" "}
-              {pagedRes?.metaData?.totalPages}
+              Page {pagedRes?.metaData?.currentPage} of {pagedRes?.metaData?.totalPages}
               <Button
                 isDisabled={!pagedRes?.metaData?.hasNext}
                 variant="link"
@@ -205,10 +188,10 @@ const Countries = () => {
       <Stack spacing={4} as={Container} maxW={"3xl"}>
         {displayHeading()}
         {displaySearchBar()}
-        {displayCountries()}
+        {displayCurrencies()}
       </Stack>
     </Box>
   );
 };
 
-export default Countries;
+export default Currencies;
