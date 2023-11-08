@@ -15,6 +15,7 @@ namespace api.Repository.Implementations
         private readonly Lazy<IStateRepository> _stateRepository;
         private readonly Lazy<IAddressRepository> _addressRepository;
         private readonly Lazy<IUserAddressRepository> _userAddressRepository;
+        private readonly Lazy<IPlanCategoryRepository> _planCategoryRepository;
         public RepositoryManager(AppDbContext context)
         {
             _context = context;
@@ -28,6 +29,7 @@ namespace api.Repository.Implementations
             _stateRepository = new Lazy<IStateRepository>(() => new StateRepository(context));
             _addressRepository = new Lazy<IAddressRepository>(() => new AddressRepository(context));
             _userAddressRepository = new Lazy<IUserAddressRepository>(() => new UserAddressRepository(context));
+            _planCategoryRepository = new Lazy<IPlanCategoryRepository>(() => new PlanCategoryRepository(context));
         }
 
         public IUserRepository UserRepository => _userRepository.Value;
@@ -38,6 +40,7 @@ namespace api.Repository.Implementations
         public IStateRepository StateRepository => _stateRepository.Value;
         public IAddressRepository AddressRepository => _addressRepository.Value;
         public IUserAddressRepository UserAddressRepository => _userAddressRepository.Value;
+        public IPlanCategoryRepository PlanCategoryRepository => _planCategoryRepository.Value;
 
         public void Save()
         {

@@ -10,6 +10,7 @@
         IStateRepository StateRepository { get; }
         IAddressRepository AddressRepository { get; }
         IUserAddressRepository UserAddressRepository { get; }
+        IPlanCategoryRepository PlanCategoryRepository { get; }
         void Save();
     }
 }
