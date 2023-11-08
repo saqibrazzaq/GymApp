@@ -17,15 +17,15 @@ namespace api.Services.Implementations
             _accountDataSeedService = accountDataSeedService;
         }
 
-        public void SeedData()
+        public async Task SeedData()
         {
             // Sequence is necessary
             // Create account types e.g. unlimited, free, basic
             _accountTypeSeedService.SeedData();
             // Create roles e.g. admin, manager, user
-            _roleDataSeedService.SeedData();
+            await _roleDataSeedService.SeedData();
             // Create super admin user with unlimited account
-            _accountDataSeedService.SeedData();
+            await _accountDataSeedService.SeedData();
         }
     }
 }

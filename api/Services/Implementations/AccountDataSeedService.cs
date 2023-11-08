@@ -19,7 +19,7 @@ namespace api.Services.Implementations
             _userManager = userManager;
         }
 
-        public async void SeedData()
+        public async Task SeedData()
         {
             var entity = _repositoryManager.UserRepository.FindByCondition(
                 x => x.UserName == SecretUtility.DefaultSuperAdminUsername &&

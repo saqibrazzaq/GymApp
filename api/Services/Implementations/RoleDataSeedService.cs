@@ -14,7 +14,7 @@ namespace api.Services.Implementations
             _roleManager = roleManager;
         }
 
-        public async void SeedData()
+        public async Task SeedData()
         {
             var roleNames = Constants.AllRoles.Split(",");
             foreach (var roleName in roleNames)

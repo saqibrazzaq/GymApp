@@ -1,6 +1,7 @@
 ﻿using api.Dtos.Account;
 using api.Dtos.Address;
 using api.Dtos.Country;
+using api.Dtos.Currency;
 using api.Dtos.User;
 using api.Entities;
 
@@ -18,6 +19,10 @@ namespace api
             // Account
             CreateMap<Account, AccountRes>();
             CreateMap<AccountEditReq, Account>();
+
+            // Currency
+            CreateMap<Currency, CurrencyRes>();
+            CreateMap<CurrencyEditReq, Currency>();
 
             // Country
             CreateMap<Country, CountryRes>();

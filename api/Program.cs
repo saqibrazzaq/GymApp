@@ -1,5 +1,6 @@
 using api.Extensions;
 using api.Logger;
+using api.Utility;
 using NLog;
 using System.Text.Json.Serialization;
 
@@ -29,6 +30,8 @@ builder.Services.AddControllers(config =>
 }).AddJsonOptions(x =>
 {
     x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    x.JsonSerializerOptions.Converters.Add(new NullStringToEmptyStringConverter());
+    //x.JsonSerializerOptions.Converters.Add(new NullIntegerToEmptyStringConverter());
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     x.JsonSerializerOptions.WriteIndented = true;
     x.JsonSerializerOptions.Converters.Add(new api.Utility.DateTimeConverter());

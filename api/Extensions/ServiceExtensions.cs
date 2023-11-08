@@ -62,6 +62,7 @@ namespace api.Extensions
             services.AddScoped<IRoleDataSeedService, RoleDataSeedService>();
             services.AddScoped<IAccountDataSeedService, AccountDataSeedService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ICurrencyService, CurrencyService>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserAddressService, UserAddressService>();

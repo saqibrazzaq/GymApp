@@ -65,7 +65,7 @@ const UserAddressEdit = () => {
 
   const submitForm = (values: AddressEditReq) => {
     values = convertEmptyStringToNull(values);
-    // console.log(values);
+    console.log(values);
     if (userAddressId) {
       updateUserAddress(values);
     } else {

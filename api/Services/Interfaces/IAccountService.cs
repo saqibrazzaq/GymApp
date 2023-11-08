@@ -6,5 +6,6 @@ namespace api.Services.Interfaces
     {
         Task<AccountRes> GetMyAccount();
         Task UpdateLogo(IFormFile formFile);
+        Task<AccountRes> Update(AccountEditReq dto);
     }
 }

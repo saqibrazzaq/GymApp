@@ -1,4 +1,5 @@
-﻿using api.Services.Implementations;
+﻿using api.Dtos.Account;
+using api.Services.Implementations;
 using api.Services.Interfaces;
 using api.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -32,6 +33,14 @@ namespace api.Controllers
         {
             await _accountService.UpdateLogo(Request.Form.Files[0]);
             return NoContent();
+        }
+
+        [HttpPut]
+        [Authorize(Roles = Constants.AllAdminRoles)]
+        public async Task<IActionResult> Update(AccountEditReq dto)
+        {
+            var res = await _accountService.Update(dto);
+            return Ok(res);
         }
     }
 }

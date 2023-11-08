@@ -2,6 +2,6 @@
 {
     public interface IAccountDataSeedService
     {
-        void SeedData();
+        Task SeedData();
     }
 }

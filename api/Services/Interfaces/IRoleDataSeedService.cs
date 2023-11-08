@@ -2,6 +2,6 @@
 {
     public interface IRoleDataSeedService
     {
-        void SeedData();
+        Task SeedData();
     }
 }
