@@ -22,12 +22,7 @@ import {
   MenuDivider,
   Image,
 } from "@chakra-ui/react";
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Roles } from "../../models/User/Roles";
@@ -35,10 +30,7 @@ import Common from "../../utility/Common";
 import AuthenticationRes from "../../models/User/AuthenticationRes";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../storage/Redux/store";
-import {
-  setLoggedInUser,
-  emptyUserState,
-} from "../../storage/Redux/userAuthSlice";
+import { setLoggedInUser, emptyUserState } from "../../storage/Redux/userAuthSlice";
 
 interface NavItem {
   name: string;
@@ -63,18 +55,18 @@ const NAV_ITEMS_ADMIN: Array<NavItem> = [
   {
     name: "Admin",
     href: "/admin",
-    // children: [
-    //   {
-    //     name: "Register Admin",
-    //     subLabel: "Create a new Admin user",
-    //     href: "/admin/register-admin",
-    //   },
-    //   {
-    //     name: "New & Noteworthy",
-    //     subLabel: "Up-and-coming Designers",
-    //     href: "#",
-    //   },
-    // ],
+    children: [
+      {
+        name: "Register Admin",
+        subLabel: "Create a new Admin user",
+        href: "/admin/register-admin",
+      },
+      {
+        name: "New & Noteworthy",
+        subLabel: "Up-and-coming Designers",
+        href: "#",
+      },
+    ],
   },
 ];
 
@@ -82,18 +74,18 @@ const NAV_ITEMS_SUPERADMIN: Array<NavItem> = [
   {
     name: "Super Admin",
     href: "/superadmin",
-    // children: [
-    //   {
-    //     name: "Super Admin 1",
-    //     subLabel: "Create a new Admin user",
-    //     href: "/superadmin/1",
-    //   },
-    //   {
-    //     name: "Super Admin 2",
-    //     subLabel: "Second page",
-    //     href: "/superadmin/2",
-    //   },
-    // ],
+    children: [
+      {
+        name: "Super Admin 1",
+        subLabel: "Create a new Admin user",
+        href: "/superadmin/1",
+      },
+      {
+        name: "Super Admin 2",
+        subLabel: "Second page",
+        href: "/superadmin/2",
+      },
+    ],
   },
 ];
 
@@ -103,20 +95,14 @@ export default function Header() {
   const { isOpen, onToggle } = useDisclosure();
   const [navItems, setNavItems] = useState<Array<NavItem>>([]);
   const dispatch = useDispatch();
-  const userData: AuthenticationRes = useSelector(
-    (state: RootState) => state.userAuthStore
-  );
+  const userData: AuthenticationRes = useSelector((state: RootState) => state.userAuthStore);
   const navigate = useNavigate();
   // console.log("In header");
   // console.log(userData);
 
   useEffect(() => {
     if (isSuperAdmin()) {
-      setNavItems([
-        ...NAV_ITEMS_USER,
-        ...NAV_ITEMS_ADMIN,
-        ...NAV_ITEMS_SUPERADMIN,
-      ]);
+      setNavItems([...NAV_ITEMS_USER, ...NAV_ITEMS_ADMIN, ...NAV_ITEMS_SUPERADMIN]);
     } else if (isAdmin()) {
       setNavItems([...NAV_ITEMS_USER, ...NAV_ITEMS_ADMIN]);
     } else {
@@ -183,13 +169,7 @@ export default function Header() {
     return (
       <Box>
         <Menu>
-          <MenuButton
-            as={Button}
-            rounded={"full"}
-            variant={"link"}
-            cursor={"pointer"}
-            minW={0}
-          >
+          <MenuButton as={Button} rounded={"full"} variant={"link"} cursor={"pointer"} minW={0}>
             <Avatar size={"sm"} src={userData.profilePictureUrl} />
           </MenuButton>
           <MenuList>
@@ -265,9 +245,7 @@ export default function Header() {
         >
           <IconButton
             onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
+            icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
             variant={"ghost"}
             aria-label={"Toggle Navigation"}
           />
@@ -288,12 +266,7 @@ export default function Header() {
           </Flex>
         </Flex>
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-        >
+        <Stack flex={{ base: 1, md: 0 }} justify={"flex-end"} direction={"row"} spacing={6}>
           {/* {showSignInMenu()} */}
           {userData.email && showMenuForLoggedInUser()}
           {!userData.email && showMenuForPublicUser()}
@@ -376,11 +349,7 @@ const DesktopSubNav = ({ name: label, href, subLabel, slug }: NavItem) => {
     >
       <Stack direction={"row"} align={"center"}>
         <Box>
-          <Text
-            transition={"all .3s ease"}
-            _groupHover={{ color: "pink.400" }}
-            fontWeight={500}
-          >
+          <Text transition={"all .3s ease"} _groupHover={{ color: "pink.400" }} fontWeight={500}>
             {label}
           </Text>
           <Text fontSize={"sm"}>{subLabel}</Text>
@@ -403,11 +372,7 @@ const DesktopSubNav = ({ name: label, href, subLabel, slug }: NavItem) => {
 
 const MobileNav: React.FC<NavItemProps> = (props) => {
   return (
-    <Stack
-      bg={useColorModeValue("white", "gray.800")}
-      p={4}
-      display={{ md: "none" }}
-    >
+    <Stack bg={useColorModeValue("white", "gray.800")} p={4} display={{ md: "none" }}>
       {props.NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.name} {...navItem} />
       ))}
@@ -430,10 +395,7 @@ const MobileNavItem = ({ name: label, children, href, slug }: NavItem) => {
           textDecoration: "none",
         }}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue("gray.600", "gray.200")}
-        >
+        <Text fontWeight={600} color={useColorModeValue("gray.600", "gray.200")}>
           {label}
         </Text>
         {children && (

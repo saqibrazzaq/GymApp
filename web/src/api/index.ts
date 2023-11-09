@@ -5,6 +5,7 @@ import { CountryApi } from "./CountryApi";
 import { StateApi } from "./StateApi";
 import { UserAddressApi } from "./UserAddressApi";
 import { CurrencyApi } from "./CurrencyApi";
+import { PlanCategoryApi } from "./PlanCategoryApi";
 
 export {
   AuthApi,
@@ -14,4 +15,5 @@ export {
   StateApi,
   UserAddressApi,
   CurrencyApi,
+  PlanCategoryApi,
 };
