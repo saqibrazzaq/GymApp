@@ -10,6 +10,7 @@ import { NotFound } from "../../pages/ZOther";
 import { withAdminAuth } from "../../hoc";
 import { BusinessLogo, SettingsHome } from "../../pages/Admin/Settings";
 import { PlanCategories, PlanCategoryDelete, PlanCategoryEdit } from "../../pages/Plans/Category";
+import { PlanDelete, PlanEdit, Plans } from "../../pages/Plans/Plan";
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, href: "/admin" },
@@ -81,6 +82,10 @@ const AdminLayout = () => {
           <Route path="/plans/categories/edit" element={<PlanCategoryEdit />} />
           <Route path="/plans/categories/:planCategoryId/edit" element={<PlanCategoryEdit />} />
           <Route path="/plans/categories/:planCategoryId/delete" element={<PlanCategoryDelete />} />
+          <Route path="/plans" element={<Plans />} />
+          <Route path="/plans/edit" element={<PlanEdit />} />
+          <Route path="/plans/:planId/edit" element={<PlanEdit />} />
+          <Route path="/plans/:planId/delete" element={<PlanDelete />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Box>

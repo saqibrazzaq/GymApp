@@ -17,7 +17,7 @@ namespace api.Entities
         public string? Description { get; set; }
         public int? PlanCategoryId { get; set; }
         [ForeignKey(nameof(PlanCategoryId))]
-        public PlanCategory? planCategory { get; set; }
+        public PlanCategory? PlanCategory { get; set; }
         public int? PlanTypeId { get; set; }
         [ForeignKey(nameof(PlanTypeId))]
         public PlanType? PlanType { get; set; }

@@ -11,7 +11,8 @@ namespace api.Repository.Implementations
         public static IQueryable<PlanCategory> Search(this IQueryable<PlanCategory> items,
             PlanCategorySearchReq searchParams)
         {
-            var itemsToReturn = items.Where(x => x.AccountId == searchParams.AccountId);
+            var itemsToReturn = items
+                .Where(x => x.AccountId == searchParams.AccountId);
             
             if (string.IsNullOrWhiteSpace(searchParams.SearchText) == false)
             {

@@ -1,23 +1,19 @@
-﻿using api.Dtos.Country;
+﻿using api.Dtos.Account;
+using api.Dtos.Country;
 using api.Dtos.Plan;
 using api.Dtos.PlanCategory;
 using api.Entities;
 using api.Utility.Paging;
-using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 
 namespace api.Repository.Implementations
 {
-    public static class PlanRepositoryExtensions
+    public static class AccountTypeRepositoryExtensions
     {
-        public static IQueryable<Plan> Search(this IQueryable<Plan> items,
-            PlanSearchReq searchParams)
+        public static IQueryable<AccountType> Search(this IQueryable<AccountType> items,
+            AccountTypeSearchReq searchParams)
         {
-            var itemsToReturn = items
-                .Include(x => x.PlanCategory)
-                .Include(x => x.PlanType)
-                .Where(x => x.AccountId == searchParams.AccountId)
-                ;
+            var itemsToReturn = items;
             
             if (string.IsNullOrWhiteSpace(searchParams.SearchText) == false)
             {
@@ -30,13 +26,13 @@ namespace api.Repository.Implementations
             return itemsToReturn;
         }
 
-        public static IQueryable<Plan> Sort(this IQueryable<Plan> items,
+        public static IQueryable<AccountType> Sort(this IQueryable<AccountType> items,
             string? orderBy)
         {
             if (string.IsNullOrWhiteSpace(orderBy))
                 return items.OrderBy(e => e.Name);
 
-            var orderQuery = OrderQueryBuilder.CreateOrderQuery<Plan>(orderBy);
+            var orderQuery = OrderQueryBuilder.CreateOrderQuery<AccountType>(orderBy);
 
             if (string.IsNullOrWhiteSpace(orderQuery))
                 return items.OrderBy(e => e.Name);

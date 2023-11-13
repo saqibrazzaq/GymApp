@@ -15,9 +15,9 @@ namespace api.Entities
 
     public enum AccountTypeNames
     {
-        Unlimited,
-        Free,
-        Basic,
-        Pro
+        Unlimited = 1,
+        Free = 2,
+        Basic = 3,
+        Pro = 4
     }
 }

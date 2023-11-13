@@ -5,6 +5,7 @@ using api.Repository.Interfaces;
 using api.Services.Interfaces;
 using api.Utility.Paging;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Services.Implementations
 {
@@ -48,7 +49,11 @@ namespace api.Services.Implementations
             var entity = _rep.PlanRepository.FindByCondition(
                 x => x.PlanId == planId &&
                     x.AccountId == user.AccountId,
-                trackChanges)
+                trackChanges,
+                include: i => i
+                .Include(x => x.PlanCategory)
+                .Include(x => x.PlanType)
+                )
                 .FirstOrDefault();
             if (entity == null) { throw new Exception("No plan found with id " + planId); }
 

@@ -16,8 +16,8 @@ namespace api.Entities
 
     public enum PlanTypeNames
     {
-        Recurring,
-        NonRecurring,
-        Punchcard
+        Recurring = 1,
+        NonRecurring = 2,
+        Punchcard = 3
     }
 }

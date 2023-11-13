@@ -11,9 +11,9 @@ namespace api.Dtos.Plan
         public int? AccountId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public int? PlanCategoryId { get; set; }
+        public string? PlanCategoryId { get; set; }
         public PlanCategoryRes? planCategory { get; set; }
-        public int? PlanTypeId { get; set; }
+        public string? PlanTypeId { get; set; }
         public PlanType? PlanType { get; set; }
     }
 }
