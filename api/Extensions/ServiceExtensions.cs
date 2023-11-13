@@ -64,11 +64,14 @@ namespace api.Extensions
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ICurrencyService, CurrencyService>();
             services.AddScoped<IPlanCategoryService, PlanCategoryService>();
+            services.AddScoped<IPlanTypeService, PlanTypeService>();
+            services.AddScoped<IPlanService, PlanService>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserAddressService, UserAddressService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IStateService, StateService>();
+            services.AddScoped<IPlanTypeDataSeedService, PlanTypeDataSeedService>();
         }
 
         public static void MigrateDatabase(this IServiceCollection services)

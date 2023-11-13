@@ -11,6 +11,8 @@
         IAddressRepository AddressRepository { get; }
         IUserAddressRepository UserAddressRepository { get; }
         IPlanCategoryRepository PlanCategoryRepository { get; }
+        IPlanTypeRepository PlanTypeRepository { get; }
+        IPlanRepository PlanRepository { get; }
         void Save();
     }
 }

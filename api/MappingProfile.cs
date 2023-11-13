@@ -2,6 +2,7 @@
 using api.Dtos.Address;
 using api.Dtos.Country;
 using api.Dtos.Currency;
+using api.Dtos.Plan;
 using api.Dtos.PlanCategory;
 using api.Dtos.User;
 using api.Entities;
@@ -43,6 +44,13 @@ namespace api
             // PlanCategory
             CreateMap<PlanCategory, PlanCategoryRes>();
             CreateMap<PlanCategoryEditReq, PlanCategory>();
+
+            // PlanType
+            CreateMap<PlanType, PlanTypeRes>();
+
+            // Plan
+            CreateMap<Plan, PlanRes>();
+            CreateMap<PlanEditReq, Plan>();
         }
     }
 }

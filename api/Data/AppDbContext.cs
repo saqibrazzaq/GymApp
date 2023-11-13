@@ -22,5 +22,7 @@ namespace api.Data
         public DbSet<UserAddress>? UserAddresses { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<PlanCategory>? PlanCategories { get; set; }
+        public DbSet<PlanType>? PlanTypes { get; set; }
+        public DbSet<Plan>? Plans { get; set; }
     }
 }

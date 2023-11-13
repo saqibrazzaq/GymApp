@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231110133030_plantype")]
+    partial class plantype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -408,42 +411,6 @@ namespace api.Migrations
                     b.ToTable("Currency");
                 });
 
-            modelBuilder.Entity("api.Entities.Plan", b =>
-                {
-                    b.Property<int>("PlanId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlanId"));
-
-                    b.Property<int?>("AccountId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PlanCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PlanTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlanId");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("PlanCategoryId");
-
-                    b.HasIndex("PlanTypeId");
-
-                    b.ToTable("Plan");
-                });
-
             modelBuilder.Entity("api.Entities.PlanCategory", b =>
                 {
                     b.Property<int>("PlanCategoryId")
@@ -652,29 +619,6 @@ namespace api.Migrations
                         .HasForeignKey("StateId");
 
                     b.Navigation("State");
-                });
-
-            modelBuilder.Entity("api.Entities.Plan", b =>
-                {
-                    b.HasOne("api.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("api.Entities.PlanCategory", "planCategory")
-                        .WithMany()
-                        .HasForeignKey("PlanCategoryId");
-
-                    b.HasOne("api.Entities.PlanType", "PlanType")
-                        .WithMany()
-                        .HasForeignKey("PlanTypeId");
-
-                    b.Navigation("Account");
-
-                    b.Navigation("PlanType");
-
-                    b.Navigation("planCategory");
                 });
 
             modelBuilder.Entity("api.Entities.PlanCategory", b =>
