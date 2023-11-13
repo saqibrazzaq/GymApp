@@ -10,4 +10,6 @@ export default class PlanRes {
   planCategory?: PlanCategoryRes;
   planTypeId?: string = "";
   planType?: PlanTypeRes;
+  setupFee?: number;
+  price?: number;
 }

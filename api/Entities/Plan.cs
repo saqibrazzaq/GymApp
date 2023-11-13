@@ -21,6 +21,7 @@ namespace api.Entities
         public int? PlanTypeId { get; set; }
         [ForeignKey(nameof(PlanTypeId))]
         public PlanType? PlanType { get; set; }
-
+        public int SetupFee { get; set; } = 0;
+        public int Price { get; set; } = 0;
     }
 }

@@ -3,4 +3,6 @@ export default class PlanEditReq {
   description?: string = "";
   planCategoryId?: string = "";
   planTypeId?: string = "";
+  setupFee?: number = 0;
+  price?: number = 0;
 }

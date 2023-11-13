@@ -57,6 +57,8 @@ const PlanEdit = () => {
     description: Yup.string(),
     planCategoryId: Yup.string(),
     planTypeId: Yup.string(),
+    setupFee: Yup.number(),
+    price: Yup.number(),
   });
 
   const submitForm = (values: PlanEditReq) => {
@@ -125,32 +127,54 @@ const PlanEdit = () => {
                 <Field size={"sm"} as={Input} id="description" name="description" type="text" />
                 <FormErrorMessage>{errors.description}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={!!errors.planCategoryId && touched.planCategoryId}>
-                <FormLabel htmlFor="planCategoryId">Plan Category</FormLabel>
-                <Field as={Input} id="planCategoryId" name="planCategoryId" type="hidden" />
-                <FormErrorMessage>{errors.planCategoryId}</FormErrorMessage>
-                <PlanCategoryDropdown
-                  selectedPlanCategory={planCategory}
-                  handleChange={(newValue?: PlanCategoryRes) => {
-                    setFieldValue("planCategoryId", newValue?.planCategoryId ?? "");
-                    setPlanCategory(newValue);
-                    // console.log(newValue);
-                  }}
-                ></PlanCategoryDropdown>
-              </FormControl>
-              <FormControl isInvalid={!!errors.planTypeId && touched.planTypeId}>
-                <FormLabel htmlFor="planTypeId">Plan Type</FormLabel>
-                <Field as={Input} id="planTypeId" name="planTypeId" type="hidden" />
-                <FormErrorMessage>{errors.planTypeId}</FormErrorMessage>
-                <PlanTypeDropdown
-                  selectedPlanType={planType}
-                  handleChange={(newValue?: PlanTypeRes) => {
-                    setFieldValue("planTypeId", newValue?.planTypeId ?? "");
-                    setPlanType(newValue);
-                    // console.log(newValue);
-                  }}
-                ></PlanTypeDropdown>
-              </FormControl>
+              <Flex>
+                <FormControl mr={2} isInvalid={!!errors.planCategoryId && touched.planCategoryId}>
+                  <FormLabel fontSize={"sm"} htmlFor="planCategoryId">
+                    Plan Category
+                  </FormLabel>
+                  <Field as={Input} id="planCategoryId" name="planCategoryId" type="hidden" />
+                  <FormErrorMessage>{errors.planCategoryId}</FormErrorMessage>
+                  <PlanCategoryDropdown
+                    selectedPlanCategory={planCategory}
+                    handleChange={(newValue?: PlanCategoryRes) => {
+                      setFieldValue("planCategoryId", newValue?.planCategoryId ?? "");
+                      setPlanCategory(newValue);
+                      // console.log(newValue);
+                    }}
+                  ></PlanCategoryDropdown>
+                </FormControl>
+                <FormControl isInvalid={!!errors.planTypeId && touched.planTypeId}>
+                  <FormLabel fontSize={"sm"} htmlFor="planTypeId">
+                    Plan Type
+                  </FormLabel>
+                  <Field as={Input} id="planTypeId" name="planTypeId" type="hidden" />
+                  <FormErrorMessage>{errors.planTypeId}</FormErrorMessage>
+                  <PlanTypeDropdown
+                    selectedPlanType={planType}
+                    handleChange={(newValue?: PlanTypeRes) => {
+                      setFieldValue("planTypeId", newValue?.planTypeId ?? "");
+                      setPlanType(newValue);
+                      // console.log(newValue);
+                    }}
+                  ></PlanTypeDropdown>
+                </FormControl>
+              </Flex>
+              <Flex>
+                <FormControl mr={2} isInvalid={!!errors.setupFee && touched.setupFee}>
+                  <FormLabel fontSize={"sm"} htmlFor="setupFee">
+                    Setup Fee
+                  </FormLabel>
+                  <Field size={"sm"} as={Input} id="setupFee" name="setupFee" type="text" />
+                  <FormErrorMessage>{errors.setupFee}</FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.price && touched.price}>
+                  <FormLabel fontSize={"sm"} htmlFor="price">
+                    Price
+                  </FormLabel>
+                  <Field size={"sm"} as={Input} id="price" name="price" type="text" />
+                  <FormErrorMessage>{errors.price}</FormErrorMessage>
+                </FormControl>
+              </Flex>
               <Stack direction={"row"} spacing={6}>
                 <Button size={"sm"} type="submit" colorScheme={"blue"}>
                   {updateText}
@@ -178,7 +202,7 @@ const PlanEdit = () => {
   );
 
   return (
-    <Box width={"lg"} p={4}>
+    <Box width={"xl"} p={4}>
       <Stack spacing={4} as={Container} maxW={"3xl"}>
         {displayHeading()}
         {showUpdateForm()}

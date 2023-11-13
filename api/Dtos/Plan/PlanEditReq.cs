@@ -12,5 +12,7 @@ namespace api.Dtos.Plan
         public string? Description { get; set; }
         public int? PlanCategoryId { get; set; }
         public int? PlanTypeId { get; set; }
+        public int SetupFee { get; set; } = 0;
+        public int Price { get; set; } = 0;
     }
 }
