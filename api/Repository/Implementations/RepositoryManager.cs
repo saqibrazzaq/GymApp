@@ -18,6 +18,8 @@ namespace api.Repository.Implementations
         private readonly Lazy<IPlanCategoryRepository> _planCategoryRepository;
         private readonly Lazy<IPlanTypeRepository> _planTypeRepository;
         private readonly Lazy<IPlanRepository> _planRepository;
+        private readonly Lazy<IUserTypeRepository> _userTypeRepository;
+        private readonly Lazy<ILeadStatusRepository> _leadStatusRepository;
         public RepositoryManager(AppDbContext context)
         {
             _context = context;
@@ -34,6 +36,8 @@ namespace api.Repository.Implementations
             _planCategoryRepository = new Lazy<IPlanCategoryRepository>(() => new PlanCategoryRepository(context));
             _planTypeRepository = new Lazy<IPlanTypeRepository>(() => new PlanTypeRepository(context));
             _planRepository = new Lazy<IPlanRepository>(() => new PlanRepository(context));
+            _userTypeRepository = new Lazy<IUserTypeRepository>(() => new UserTypeRepository(context));
+            _leadStatusRepository = new Lazy<ILeadStatusRepository>(() => new LeadStatusRepository(context));
         }
 
         public IUserRepository UserRepository => _userRepository.Value;
@@ -47,6 +51,8 @@ namespace api.Repository.Implementations
         public IPlanCategoryRepository PlanCategoryRepository => _planCategoryRepository.Value;
         public IPlanTypeRepository PlanTypeRepository => _planTypeRepository.Value;
         public IPlanRepository PlanRepository => _planRepository.Value;
+        public IUserTypeRepository UserTypeRepository => _userTypeRepository.Value;
+        public ILeadStatusRepository LeadStatusRepository => _leadStatusRepository.Value;
 
         public void Save()
         {

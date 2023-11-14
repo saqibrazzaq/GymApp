@@ -54,6 +54,12 @@ namespace api
             // Plan
             CreateMap<Plan, PlanRes>();
             CreateMap<PlanEditReq, Plan>();
+
+            // UserType
+            CreateMap<UserType, UserTypeRes>();
+
+            // LeadStatus
+            CreateMap<LeadStatus, LeadStatusRes>();
         }
     }
 }

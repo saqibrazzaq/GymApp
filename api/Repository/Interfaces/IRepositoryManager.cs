@@ -13,6 +13,8 @@
         IPlanCategoryRepository PlanCategoryRepository { get; }
         IPlanTypeRepository PlanTypeRepository { get; }
         IPlanRepository PlanRepository { get; }
+        IUserTypeRepository UserTypeRepository { get; }
+        ILeadStatusRepository LeadStatusRepository { get; }
         void Save();
     }
 }

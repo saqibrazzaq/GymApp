@@ -67,6 +67,8 @@ namespace api.Extensions
             services.AddScoped<IPlanTypeService, PlanTypeService>();
             services.AddScoped<IPlanService, PlanService>();
             services.AddScoped<IAccountTypeService, AccountTypeService>();
+            services.AddScoped<IUserTypeService, UserTypeService>();
+            services.AddScoped<ILeadStatusService, LeadStatusService>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserAddressService, UserAddressService>();

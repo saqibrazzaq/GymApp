@@ -17,6 +17,11 @@ namespace api.Entities
         public int? AccountId { get; set; }
         [ForeignKey(nameof(AccountId))]
         public Account? Account { get; set; }
-
+        public int? UserTypeId { get; set; }
+        [ForeignKey(nameof(UserTypeId))]
+        public UserType? UserType { get; set; }
+        public int? LeadStatusId { get; set; }
+        [ForeignKey(nameof(LeadStatusId))]
+        public LeadStatus? LeadStatus { get; set; }
     }
 }
