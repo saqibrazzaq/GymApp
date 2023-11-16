@@ -39,12 +39,7 @@ import { Field, Formik } from "formik";
 import { AddRoleReq, RemoveRoleReq, RoleRes, UserRes } from "../../models/User";
 import ErrorDetails from "../../models/Error/ErrorDetails";
 import { toastNotify } from "../../Helper";
-import {
-  CancelButton,
-  DeleteButton,
-  BackButton,
-  SubmitButton,
-} from "../../components/Buttons";
+import { CancelButton, DeleteButton, BackButton, SubmitButton } from "../../components/Buttons";
 import { DeleteIconButton } from "../../components/Icons";
 import { RoleDropdown } from "../../components/Dropdowns";
 
@@ -54,9 +49,7 @@ const UserRoles = () => {
   const params = useParams();
   const { username } = params;
   const [selectedRole, setSelectedRole] = useState<string>("");
-  const [roleData, setRoleData] = useState<AddRoleReq>(
-    new AddRoleReq(username, "")
-  );
+  const [roleData, setRoleData] = useState<AddRoleReq>(new AddRoleReq(username, ""));
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLAnchorElement>(null);
 
@@ -76,7 +69,7 @@ const UserRoles = () => {
   const displayHeading = () => (
     <Flex>
       <Box>
-        <Heading fontSize={"xl"}>User Roles - {userData?.userName}</Heading>
+        <Heading fontSize={"xl"}>User Roles - {userData?.fullName}</Heading>
       </Box>
       <Spacer />
       <Box>
@@ -197,20 +190,14 @@ const UserRoles = () => {
   };
 
   const showAlertDialog = () => (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
+    <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             Remove {selectedRole} Role from User
           </AlertDialogHeader>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+          <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
 
           <AlertDialogFooter>
             <Link ref={cancelRef} onClick={onClose}>

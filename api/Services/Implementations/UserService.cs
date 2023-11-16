@@ -442,7 +442,7 @@ namespace api.Services.Implementations
             var usersDto = _mapper.Map<IList<UserRes>>(usersWithMetadata);
             for (int i = 0; i < usersDto.Count; i++)
             {
-                AppIdentityUser user = await _userManager.FindByNameAsync(usersDto[i].UserName);
+                AppIdentityUser user = await _userManager.FindByEmailAsync(usersDto[i].Email);
                 usersDto[i].Roles = await _userManager.GetRolesAsync(user);
             }
             return new ApiOkPagedResponse<IList<UserRes>, MetaData>(

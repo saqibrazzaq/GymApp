@@ -23,12 +23,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import {
-  Link as RouteLink,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { UserApi } from "../../api/UserApi";
 import { PagedResponse } from "../../models/Request";
 import { SearchUsersReq, UserRes } from "../../models/User";
@@ -43,9 +38,7 @@ const Users = () => {
   const [searchParams, setSearchParams] = useSearchParams(location.search);
   searchParams.set("pageSize", Common.DEFAULT_PAGE_SIZE.toString());
   const [pagedRes, setPagedRes] = useState<PagedResponse<UserRes>>();
-  const [searchText, setSearchText] = useState<string>(
-    searchParams.get("searchText") ?? ""
-  );
+  const [searchText, setSearchText] = useState<string>(searchParams.get("searchText") ?? "");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -107,7 +100,7 @@ const Users = () => {
         <Thead>
           <Tr>
             <Th></Th>
-            <Th>Username</Th>
+            <Th>Full Name</Th>
             <Th>Email</Th>
             <Th>Roles</Th>
             <Th></Th>
@@ -120,7 +113,7 @@ const Users = () => {
                 <Td>
                   <Img src={item.profilePictureUrl} height={8} />
                 </Td>
-                <Td>{item.userName}</Td>
+                <Td>{item.fullName}</Td>
                 <Td>{item.email}</Td>
                 <Td>
                   {item.roles?.map((role, index) => (
@@ -128,10 +121,10 @@ const Users = () => {
                   ))}
                 </Td>
                 <Td>
-                  <Link as={RouteLink} to={item.userName + "/roles"}>
+                  <Link as={RouteLink} to={item.fullName + "/roles"}>
                     <RoleIconButton />
                   </Link>
-                  <Link as={RouteLink} ms={2} to={item.userName + "/delete"}>
+                  <Link as={RouteLink} ms={2} to={item.fullName + "/delete"}>
                     <DeleteIconButton />
                   </Link>
                 </Td>
@@ -152,8 +145,7 @@ const Users = () => {
               >
                 Previous
               </Button>
-              Page {pagedRes?.metaData?.currentPage} of{" "}
-              {pagedRes?.metaData?.totalPages}
+              Page {pagedRes?.metaData?.currentPage} of {pagedRes?.metaData?.totalPages}
               <Button
                 isDisabled={!pagedRes?.metaData?.hasNext}
                 variant="link"

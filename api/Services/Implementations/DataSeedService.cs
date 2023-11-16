@@ -8,16 +8,22 @@ namespace api.Services.Implementations
         private readonly IRoleDataSeedService _roleDataSeedService;
         private readonly IAccountDataSeedService _accountDataSeedService;
         private readonly IPlanTypeDataSeedService _planTypeDataSeedService;
+        private readonly IUserTypeDataSeedService _userTypeDataSeedService;
+        private readonly ILeadStatusDataSeedService _leadStatusDataSeedService;
 
         public DataSeedService(IAccountTypeDataSeedService accountTypeSeedService,
             IRoleDataSeedService roleDataSeedService,
             IAccountDataSeedService accountDataSeedService,
-            IPlanTypeDataSeedService planTypeDataSeedService)
+            IPlanTypeDataSeedService planTypeDataSeedService,
+            IUserTypeDataSeedService userTypeDataSeedService,
+            ILeadStatusDataSeedService leadStatusDataSeedService)
         {
             _accountTypeSeedService = accountTypeSeedService;
             _roleDataSeedService = roleDataSeedService;
             _accountDataSeedService = accountDataSeedService;
             _planTypeDataSeedService = planTypeDataSeedService;
+            _userTypeDataSeedService = userTypeDataSeedService;
+            _leadStatusDataSeedService = leadStatusDataSeedService;
         }
 
         public async Task SeedData()
@@ -31,6 +37,10 @@ namespace api.Services.Implementations
             await _accountDataSeedService.SeedData();
             // Create default plan types e.g. recurring, non recurring
             _planTypeDataSeedService.SeedData();
+            // Create default user types e.g. Staff, Member, Lead
+            _userTypeDataSeedService.SeedData();
+            // Create default lead status e.g. New, Attempted, Converted
+            _leadStatusDataSeedService.SeedData();
         }
     }
 }

@@ -35,11 +35,7 @@ import { ErrorAlert } from "../../models/Error/AlertBoxes";
 import { UserRes } from "../../models/User";
 import ErrorDetails from "../../models/Error/ErrorDetails";
 import { toastNotify } from "../../Helper";
-import {
-  CancelButton,
-  DeleteButton,
-  BackButton,
-} from "../../components/Buttons";
+import { CancelButton, DeleteButton, BackButton } from "../../components/Buttons";
 
 const DeleteUser = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -91,7 +87,7 @@ const DeleteUser = () => {
           <Tbody>
             <Tr>
               <Th>Username</Th>
-              <Td>{user?.userName}</Td>
+              <Td>{user?.fullName}</Td>
             </Tr>
             <Tr>
               <Th>Email</Th>
@@ -117,20 +113,14 @@ const DeleteUser = () => {
   );
 
   const showAlertDialog = () => (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
+    <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             Delete User
           </AlertDialogHeader>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+          <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
 
           <AlertDialogFooter>
             <Link ref={cancelRef} onClick={onClose}>
@@ -163,9 +153,7 @@ const DeleteUser = () => {
     <Box p={4}>
       <Stack spacing={4} as={Container} maxW={"3xl"}>
         {displayHeading()}
-        <Text fontSize="xl">
-          Are you sure you want to delete the following user?
-        </Text>
+        <Text fontSize="xl">Are you sure you want to delete the following user?</Text>
         {error && <ErrorAlert description={error} />}
         {showUserInfo()}
       </Stack>

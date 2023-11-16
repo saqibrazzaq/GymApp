@@ -14,6 +14,10 @@ import { Roles } from "./Roles";
 import VerifyEmailReq from "./VerifyEmailReq";
 import UserAddressRes from "./UserAddressRes";
 import UserAddressEditReq from "./UserAddressEditReq";
+import UserTypeRes from "./UserTypeRes";
+import LeadStatusRes from "./LeadStatusRes";
+import UserTypeSearchReq from "./UserTypeSearchReq";
+import LeadStatusSearchReq from "./LeadStatusSearchReq";
 
 export {
   AddRoleReq,
@@ -30,5 +34,9 @@ export {
   VerifyEmailReq,
   UserAddressRes,
   UserAddressEditReq,
+  UserTypeRes,
+  LeadStatusRes,
+  UserTypeSearchReq,
+  LeadStatusSearchReq,
 };
 export type { RoleRes, TokenRes };
