@@ -16,37 +16,51 @@ import {
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Field, Formik } from "formik";
-import CreateUserReq from "../../models/User/CreateUserReq";
 import { UserApi } from "../../api/UserApi";
 import { toastNotify } from "../../Helper";
-import ErrorDetails from "../../models/Error/ErrorDetails";
 import { SubmitButton } from "../../components/Buttons";
+import { ErrorDetails } from "../../models/Error";
+import { UserCreateReq } from "../../models/User";
 
 YupPassword(Yup); // extend yup
 
-const UpdateUser = () => {
+const StaffCreate = () => {
+  const params = useParams();
+  const username = params.username;
+  const updateText = username ? "Update User" : "Create User";
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
+  const [user, setUser] = useState<UserCreateReq>(new UserCreateReq());
 
-  let data = new CreateUserReq();
-  data.username = "saqib1";
-  data.email = "saq.ibrazzaq@gmail.com";
-  data.password = "Saqib123!";
-  data.confirmPassword = "Saqib123!";
-  data.fullName = "Saqib Razzaq";
+  useEffect(() => {
+    loadUser();
+  }, []);
+
+  const loadUser = () => {
+    if (!username) return;
+    UserApi.getUserByName(username)
+      .then((res) => {
+        console.log(res);
+        setUser(res);
+      })
+      .catch((err) => {
+        let errDetails: ErrorDetails = err?.response?.data;
+        toastNotify(errDetails?.Message ?? "Error", "error");
+      });
+  };
+
+  // data.email = "saq.ibrazzaq@gmail.com";
+  // data.password = "Saqib123!";
+  // data.confirmPassword = "Saqib123!";
+  // data.fullName = "Saqib Razzaq";
 
   // Formik validation schema
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Invalid email address"),
-    username: Yup.string()
-      .required("Username is required.")
-      .max(50, "Maximum 50 characters."),
+    email: Yup.string().required("Email is required").email("Invalid email address"),
     fullName: Yup.string().required("Full Name is required."),
     password: Yup.string()
       .required("Password is required.")
@@ -64,7 +78,7 @@ const UpdateUser = () => {
       .minSymbols(1, "At least one symbol required"),
   });
 
-  const submitForm = (values: CreateUserReq) => {
+  const submitForm = (values: UserCreateReq) => {
     setError("");
     setSuccess("");
     console.log(values);
@@ -86,16 +100,17 @@ const UpdateUser = () => {
   return (
     <Box p={4}>
       <Formik
-        initialValues={data}
+        initialValues={user}
         onSubmit={(values) => {
           submitForm(values);
         }}
         validationSchema={validationSchema}
+        enableReinitialize={true}
       >
         {({ handleSubmit, errors, touched }) => (
           <form onSubmit={handleSubmit}>
             <Stack spacing={4} as={Container} maxW={"3xl"}>
-              <Heading fontSize={"xl"}>Create User</Heading>
+              <Heading fontSize={"xl"}>{updateText}</Heading>
               {error && (
                 <Alert status="error">
                   <AlertIcon />
@@ -110,11 +125,6 @@ const UpdateUser = () => {
                   <AlertDescription>{success}</AlertDescription>
                 </Alert>
               )}
-              <FormControl isInvalid={!!errors.username && touched.username}>
-                <FormLabel htmlFor="username">Username</FormLabel>
-                <Field as={Input} id="username" name="username" type="text" />
-                <FormErrorMessage>{errors.username}</FormErrorMessage>
-              </FormControl>
               <FormControl isInvalid={!!errors.email && touched.email}>
                 <FormLabel htmlFor="email">Email address</FormLabel>
                 <Field as={Input} id="email" name="email" type="email" />
@@ -127,30 +137,16 @@ const UpdateUser = () => {
               </FormControl>
               <FormControl isInvalid={!!errors.password && touched.password}>
                 <FormLabel htmlFor="password">Password</FormLabel>
-                <Field
-                  as={Input}
-                  id="password"
-                  name="password"
-                  type="password"
-                />
+                <Field as={Input} id="password" name="password" type="password" />
                 <FormErrorMessage>{errors.password}</FormErrorMessage>
               </FormControl>
-              <FormControl
-                isInvalid={!!errors.confirmPassword && touched.confirmPassword}
-              >
-                <FormLabel htmlFor="confirmPassword">
-                  Confirm Password
-                </FormLabel>
-                <Field
-                  as={Input}
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                />
+              <FormControl isInvalid={!!errors.confirmPassword && touched.confirmPassword}>
+                <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
+                <Field as={Input} id="confirmPassword" name="confirmPassword" type="password" />
                 <FormErrorMessage>{errors.confirmPassword}</FormErrorMessage>
               </FormControl>
               <Stack spacing={6}>
-                <SubmitButton text="Create User" />
+                <SubmitButton text={updateText} />
               </Stack>
             </Stack>
           </form>
@@ -160,4 +156,4 @@ const UpdateUser = () => {
   );
 };
 
-export default UpdateUser;
+export default StaffCreate;

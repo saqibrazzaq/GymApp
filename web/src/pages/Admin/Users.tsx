@@ -9,6 +9,10 @@ import {
   Img,
   Input,
   Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Spacer,
   Stack,
   Table,
@@ -31,7 +35,9 @@ import { Common } from "../../utility";
 import ErrorDetails from "../../models/Error/ErrorDetails";
 import { toastNotify } from "../../Helper";
 import { BackButton, RegularButton } from "../../components/Buttons";
-import { DeleteIconButton, RoleIconButton } from "../../components/Icons";
+import { DeleteIconButton, EditIconButton, RoleIconButton } from "../../components/Icons";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { CiMenuKebab } from "react-icons/ci";
 
 const Users = () => {
   const location = useLocation();
@@ -84,7 +90,7 @@ const Users = () => {
       </Box>
       <Spacer />
       <Box>
-        <Link as={RouteLink} to={"update"}>
+        <Link as={RouteLink} to={"edit"}>
           <RegularButton text="Create User" />
         </Link>
         <Link ml={2} onClick={() => navigate(-1)}>
@@ -121,12 +127,31 @@ const Users = () => {
                   ))}
                 </Td>
                 <Td>
-                  <Link as={RouteLink} to={item.fullName + "/roles"}>
-                    <RoleIconButton />
-                  </Link>
-                  <Link as={RouteLink} ms={2} to={item.fullName + "/delete"}>
-                    <DeleteIconButton />
-                  </Link>
+                  <Menu>
+                    <MenuButton
+                      as={IconButton}
+                      variant="outline"
+                      size={"sm"}
+                      aria-label="Options"
+                      icon={<CiMenuKebab />}
+                    >
+                      Actions
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem as={RouteLink} to={item.email + "/edit"}>
+                        Edit
+                      </MenuItem>
+                      <MenuItem as={RouteLink} to={item.email + "/roles"}>
+                        Roles
+                      </MenuItem>
+                      <MenuItem as={RouteLink} to={item.email + "/delete"}>
+                        Delete
+                      </MenuItem>
+                      <MenuItem>Addresses</MenuItem>
+                      <MenuItem>Update Profile Picture</MenuItem>
+                      <MenuItem>Reset Password</MenuItem>
+                    </MenuList>
+                  </Menu>
                 </Td>
               </Tr>
             ))

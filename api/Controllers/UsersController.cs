@@ -58,9 +58,17 @@ namespace api.Controllers
         [Authorize(Roles = Constants.AllAdminRoles)]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateUser(
-            [FromBody] CreateUserReq dto)
+            [FromBody] StaffCreateReq dto)
         {
-            await _userService.CreateUser(dto);
+            await _userService.CreateStaff(dto);
+            return Ok();
+        }
+
+        [HttpPut("{email}")]
+        [Authorize(Roles = Constants.AllAdminRoles)]
+        public async Task<IActionResult> UpdateStaff(string email, StaffEditReq dto)
+        {
+            await _userService.UpdateStaff(email, dto);
             return Ok();
         }
 

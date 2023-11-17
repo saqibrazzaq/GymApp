@@ -1,7 +1,7 @@
 import AddRoleReq from "./AddRoleReq";
 import AuthenticationRes from "./AuthenticationRes";
 import ChangePasswordReq from "./ChangePasswordReq";
-import CreateUserReq from "./CreateUserReq";
+import UserCreateReq from "./UserCreateReq";
 import LoginReq from "./LoginReq";
 import RemoveRoleReq from "./RemoveRoleReq";
 import ResetPasswordReq from "./ResetPasswordReq";
@@ -18,12 +18,13 @@ import UserTypeRes from "./UserTypeRes";
 import LeadStatusRes from "./LeadStatusRes";
 import UserTypeSearchReq from "./UserTypeSearchReq";
 import LeadStatusSearchReq from "./LeadStatusSearchReq";
+import StaffEditReq from "./StaffEditReq";
 
 export {
   AddRoleReq,
   AuthenticationRes,
   ChangePasswordReq,
-  CreateUserReq,
+  UserCreateReq,
   LoginReq,
   RemoveRoleReq,
   ResetPasswordReq,
@@ -38,5 +39,6 @@ export {
   LeadStatusRes,
   UserTypeSearchReq,
   LeadStatusSearchReq,
+  StaffEditReq,
 };
 export type { RoleRes, TokenRes };

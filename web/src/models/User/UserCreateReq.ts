@@ -1,5 +1,4 @@
-export default class CreateUserReq {
-  username?: string = "";
+export default class UserCreateReq {
   email?: string = "";
   password?: string = "";
   confirmPassword?: string = "";

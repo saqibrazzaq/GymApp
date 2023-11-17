@@ -1,8 +1,9 @@
 import {
   AddRoleReq,
-  CreateUserReq,
   RemoveRoleReq,
   SearchUsersReq,
+  StaffEditReq,
+  UserCreateReq,
   VerifyEmailReq,
 } from "../models/User";
 
@@ -61,10 +62,19 @@ export const UserApi = {
 
     return response.data;
   },
-  createUser: async function (data: CreateUserReq) {
+  createUser: async function (data: UserCreateReq) {
     const response = await axiosInstance.request({
       url: "/Users",
       method: "POST",
+      data: data,
+    });
+
+    return response.data;
+  },
+  updateStaff: async function (email?: string, data?: StaffEditReq) {
+    const response = await axiosInstance.request({
+      url: "/Users/" + email,
+      method: "PUT",
       data: data,
     });
 

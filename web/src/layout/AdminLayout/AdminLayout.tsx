@@ -5,7 +5,7 @@ import { FiCompass, FiHome, FiTrendingUp } from "react-icons/fi";
 import LeftSideMenu, { LinkItemProps } from "./LeftSideMenu";
 import { MdOutlineVerifiedUser, MdPerson } from "react-icons/md";
 import { AiOutlineUnlock } from "react-icons/ai";
-import { AdminHome, DeleteUser, UpdateUser, UserRoles, Users } from "../../pages/Admin";
+import { AdminHome, DeleteUser, StaffCreate, StaffEdit, UserRoles, Users } from "../../pages/Admin";
 import { NotFound } from "../../pages/ZOther";
 import { withAdminAuth } from "../../hoc";
 import { BusinessLogo, SettingsHome } from "../../pages/Admin/Settings";
@@ -17,17 +17,17 @@ const LinkItems: Array<LinkItemProps> = [
   {
     name: "People",
     icon: AiOutlineUnlock,
-    href: "/admin/users",
+    href: "",
     children: [
       {
         name: "Members",
         icon: AiOutlineUnlock,
-        href: "/admin/users",
+        href: "/admin/members",
       },
       {
         name: "Staff",
         icon: AiOutlineUnlock,
-        href: "/admin/users",
+        href: "/admin/staff",
       },
     ],
   },
@@ -72,10 +72,11 @@ const AdminLayout = () => {
       <Box flex="1">
         <Routes>
           <Route path="/" element={<AdminHome />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/users/update" element={<UpdateUser />} />
-          <Route path="/users/:username/delete" element={<DeleteUser />} />
-          <Route path="/users/:username/roles" element={<UserRoles />} />
+          <Route path="/staff" element={<Users />} />
+          <Route path="/staff/edit" element={<StaffCreate />} />
+          <Route path="/staff/:username/edit" element={<StaffEdit />} />
+          <Route path="/staff/:username/delete" element={<DeleteUser />} />
+          <Route path="/staff/:username/roles" element={<UserRoles />} />
           <Route path="/settings" element={<SettingsHome />} />
           <Route path="/settings/logo" element={<BusinessLogo />} />
           <Route path="/plans/categories" element={<PlanCategories />} />

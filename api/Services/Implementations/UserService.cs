@@ -294,9 +294,9 @@ namespace api.Services.Implementations
 
         }
 
-        public async Task<AuthenticationRes> RegisterOwner(CreateUserReq dto)
+        public async Task<AuthenticationRes> RegisterOwner(StaffCreateReq dto)
         {
-            await CheckExistingEmailAndUsername(dto.Email, dto.Username);
+            await CheckExistingEmail(dto.Email);
 
             // Create account
             var freeAccount = new Account { AccountTypeId = (int)AccountTypeNames.Free };
@@ -306,7 +306,7 @@ namespace api.Services.Implementations
             // Create the user
             var userEntity = new AppIdentityUser
             {
-                UserName = dto.Username,
+                UserName = dto.Email,
                 Email = dto.Email,
                 AccountId = freeAccount.AccountId
             };
@@ -364,55 +364,56 @@ namespace api.Services.Implementations
             return _rdm.Next(_min, _max).ToString();
         }
 
-        private async Task CheckExistingEmailAndUsername(string email, string username)
+        private async Task CheckExistingEmail(string email)
         {
             // Email and username must not already exist
-            if ((await checkIfEmailAlreadyExists(email)) == true)
-                throw new BadRequestException($"Email {email} is already registered. Use Forgot password if you own this account.");
-            if ((await checkIfUsernameAlreadyTaken(username)) == true)
-                throw new BadRequestException($"Username {username} is already taken.");
-        }
-
-        private async Task<bool> checkIfEmailAlreadyExists(string? email)
-        {
             var userEntity = await _userManager.FindByEmailAsync(email);
-            // If email already exists, return true
-            return userEntity != null ? true : false;
+            if (userEntity != null)
+                throw new BadRequestException($"Email {email} is already registered. Use Forgot password if you own this account.");
         }
 
-        private async Task<bool> checkIfUsernameAlreadyTaken(string? username)
+        public async Task CreateStaff(StaffCreateReq dto)
         {
-            var userEntity = await _userManager.FindByNameAsync(username);
-            // If username found, return true
-            return userEntity != null ? true : false;
-        }
-
-        public async Task CreateUser(CreateUserReq dto)
-        {
-            await CheckExistingEmailAndUsername(dto.Email, dto.Username);
-            var currentUserEntity = await _userManager.FindByNameAsync(UserName);
+            await CheckExistingEmail(dto.Email);
+            var currentUserEntity = await _userManager.FindByEmailAsync(UserName);
 
             // Create new user
             var userEntity = new AppIdentityUser
             {
-                UserName = dto.Username,
+                UserName = dto.Email,
                 Email = dto.Email,
                 AccountId = currentUserEntity.AccountId,
                 FullName = dto.FullName,
+                UserTypeId = (int)UserTypeNames.Staff,
             };
             var resultUser = await _userManager.CreateAsync(userEntity, dto.Password);
 
             if (resultUser.Succeeded == false)
                 throw new BadRequestException(GetFirstErrorFromIdentityResult(
-                    resultUser, nameof(CreateUser)));
+                    resultUser, nameof(CreateStaff)));
 
             // Assign default role
-            var roleResult = await _userManager.AddToRoleAsync(userEntity, Constants.UserRole);
+            var roleResult = await _userManager.AddToRoleAsync(userEntity, Constants.ManagerRole);
             if (roleResult.Succeeded == false)
                 throw new BadRequestException(GetFirstErrorFromIdentityResult(
-                    roleResult, nameof(CreateUser)));
+                    roleResult, nameof(CreateStaff)));
 
             await SendVerificationEmailToUser(userEntity);
+        }
+
+        public async Task UpdateStaff(string email, StaffEditReq dto)
+        {
+            var currentUserEntity = await _userManager.FindByEmailAsync(UserName);
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null) throw new Exception("No staff user found with email " + email);
+
+            _mapper.Map(dto, user);
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded == false)
+            {
+                throw new Exception(result.Errors.FirstOrDefault().Description);
+            }
         }
 
         public async Task ResetPassword(ResetPasswordReq dto)

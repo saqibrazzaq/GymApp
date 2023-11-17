@@ -23,7 +23,7 @@ namespace api.Controllers
         [HttpPost("register")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Register(
-            [FromBody] CreateUserReq dto)
+            [FromBody] StaffCreateReq dto)
         {
             await _userService.RegisterOwner(dto);
             return Ok();

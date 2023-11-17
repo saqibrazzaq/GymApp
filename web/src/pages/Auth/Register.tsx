@@ -24,7 +24,7 @@ import ErrorDetails from "../../models/Error/ErrorDetails";
 import { useDispatch } from "react-redux";
 import { setLoggedInUser } from "../../storage/Redux/userAuthSlice";
 import { ErrorAlert, SuccessAlert } from "../../models/Error/AlertBoxes";
-import { CreateUserReq, LoginReq } from "../../models/User";
+import { LoginReq, UserCreateReq } from "../../models/User";
 import { toastNotify } from "../../Helper";
 import { SubmitButton } from "../../components/Buttons";
 
@@ -37,9 +37,9 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const data = new CreateUserReq();
+  const data = new UserCreateReq();
 
-  const submitForm = (values: CreateUserReq) => {
+  const submitForm = (values: UserCreateReq) => {
     setError("");
     setSuccess("");
     AuthApi.register(values)
@@ -73,12 +73,7 @@ const Register = () => {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Invalid email address"),
-    username: Yup.string()
-      .required("Username is required.")
-      .max(50, "Maximum 50 characters."),
+    email: Yup.string().required("Email is required").email("Invalid email address"),
     password: Yup.string()
       .required("Password is required.")
       .min(6, "Minimum 6 characters required.")
@@ -106,11 +101,6 @@ const Register = () => {
       {({ handleSubmit, errors, touched }) => (
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
-            <FormControl isInvalid={!!errors.username && touched.username}>
-              <FormLabel htmlFor="username">Username</FormLabel>
-              <Field as={Input} id="username" name="username" type="text" />
-              <FormErrorMessage>{errors.username}</FormErrorMessage>
-            </FormControl>
             <FormControl isInvalid={!!errors.email && touched.email}>
               <FormLabel htmlFor="email">Email address</FormLabel>
               <Field as={Input} id="email" name="email" type="email" />
@@ -121,16 +111,9 @@ const Register = () => {
               <Field as={Input} id="password" name="password" type="password" />
               <FormErrorMessage>{errors.password}</FormErrorMessage>
             </FormControl>
-            <FormControl
-              isInvalid={!!errors.confirmPassword && touched.confirmPassword}
-            >
+            <FormControl isInvalid={!!errors.confirmPassword && touched.confirmPassword}>
               <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
-              <Field
-                as={Input}
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-              />
+              <Field as={Input} id="confirmPassword" name="confirmPassword" type="password" />
               <FormErrorMessage>{errors.confirmPassword}</FormErrorMessage>
             </FormControl>
             <SubmitButton text="Create Account" />

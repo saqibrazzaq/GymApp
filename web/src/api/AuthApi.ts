@@ -1,10 +1,10 @@
 import {
   ChangePasswordReq,
-  CreateUserReq,
   LoginReq,
   ResetPasswordReq,
   SendForgotPasswordEmailReq,
   TokenRes,
+  UserCreateReq,
 } from "../models/User";
 import { axiosInstance } from "../provider";
 
@@ -18,7 +18,7 @@ export const AuthApi = {
 
     return response.data;
   },
-  register: async function (data: CreateUserReq) {
+  register: async function (data: UserCreateReq) {
     const response = await axiosInstance.request({
       url: "/auth/register",
       method: "POST",

@@ -6,8 +6,8 @@ namespace api.Services.Interfaces
     public interface IUserService
     {
         Task<AuthenticationRes> Login(LoginReq dto);
-        Task<AuthenticationRes> RegisterOwner(CreateUserReq dto);
-        Task CreateUser(CreateUserReq dto);
+        Task<AuthenticationRes> RegisterOwner(StaffCreateReq dto);
+        Task CreateStaff(StaffCreateReq dto);
         Task Delete(DeleteUserReq dto);
         Task<TokenRes> RefreshToken(TokenRes dto);
         Task SendVerificationEmail();
@@ -23,5 +23,6 @@ namespace api.Services.Interfaces
         Task AddRoleToUser(AddRoleReq dto);
         Task RemoveRoleFromUser(RemoveRoleReq dto);
         IList<RoleRes> GetAllRoles();
+        Task UpdateStaff(string email, StaffEditReq dto);
     }
 }
