@@ -11,51 +11,51 @@ namespace api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserAddressesController : ControllerBase
+    public class MyAddressesController : ControllerBase
     {
-        private readonly IUserAddressService _userAddressService;
-        public UserAddressesController(IUserAddressService userAddressService)
+        private readonly IMyAddressService _userAddressService;
+        public MyAddressesController(IMyAddressService userAddressService)
         {
             _userAddressService = userAddressService;
         }
 
-        [HttpPost("{email}")]
+        [HttpPost]
         [Authorize(Roles = Constants.AllRoles)]
-        public async Task<IActionResult> Create(string email, AddressEditReq dto)
+        public async Task<IActionResult> Create(AddressEditReq dto)
         {
-            var res = await _userAddressService.Create(email, dto);
+            var res = await _userAddressService.Create(dto);
             return Ok(res);
         }
 
         [HttpPut("{userAddressId}")]
         [Authorize(Roles = Constants.AllRoles)]
-        public IActionResult Update(int userAddressId, AddressEditReq dto)
+        public async Task<IActionResult> Update(int userAddressId, AddressEditReq dto)
         {
-            var res = _userAddressService.Update(userAddressId, dto);
+            var res = await _userAddressService.Update(userAddressId, dto);
             return Ok(res);
         }
 
         [HttpDelete("{userAddressId}")]
         [Authorize(Roles = Constants.AllRoles)]
-        public IActionResult Delete(int userAddressId)
+        public async Task<IActionResult> Delete(int userAddressId)
         {
-            _userAddressService.Delete(userAddressId);
+            await _userAddressService.Delete(userAddressId);
             return NoContent();
         }
 
         [HttpGet("{userAddressId}")]
         [Authorize(Roles = Constants.AllRoles)]
-        public IActionResult Get(int userAddressId)
+        public async Task<IActionResult> Get(int userAddressId)
         {
-            var res = _userAddressService.Get(userAddressId);
+            var res = await _userAddressService.Get(userAddressId);
             return Ok(res);
         }
 
-        [HttpGet("{email}/all")]
+        [HttpGet("all")]
         [Authorize(Roles = Constants.AllRoles)]
-        public async Task<IActionResult> GetAll(string email)
+        public async Task<IActionResult> GetAll()
         {
-            var res = await _userAddressService.GetAll(email, false);
+            var res = await _userAddressService.GetAll(false);
             return Ok(res);
         }
     }

@@ -23,21 +23,16 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import {
-  Link as RouteLink,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { UserAddressRes } from "../../../models/User";
-import { UserAddressApi } from "../../../api";
 import { ErrorDetails } from "../../../models/Error";
 import { toastNotify } from "../../../Helper";
 import { BackButton, RegularButton } from "../../../components/Buttons";
 import { DeleteIconButton, EditIconButton } from "../../../components/Icons";
 import { AddressBlock } from "../../../components/Text";
+import { MyAddressApi } from "../../../api";
 
-const UserAddresses = () => {
+const MyAddresses = () => {
   const location = useLocation();
   const [addresses, setAddresses] = useState<UserAddressRes[]>([]);
   const navigate = useNavigate();
@@ -47,7 +42,7 @@ const UserAddresses = () => {
   }, []);
 
   const searchUserAddresses = () => {
-    UserAddressApi.getAll()
+    MyAddressApi.getAll()
       .then((res) => {
         //let userRes: PagedResponse<UserDto> = res;
         // console.log(res);
@@ -118,4 +113,4 @@ const UserAddresses = () => {
   );
 };
 
-export default UserAddresses;
+export default MyAddresses;

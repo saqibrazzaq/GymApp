@@ -19,15 +19,15 @@ import YupPassword from "yup-password";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Field, Formik } from "formik";
-import { UserApi } from "../../api/UserApi";
-import { toastNotify } from "../../Helper";
-import { SubmitButton } from "../../components/Buttons";
-import { ErrorDetails } from "../../models/Error";
-import { UserCreateReq } from "../../models/User";
+import { UserApi } from "../../../api/UserApi";
+import { toastNotify } from "../../../Helper";
+import { SubmitButton } from "../../../components/Buttons";
+import { ErrorDetails } from "../../../models/Error";
+import { UserCreateReq } from "../../../models/User";
 
 YupPassword(Yup); // extend yup
 
-const StaffCreate = () => {
+const StaffEdit = () => {
   const params = useParams();
   const username = params.username;
   const updateText = username ? "Update User" : "Create User";
@@ -53,40 +53,20 @@ const StaffCreate = () => {
       });
   };
 
-  // data.email = "saq.ibrazzaq@gmail.com";
-  // data.password = "Saqib123!";
-  // data.confirmPassword = "Saqib123!";
-  // data.fullName = "Saqib Razzaq";
-
   // Formik validation schema
   const validationSchema = Yup.object({
-    email: Yup.string().required("Email is required").email("Invalid email address"),
     fullName: Yup.string().required("Full Name is required."),
-    password: Yup.string()
-      .required("Password is required.")
-      .min(6, "Minimum 6 characters required.")
-      .minUppercase(1, "At least one Upper Case letter required.")
-      .minLowercase(1, "At least one lower case letter required.")
-      .minNumbers(1, "At least one number required")
-      .minSymbols(1, "At least one symbol required"),
-    confirmPassword: Yup.string()
-      .required("Confirm Password is required.")
-      .min(6, "Minimum 6 characters required.")
-      .minUppercase(1, "At least one Upper Case letter required.")
-      .minLowercase(1, "At least one lower case letter required.")
-      .minNumbers(1, "At least one number required")
-      .minSymbols(1, "At least one symbol required"),
   });
 
   const submitForm = (values: UserCreateReq) => {
     setError("");
     setSuccess("");
     console.log(values);
-    UserApi.createUser(values)
+    UserApi.updateStaff(username, values)
       .then((res) => {
         // console.log("New Admin user created successfully.");
         setSuccess("User created successfully.");
-        toastNotify("User created successfully");
+        toastNotify("Staff updated successfully");
         navigate(-1);
       })
       .catch((err) => {
@@ -125,25 +105,10 @@ const StaffCreate = () => {
                   <AlertDescription>{success}</AlertDescription>
                 </Alert>
               )}
-              <FormControl isInvalid={!!errors.email && touched.email}>
-                <FormLabel htmlFor="email">Email address</FormLabel>
-                <Field as={Input} id="email" name="email" type="email" />
-                <FormErrorMessage>{errors.email}</FormErrorMessage>
-              </FormControl>
               <FormControl isInvalid={!!errors.fullName && touched.fullName}>
                 <FormLabel htmlFor="fullName">Full Name</FormLabel>
                 <Field as={Input} id="fullName" name="fullName" type="text" />
                 <FormErrorMessage>{errors.fullName}</FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={!!errors.password && touched.password}>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Field as={Input} id="password" name="password" type="password" />
-                <FormErrorMessage>{errors.password}</FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={!!errors.confirmPassword && touched.confirmPassword}>
-                <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
-                <Field as={Input} id="confirmPassword" name="confirmPassword" type="password" />
-                <FormErrorMessage>{errors.confirmPassword}</FormErrorMessage>
               </FormControl>
               <Stack spacing={6}>
                 <SubmitButton text={updateText} />
@@ -156,4 +121,4 @@ const StaffCreate = () => {
   );
 };
 
-export default StaffCreate;
+export default StaffEdit;

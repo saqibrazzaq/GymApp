@@ -34,14 +34,14 @@ import {
 import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
-import { UserApi } from "../../api/UserApi";
+import { UserApi } from "../../../api/UserApi";
 import { Field, Formik } from "formik";
-import { AddRoleReq, RemoveRoleReq, RoleRes, UserRes } from "../../models/User";
-import ErrorDetails from "../../models/Error/ErrorDetails";
-import { toastNotify } from "../../Helper";
-import { CancelButton, DeleteButton, BackButton, SubmitButton } from "../../components/Buttons";
-import { DeleteIconButton } from "../../components/Icons";
-import { RoleDropdown } from "../../components/Dropdowns";
+import { AddRoleReq, RemoveRoleReq, RoleRes, UserRes } from "../../../models/User";
+import ErrorDetails from "../../../models/Error/ErrorDetails";
+import { toastNotify } from "../../../Helper";
+import { CancelButton, DeleteButton, BackButton, SubmitButton } from "../../../components/Buttons";
+import { DeleteIconButton } from "../../../components/Icons";
+import { RoleDropdown } from "../../../components/Dropdowns";
 
 const UserRoles = () => {
   const navigate = useNavigate();

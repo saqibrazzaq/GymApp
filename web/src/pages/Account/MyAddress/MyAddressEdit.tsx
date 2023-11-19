@@ -19,19 +19,17 @@ import * as Yup from "yup";
 import { Field, Formik } from "formik";
 import { toastNotify } from "../../../Helper";
 import { UserAddressEditReq } from "../../../models/User";
-import { UserAddressApi } from "../../../api";
 import { ErrorDetails } from "../../../models/Error";
 import { AddressEditReq } from "../../../models/Address";
 import { StateRes } from "../../../models/Country";
 import { StateDropdown } from "../../../components/Dropdowns";
+import { MyAddressApi } from "../../../api";
 
-const UserAddressEdit = () => {
+const MyAddressEdit = () => {
   const params = useParams();
   const userAddressId = params.userAddressId;
   const updateText = userAddressId ? "Update Address" : "Create Address";
-  const [userAddress, setUserAddress] = useState<AddressEditReq>(
-    new AddressEditReq()
-  );
+  const [userAddress, setUserAddress] = useState<AddressEditReq>(new AddressEditReq());
   const [state, setState] = useState<StateRes>();
   const navigate = useNavigate();
 
@@ -41,7 +39,7 @@ const UserAddressEdit = () => {
 
   const loadUserAddress = () => {
     if (!userAddressId) return;
-    UserAddressApi.get(userAddressId)
+    MyAddressApi.get(userAddressId)
       .then((res) => {
         // console.log(res);
         setUserAddress(res.address);
@@ -74,7 +72,7 @@ const UserAddressEdit = () => {
   };
 
   const updateUserAddress = (values: AddressEditReq) => {
-    UserAddressApi.update(userAddressId, values)
+    MyAddressApi.update(userAddressId, values)
       .then((res) => {
         toastNotify("Address updated successfully");
         navigate(-1);
@@ -86,7 +84,7 @@ const UserAddressEdit = () => {
   };
 
   const createUserAddress = (values: AddressEditReq) => {
-    UserAddressApi.create(values)
+    MyAddressApi.create(values)
       .then((res) => {
         toastNotify("Address created successfully");
         navigate(-1);
@@ -122,39 +120,23 @@ const UserAddressEdit = () => {
             <Stack spacing={4} as={Container} maxW={"3xl"}>
               <FormControl isInvalid={!!errors.isPrimary && touched.isPrimary}>
                 <label>
-                  <Field id="isPrimary" name="isPrimary" type="checkbox" /> Is
-                  Primary Address?
+                  <Field id="isPrimary" name="isPrimary" type="checkbox" /> Is Primary Address?
                 </label>
                 <FormErrorMessage>{errors.isPrimary}</FormErrorMessage>
               </FormControl>
               <Flex>
-                <FormControl
-                  mr={5}
-                  isInvalid={!!errors.fullName && touched.fullName}
-                >
+                <FormControl mr={5} isInvalid={!!errors.fullName && touched.fullName}>
                   <FormLabel fontSize={"sm"} htmlFor="fullName">
                     Full Name
                   </FormLabel>
-                  <Field
-                    size={"sm"}
-                    as={Input}
-                    id="fullName"
-                    name="fullName"
-                    type="text"
-                  />
+                  <Field size={"sm"} as={Input} id="fullName" name="fullName" type="text" />
                   <FormErrorMessage>{errors.fullName}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={!!errors.phone && touched.phone}>
                   <FormLabel fontSize={"sm"} htmlFor="phone">
                     Phone
                   </FormLabel>
-                  <Field
-                    size={"sm"}
-                    as={Input}
-                    id="phone"
-                    name="phone"
-                    type="text"
-                  />
+                  <Field size={"sm"} as={Input} id="phone" name="phone" type="text" />
                   <FormErrorMessage>{errors.phone}</FormErrorMessage>
                 </FormControl>
               </Flex>
@@ -162,39 +144,21 @@ const UserAddressEdit = () => {
                 <FormLabel fontSize={"sm"} htmlFor="address1">
                   Address 1
                 </FormLabel>
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="address1"
-                  name="address1"
-                  type="text"
-                />
+                <Field size={"sm"} as={Input} id="address1" name="address1" type="text" />
                 <FormErrorMessage>{errors.address1}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors.address2 && touched.address2}>
                 <FormLabel fontSize={"sm"} htmlFor="address2">
                   Address 2
                 </FormLabel>
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="address2"
-                  name="address2"
-                  type="text"
-                />
+                <Field size={"sm"} as={Input} id="address2" name="address2" type="text" />
                 <FormErrorMessage>{errors.address2}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors.city && touched.city}>
                 <FormLabel fontSize={"sm"} htmlFor="city">
                   City
                 </FormLabel>
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="city"
-                  name="city"
-                  type="text"
-                />
+                <Field size={"sm"} as={Input} id="city" name="city" type="text" />
                 <FormErrorMessage>{errors.city}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors.stateId && touched.stateId}>
@@ -230,12 +194,7 @@ const UserAddressEdit = () => {
       </Box>
       <Spacer />
       <Box>
-        <Button
-          size={"sm"}
-          type="button"
-          colorScheme={"gray"}
-          onClick={() => navigate(-1)}
-        >
+        <Button size={"sm"} type="button" colorScheme={"gray"} onClick={() => navigate(-1)}>
           Back
         </Button>
       </Box>
@@ -252,4 +211,4 @@ const UserAddressEdit = () => {
   );
 };
 
-export default UserAddressEdit;
+export default MyAddressEdit;

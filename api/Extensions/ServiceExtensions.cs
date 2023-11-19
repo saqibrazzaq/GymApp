@@ -69,9 +69,10 @@ namespace api.Extensions
             services.AddScoped<IAccountTypeService, AccountTypeService>();
             services.AddScoped<IUserTypeService, UserTypeService>();
             services.AddScoped<ILeadStatusService, LeadStatusService>();
+            services.AddScoped<IUserAddressService, UserAddressService>();
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserAddressService, UserAddressService>();
+            services.AddScoped<IMyAddressService, MyAddressService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IStateService, StateService>();
             services.AddScoped<IPlanTypeDataSeedService, PlanTypeDataSeedService>();

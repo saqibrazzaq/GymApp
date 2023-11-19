@@ -28,14 +28,14 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { UserApi } from "../../api/UserApi";
-import { PagedResponse } from "../../models/Request";
-import { SearchUsersReq, UserRes } from "../../models/User";
-import { Common } from "../../utility";
-import ErrorDetails from "../../models/Error/ErrorDetails";
-import { toastNotify } from "../../Helper";
-import { BackButton, RegularButton } from "../../components/Buttons";
-import { DeleteIconButton, EditIconButton, RoleIconButton } from "../../components/Icons";
+import { UserApi } from "../../../api/UserApi";
+import { PagedResponse } from "../../../models/Request";
+import { SearchUsersReq, UserRes } from "../../../models/User";
+import { Common } from "../../../utility";
+import ErrorDetails from "../../../models/Error/ErrorDetails";
+import { toastNotify } from "../../../Helper";
+import { BackButton, RegularButton } from "../../../components/Buttons";
+import { DeleteIconButton, EditIconButton, RoleIconButton } from "../../../components/Icons";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { CiMenuKebab } from "react-icons/ci";
 
@@ -144,12 +144,14 @@ const Users = () => {
                       <MenuItem as={RouteLink} to={item.email + "/roles"}>
                         Roles
                       </MenuItem>
+                      <MenuItem as={RouteLink} to={"../" + item.email + "/addresses"}>
+                        Addresses
+                      </MenuItem>
+                      <MenuItem>Update Profile Picture</MenuItem>
+                      <MenuItem>Reset Password</MenuItem>
                       <MenuItem as={RouteLink} to={item.email + "/delete"}>
                         Delete
                       </MenuItem>
-                      <MenuItem>Addresses</MenuItem>
-                      <MenuItem>Update Profile Picture</MenuItem>
-                      <MenuItem>Reset Password</MenuItem>
                     </MenuList>
                   </Menu>
                 </Td>

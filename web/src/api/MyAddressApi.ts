@@ -1,10 +1,10 @@
 import { AddressEditReq } from "../models/Address";
 import { axiosInstance } from "../provider";
 
-export const UserAddressApi = {
-  create: async function (email?: string, data?: AddressEditReq) {
+export const MyAddressApi = {
+  create: async function (data?: AddressEditReq) {
     const response = await axiosInstance.request({
-      url: "/UserAddresses/" + email,
+      url: "/MyAddresses",
       method: "POST",
       data: data,
     });
@@ -13,7 +13,7 @@ export const UserAddressApi = {
   },
   update: async function (userAddressId?: string, data?: AddressEditReq) {
     const response = await axiosInstance.request({
-      url: "/UserAddresses/" + userAddressId,
+      url: "/MyAddresses/" + userAddressId,
       method: "PUT",
       data: data,
     });
@@ -22,7 +22,7 @@ export const UserAddressApi = {
   },
   delete: async function (userAddressId?: string) {
     const response = await axiosInstance.request({
-      url: `/UserAddresses/` + userAddressId,
+      url: `/MyAddresses/` + userAddressId,
       method: "DELETE",
     });
 
@@ -30,15 +30,15 @@ export const UserAddressApi = {
   },
   get: async function (userAddressId?: string) {
     const response = await axiosInstance.request({
-      url: `/UserAddresses/` + userAddressId,
+      url: `/MyAddresses/` + userAddressId,
       method: "GET",
     });
 
     return response.data;
   },
-  getAll: async function (email?: string) {
+  getAll: async function () {
     const response = await axiosInstance.request({
-      url: "/UserAddresses/" + email + "/all",
+      url: `/MyAddresses/all`,
       method: "GET",
     });
 

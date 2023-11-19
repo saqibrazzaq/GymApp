@@ -26,15 +26,16 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams, Link as RouteLink, useNavigate } from "react-router-dom";
-import { CountryWithStateCountRes } from "../../../models/Country";
-import { CountryApi } from "../../../api";
-import ErrorDetails from "../../../models/Error/ErrorDetails";
 import { toastNotify } from "../../../Helper";
+import { UserAddressRes } from "../../../models/User";
+import { MyAddressApi } from "../../../api";
+import { AddressRes } from "../../../models/Address";
+import { ErrorDetails } from "../../../models/Error";
 
-const UserAddressDelete = () => {
+const MyAddressDelete = () => {
   let params = useParams();
-  const { countryId } = params;
-  const [country, setCountry] = useState<CountryWithStateCountRes>();
+  const userAddressId = params.userAddressId;
+  const [address, setAddress] = useState<AddressRes>();
   const navigate = useNavigate();
   const toast = useToast();
   const [error, setError] = useState("");
@@ -43,15 +44,15 @@ const UserAddressDelete = () => {
   const cancelRef = React.useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
-    loadCountry();
-  }, [countryId]);
+    loadUserAddress();
+  }, [userAddressId]);
 
-  const loadCountry = () => {
-    if (!countryId) return;
-    CountryApi.getWithStateCount(countryId)
+  const loadUserAddress = () => {
+    if (!userAddressId) return;
+    MyAddressApi.get(userAddressId)
       .then((res) => {
-        setCountry(res);
         // console.log(res);
+        setAddress(res.address);
       })
       .catch((err) => {
         let errDetails: ErrorDetails = err?.response?.data;
@@ -59,11 +60,11 @@ const UserAddressDelete = () => {
       });
   };
 
-  const deleteCountry = () => {
+  const deleteUserAddress = () => {
     setError("");
-    CountryApi.delete(countryId)
+    MyAddressApi.delete(userAddressId)
       .then((res) => {
-        toastNotify(country?.countryName + " deleted successfully.");
+        toastNotify(address?.address1 + " deleted successfully.");
         navigate(-1);
       })
       .catch((err) => {
@@ -75,7 +76,7 @@ const UserAddressDelete = () => {
   const displayHeading = () => (
     <Flex>
       <Box>
-        <Heading fontSize={"xl"}>Delete Country</Heading>
+        <Heading fontSize={"xl"}>Delete Address</Heading>
       </Box>
       <Spacer />
       <Box>
@@ -86,52 +87,46 @@ const UserAddressDelete = () => {
     </Flex>
   );
 
-  const showCountryInfo = () => (
+  const showAddressInfo = () => (
     <div>
-      <Text fontSize="xl">
-        Are you sure you want to delete the following Country?
-      </Text>
+      <Text fontSize="xl">Are you sure you want to delete the following Address?</Text>
       <TableContainer>
         <Table variant="simple">
           <Tbody>
             <Tr>
-              <Th>Name</Th>
-              <Td>{country?.countryName}</Td>
+              <Th>Address 1</Th>
+              <Td>{address?.address1}</Td>
             </Tr>
             <Tr>
-              <Th>Country Code</Th>
-              <Td>{country?.countryCode}</Td>
+              <Th>Address 2</Th>
+              <Td>{address?.address2}</Td>
             </Tr>
             <Tr>
-              <Th>States</Th>
-              <Td>{country?.stateCount}</Td>
+              <Th>City</Th>
+              <Td>
+                {address?.city}, {address?.state?.stateName}, {address?.state?.country?.countryName}
+              </Td>
             </Tr>
           </Tbody>
         </Table>
       </TableContainer>
       <HStack pt={4} spacing={4}>
         <Button onClick={onOpen} type="button" colorScheme={"red"}>
-          YES, I WANT TO DELETE THIS COUNTRY
+          YES, I WANT TO DELETE THIS ADDRESS
         </Button>
       </HStack>
     </div>
   );
 
   const showAlertDialog = () => (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
+    <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Delete Country
+            Delete Address
           </AlertDialogHeader>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+          <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
 
           <AlertDialogFooter>
             <Link ref={cancelRef} onClick={onClose}>
@@ -139,9 +134,9 @@ const UserAddressDelete = () => {
                 Cancel
               </Button>
             </Link>
-            <Link onClick={deleteCountry} ml={3}>
+            <Link onClick={deleteUserAddress} ml={3}>
               <Button type="submit" colorScheme={"red"}>
-                Delete Country Name
+                Delete Address
               </Button>
             </Link>
           </AlertDialogFooter>
@@ -154,11 +149,11 @@ const UserAddressDelete = () => {
     <Box p={4}>
       <Stack spacing={4} as={Container} maxW={"3xl"}>
         {displayHeading()}
-        {showCountryInfo()}
+        {showAddressInfo()}
         {showAlertDialog()}
       </Stack>
     </Box>
   );
 };
 
-export default UserAddressDelete;
+export default MyAddressDelete;

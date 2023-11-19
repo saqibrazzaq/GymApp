@@ -5,12 +5,20 @@ import { FiCompass, FiHome, FiTrendingUp } from "react-icons/fi";
 import LeftSideMenu, { LinkItemProps } from "./LeftSideMenu";
 import { MdOutlineVerifiedUser, MdPerson } from "react-icons/md";
 import { AiOutlineUnlock } from "react-icons/ai";
-import { AdminHome, DeleteUser, StaffCreate, StaffEdit, UserRoles, Users } from "../../pages/Admin";
+import {
+  AdminHome,
+  DeleteUser,
+  StaffCreate,
+  StaffEdit,
+  UserRoles,
+  Users,
+} from "../../pages/Admin/User";
 import { NotFound } from "../../pages/ZOther";
 import { withAdminAuth } from "../../hoc";
 import { BusinessLogo, SettingsHome } from "../../pages/Admin/Settings";
 import { PlanCategories, PlanCategoryDelete, PlanCategoryEdit } from "../../pages/Plans/Category";
 import { PlanDelete, PlanEdit, Plans } from "../../pages/Plans/Plan";
+import { AddressDelete, AddressEdit, Addresses } from "../../pages/Admin/Address";
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, href: "/admin" },
@@ -87,6 +95,10 @@ const AdminLayout = () => {
           <Route path="/plans/edit" element={<PlanEdit />} />
           <Route path="/plans/:planId/edit" element={<PlanEdit />} />
           <Route path="/plans/:planId/delete" element={<PlanDelete />} />
+          <Route path="/:email/addresses" element={<Addresses />} />
+          <Route path="/:email/addresses/edit" element={<AddressEdit />} />
+          <Route path="/:email/addresses/:userAddressId/edit" element={<AddressEdit />} />
+          <Route path="/:email/addresses/:userAddressId/delete" element={<AddressDelete />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Box>

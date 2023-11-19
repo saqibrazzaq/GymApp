@@ -8,28 +8,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Services.Implementations
 {
-    public class UserAddressService : IUserAddressService
+    public class MyAddressService : IMyAddressService
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryManager _rep;
-        private readonly UserManager<AppIdentityUser> _userManager;
-
-        public UserAddressService(IMapper mapper,
+        private readonly IUserService _userService;
+        public MyAddressService(IMapper mapper,
             IRepositoryManager rep,
-            UserManager<AppIdentityUser> userManager)
+            IUserService userService)
         {
             _mapper = mapper;
             _rep = rep;
-            _userManager = userManager;
+            _userService = userService;
         }
 
-        public async Task<UserAddressRes> Create(string email, AddressEditReq dto)
+        public async Task<UserAddressRes> Create(AddressEditReq dto)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var currentUser = await _userService.GetLoggedInUser();
             var userAddressDto = new UserAddressEditReq
             {
                 Address = dto,
-                UserId = user.Id
+                UserId = currentUser.Id
             };
             var entity = _mapper.Map<UserAddress>(userAddressDto);
 
@@ -38,17 +37,19 @@ namespace api.Services.Implementations
             return _mapper.Map<UserAddressRes>(entity);
         }
 
-        public void Delete(int userAddressId)
+        public async Task Delete(int userAddressId)
         {
-            var entity = FindUserAddressIfExists(userAddressId, true);
+            var entity = await FindUserAddressIfExists(userAddressId, true);
             _rep.UserAddressRepository.Delete(entity);
             _rep.Save();
         }
 
-        private UserAddress FindUserAddressIfExists(int userAddressId, bool trackChanges)
+        private async Task<UserAddress> FindUserAddressIfExists(int userAddressId, bool trackChanges)
         {
+            var currentUser = await _userService.GetLoggedInUser();
             var entity = _rep.UserAddressRepository.FindByCondition(
-                x => x.UserAddressId == userAddressId,
+                x => x.UserAddressId == userAddressId &&
+                    x.User.AccountId == currentUser.AccountId,
                 trackChanges,
                 include: i => i
                     .Include(x => x.Address.State.Country)
@@ -59,15 +60,15 @@ namespace api.Services.Implementations
             return entity;
         }
 
-        public UserAddressRes Get(int userAddressId)
+        public async Task<UserAddressRes> Get(int userAddressId)
         {
-            var entity = FindUserAddressIfExists(userAddressId, false);
+            var entity = await FindUserAddressIfExists(userAddressId, false);
             return _mapper.Map<UserAddressRes>(entity);
         }
 
-        public async Task<IList<UserAddressRes>> GetAll(string email, bool trackChanges)
+        public async Task<IList<UserAddressRes>> GetAll(bool trackChanges)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userService.GetLoggedInUser();
             var entities = _rep.UserAddressRepository.FindByCondition(
                 x => x.UserId.ToString() == user.Id,
                 trackChanges,
@@ -76,25 +77,21 @@ namespace api.Services.Implementations
             return _mapper.Map<IList<UserAddressRes>>(entities);
         }
 
-        public UserAddressRes Update(int userAddressId, AddressEditReq dto)
+        public async Task<UserAddressRes> Update(int userAddressId, AddressEditReq dto)
         {
-            var entity = FindUserAddressIfExists(userAddressId, true);
-            if (dto.IsPrimary) { MakeOtherAddressesNonPrimary(userAddressId); }
+            var entity = await FindUserAddressIfExists(userAddressId, true);
+            if (dto.IsPrimary) { await MakeOtherAddressesNonPrimary(userAddressId); }
             
             _mapper.Map(dto, entity.Address);
             _rep.Save();
             return _mapper.Map<UserAddressRes>(entity);
         }
 
-        private void MakeOtherAddressesNonPrimary(int userAddressId)
+        private async Task MakeOtherAddressesNonPrimary(int userAddressId)
         {
-            var userId = _rep.UserAddressRepository.FindByCondition(
-                x => x.UserAddressId == userAddressId,
-                false)
-                .FirstOrDefault()
-                .UserId;
+            var user = await _userService.GetLoggedInUser();
             var addressIds = _rep.UserAddressRepository.FindByCondition(
-                x => x.UserId == userId &&
+                x => x.UserId == user.Id &&
                 x.UserAddressId != userAddressId,
                 false)
                 .Select(x => x.AddressId)
