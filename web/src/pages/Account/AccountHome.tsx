@@ -13,13 +13,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { AuthApi } from "../../api/AuthApi";
 import { AuthenticationRes } from "../../models/User";
+import { MyProfileApi } from "../../api";
 
 const AccountHome = () => {
   const [userInfo, setUserInfo] = useState<AuthenticationRes>();
   useEffect(() => {
-    AuthApi.userInfo().then((res) => {
+    MyProfileApi.userInfo().then((res) => {
       setUserInfo(res);
     });
   }, []);

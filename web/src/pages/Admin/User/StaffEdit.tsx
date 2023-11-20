@@ -44,7 +44,7 @@ const StaffEdit = () => {
     if (!username) return;
     UserApi.getUserByName(username)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setUser(res);
       })
       .catch((err) => {
@@ -61,7 +61,7 @@ const StaffEdit = () => {
   const submitForm = (values: UserCreateReq) => {
     setError("");
     setSuccess("");
-    console.log(values);
+    // console.log(values);
     UserApi.updateStaff(username, values)
       .then((res) => {
         // console.log("New Admin user created successfully.");

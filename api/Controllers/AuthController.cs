@@ -1,6 +1,7 @@
 ﻿using api.Common;
 using api.Common.ActionFilters;
 using api.Dtos.User;
+using api.Services.Implementations;
 using api.Services.Interfaces;
 using api.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -13,11 +14,11 @@ namespace api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IAuthService _authService;
 
-        public AuthController(IUserService userService)
+        public AuthController(IAuthService authService)
         {
-            _userService = userService;
+            _authService = authService;
         }
 
         [HttpPost("register")]
@@ -25,7 +26,7 @@ namespace api.Controllers
         public async Task<IActionResult> Register(
             [FromBody] StaffCreateReq dto)
         {
-            await _userService.RegisterOwner(dto);
+            await _authService.RegisterOwner(dto);
             return Ok();
         }
 
@@ -33,7 +34,7 @@ namespace api.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Login([FromBody] LoginReq dto)
         {
-            var res = await _userService.Login(dto);
+            var res = await _authService.Login(dto);
             setRefreshTokenCookie(res.RefreshToken);
             return Ok(res);
         }
@@ -44,28 +45,10 @@ namespace api.Controllers
             [FromBody] TokenRes dto)
         {
             //dto.RefreshToken = Request.Cookies[Constants.RefreshTokenCookieName];
-            var res = await _userService.RefreshToken(dto);
+            var res = await _authService.RefreshToken(dto);
             setRefreshTokenCookie(res.RefreshToken);
 
             return Ok(res);
-        }
-
-        [HttpGet("info")]
-        [Authorize(Roles = Constants.AllRoles)]
-        public async Task<IActionResult> GetUser()
-        {
-            var res = await _userService.GetLoggedInUser();
-            return Ok(res);
-        }
-
-        [HttpPost("change-password")]
-        [Authorize(Roles = Constants.AllRoles)]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> ChangePassword(
-            [FromBody] ChangePasswordReq dto)
-        {
-            await _userService.ChangePassword(dto);
-            return Ok();
         }
 
         [HttpGet("send-forgot-password-email")]
@@ -73,7 +56,7 @@ namespace api.Controllers
         public async Task<IActionResult> SendForgotPasswordEmail(
             [FromQuery] SendForgotPasswordEmailReq dto)
         {
-            await _userService.SendForgotPasswordEmail(dto);
+            await _authService.SendForgotPasswordEmail(dto);
             return Ok();
         }
 
@@ -82,7 +65,7 @@ namespace api.Controllers
         public async Task<IActionResult> ResetPassword
             ([FromBody] ResetPasswordReq dto)
         {
-            await _userService.ResetPassword(dto);
+            await _authService.ResetPassword(dto);
             return Ok();
         }
 

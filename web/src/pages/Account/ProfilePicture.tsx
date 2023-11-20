@@ -18,14 +18,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import Common from "../../utility/Common";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
-import { AuthApi } from "../../api/AuthApi";
-import { UserApi } from "../../api/UserApi";
 import { ErrorAlert } from "../../models/Error/AlertBoxes";
 import { useDispatch } from "react-redux";
 import { setLoggedInUser } from "../../storage/Redux/userAuthSlice";
-import ErrorDetails from "../../models/Error/ErrorDetails";
 import { toastNotify } from "../../Helper";
 import { SubmitButton } from "../../components/Buttons";
+import { MyProfileApi } from "../../api";
+import { ErrorDetails } from "../../models/Error";
 
 const ProfilePicture = () => {
   const [error, setError] = useState("");
@@ -40,7 +39,7 @@ const ProfilePicture = () => {
 
   const loadUserInfo = () => {
     setError("");
-    AuthApi.userInfo()
+    MyProfileApi.userInfo()
       .then((res) => {
         // console.log("Load user info");
         // console.log(res);
@@ -61,7 +60,7 @@ const ProfilePicture = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    UserApi.updateProfilePicture(fd)
+    MyProfileApi.updateProfilePicture(fd)
       .then((res) => {
         // console.log(res.data);
         toastNotify("Profile picture updated successfully");

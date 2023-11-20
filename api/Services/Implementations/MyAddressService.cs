@@ -12,19 +12,19 @@ namespace api.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IRepositoryManager _rep;
-        private readonly IUserService _userService;
+        private readonly IMyProfileService _myProfileService;
         public MyAddressService(IMapper mapper,
             IRepositoryManager rep,
-            IUserService userService)
+            IMyProfileService myProfileService)
         {
             _mapper = mapper;
             _rep = rep;
-            _userService = userService;
+            _myProfileService = myProfileService;
         }
 
         public async Task<UserAddressRes> Create(AddressEditReq dto)
         {
-            var currentUser = await _userService.GetLoggedInUser();
+            var currentUser = await _myProfileService.GetLoggedInUser();
             var userAddressDto = new UserAddressEditReq
             {
                 Address = dto,
@@ -46,7 +46,7 @@ namespace api.Services.Implementations
 
         private async Task<UserAddress> FindUserAddressIfExists(int userAddressId, bool trackChanges)
         {
-            var currentUser = await _userService.GetLoggedInUser();
+            var currentUser = await _myProfileService.GetLoggedInUser();
             var entity = _rep.UserAddressRepository.FindByCondition(
                 x => x.UserAddressId == userAddressId &&
                     x.User.AccountId == currentUser.AccountId,
@@ -68,7 +68,7 @@ namespace api.Services.Implementations
 
         public async Task<IList<UserAddressRes>> GetAll(bool trackChanges)
         {
-            var user = await _userService.GetLoggedInUser();
+            var user = await _myProfileService.GetLoggedInUser();
             var entities = _rep.UserAddressRepository.FindByCondition(
                 x => x.UserId.ToString() == user.Id,
                 trackChanges,
@@ -89,7 +89,7 @@ namespace api.Services.Implementations
 
         private async Task MakeOtherAddressesNonPrimary(int userAddressId)
         {
-            var user = await _userService.GetLoggedInUser();
+            var user = await _myProfileService.GetLoggedInUser();
             var addressIds = _rep.UserAddressRepository.FindByCondition(
                 x => x.UserId == user.Id &&
                 x.UserAddressId != userAddressId,

@@ -14,20 +14,20 @@ namespace api.Services.Implementations
     {
         private readonly ICloudinaryService _cloudinaryService;
         private readonly IWebHostEnvironment _environment;
-        private readonly IUserService _userService;
         private readonly IRepositoryManager _rep;
         private readonly IMapper _mapper;
+        private readonly IMyProfileService _myProfileService;
         public AccountService(ICloudinaryService cloudinaryService,
             IWebHostEnvironment environment,
-            IUserService userService,
             IRepositoryManager rep,
-            IMapper mapper)
+            IMapper mapper,
+            IMyProfileService myProfileService)
         {
             _cloudinaryService = cloudinaryService;
             _environment = environment;
-            _userService = userService;
             _rep = rep;
             _mapper = mapper;
+            _myProfileService = myProfileService;
         }
 
         public async Task UpdateLogo(IFormFile file)
@@ -48,7 +48,7 @@ namespace api.Services.Implementations
 
         private async Task<Account> FindMyAccountIfExists(bool trackChanges)
         {
-            var userEntity = await _userService.GetLoggedInUser();
+            var userEntity = await _myProfileService.GetLoggedInUser();
             var entity = _rep.AccountRepository.FindByCondition(
                 x => x.AccountId == userEntity.AccountId,
                 trackChanges,

@@ -41,7 +41,7 @@ const AddressEdit = () => {
     if (!userAddressId) return;
     UserAddressApi.get(userAddressId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setUserAddress(res.address);
         setState(res.address.state);
       })
@@ -63,7 +63,7 @@ const AddressEdit = () => {
 
   const submitForm = (values: AddressEditReq) => {
     values = convertEmptyStringToNull(values);
-    console.log(values);
+    // console.log(values);
     if (userAddressId) {
       updateUserAddress(values);
     } else {

@@ -19,30 +19,6 @@ namespace api.Controllers
             _userService = userService;
         }
 
-        [HttpPost("verify-email")]
-        [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmailReq dto)
-        {
-            await _userService.VerifyEmail(dto);
-            return Ok();
-        }
-
-        [HttpGet("send-verification-email")]
-        [Authorize(Roles = Constants.AllRoles)]
-        public async Task<IActionResult> SendVerificationEmail()
-        {
-            await _userService.SendVerificationEmail();
-            return Ok("Verification email sent.");
-        }
-
-        [HttpPost("update-profile-picture")]
-        [Authorize(Roles = Constants.AllRoles)]
-        public async Task<IActionResult> UpdateProfilePicture()
-        {
-            await _userService.UpdateProfilePicture(Request.Form.Files[0]);
-            return NoContent();
-        }
-
         [HttpGet("search")]
         [Authorize(Roles = Constants.AllAdminRoles)]
         [ServiceFilter(typeof(ValidationFilterAttribute))]

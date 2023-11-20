@@ -19,10 +19,10 @@ import YupPassword from "yup-password";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Field, Formik } from "formik";
-import { AuthApi } from "../../api/AuthApi";
 import { ChangePasswordReq } from "../../models/User";
-import ErrorDetails from "../../models/Error/ErrorDetails";
 import { SubmitButton } from "../../components/Buttons";
+import { MyProfileApi } from "../../api";
+import { ErrorDetails } from "../../models/Error";
 
 YupPassword(Yup); // extend yup
 
@@ -39,9 +39,7 @@ export default function ChangePassword(): JSX.Element {
 
   // Formik validation schema
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Invalid email address"),
+    email: Yup.string().required("Email is required").email("Invalid email address"),
     currentPassword: Yup.string()
       .required("Current Password is required.")
       .min(6, "Minimum 6 characters required.")
@@ -68,7 +66,7 @@ export default function ChangePassword(): JSX.Element {
   const submitForm = (values: ChangePasswordReq) => {
     setError("");
     setSuccess("");
-    AuthApi.changePassword(values)
+    MyProfileApi.changePassword(values)
       .then((res) => {
         console.log("Password changed successfully.");
         setSuccess("Your password has been changed successfully");
@@ -109,49 +107,21 @@ export default function ChangePassword(): JSX.Element {
               )}
               <FormControl isInvalid={!!errors.email && touched.email}>
                 <FormLabel htmlFor="email">Email address</FormLabel>
-                <Field
-                  disabled={true}
-                  as={Input}
-                  id="email"
-                  name="email"
-                  type="email"
-                />
+                <Field disabled={true} as={Input} id="email" name="email" type="email" />
                 <FormErrorMessage>{errors.email}</FormErrorMessage>
               </FormControl>
-              <FormControl
-                isInvalid={!!errors.currentPassword && touched.currentPassword}
-              >
-                <FormLabel htmlFor="currentPassword">
-                  Current Password
-                </FormLabel>
-                <Field
-                  as={Input}
-                  id="currentPassword"
-                  name="currentPassword"
-                  type="password"
-                />
+              <FormControl isInvalid={!!errors.currentPassword && touched.currentPassword}>
+                <FormLabel htmlFor="currentPassword">Current Password</FormLabel>
+                <Field as={Input} id="currentPassword" name="currentPassword" type="password" />
                 <FormErrorMessage>{errors.currentPassword}</FormErrorMessage>
               </FormControl>
-              <FormControl
-                isInvalid={!!errors.newPassword && touched.newPassword}
-              >
+              <FormControl isInvalid={!!errors.newPassword && touched.newPassword}>
                 <FormLabel htmlFor="newPassword">New Password</FormLabel>
-                <Field
-                  as={Input}
-                  id="newPassword"
-                  name="newPassword"
-                  type="password"
-                />
+                <Field as={Input} id="newPassword" name="newPassword" type="password" />
                 <FormErrorMessage>{errors.newPassword}</FormErrorMessage>
               </FormControl>
-              <FormControl
-                isInvalid={
-                  !!errors.confirmNewPassword && touched.confirmNewPassword
-                }
-              >
-                <FormLabel htmlFor="confirmNewPassword">
-                  Confirm New Password
-                </FormLabel>
+              <FormControl isInvalid={!!errors.confirmNewPassword && touched.confirmNewPassword}>
+                <FormLabel htmlFor="confirmNewPassword">Confirm New Password</FormLabel>
                 <Field
                   as={Input}
                   id="confirmNewPassword"

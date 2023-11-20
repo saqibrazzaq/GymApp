@@ -23,13 +23,11 @@ import { BsCheckCircle } from "react-icons/bs";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
-import AuthenticationRes from "../../models/User/AuthenticationRes";
-import VerifyEmailReq from "../../models/User/VerifyEmailReq";
-import { UserApi } from "../../api/UserApi";
-import { AuthApi } from "../../api/AuthApi";
 import { ErrorAlert, SuccessAlert } from "../../models/Error/AlertBoxes";
 import { toastNotify } from "../../Helper";
-import ErrorDetails from "../../models/Error/ErrorDetails";
+import { AuthenticationRes, VerifyEmailReq } from "../../models/User";
+import { MyProfileApi } from "../../api";
+import { ErrorDetails } from "../../models/Error";
 
 const VerifyAccount = () => {
   const [user, setUser] = useState<AuthenticationRes>();
@@ -60,7 +58,7 @@ const VerifyAccount = () => {
     setVerifyEmailSuccess("");
     data.pinCode = pinCodeValue;
     // console.log(data);
-    UserApi.verifyEmail(data)
+    MyProfileApi.verifyEmail(data)
       .then((res) => {
         // console.log("Email verified successfully.");
         setVerifyEmailSuccess("Email verfied successfully.");
@@ -82,7 +80,7 @@ const VerifyAccount = () => {
 
   const loadUserInfo = () => {
     setSendEmailError("Account is not verified.");
-    AuthApi.userInfo()
+    MyProfileApi.userInfo()
       .then((res) => {
         // console.log("Load user info");
         // console.log(res);
@@ -99,7 +97,7 @@ const VerifyAccount = () => {
     setSendEmailError("");
     setVerifyEmailError("");
     setSendEmailSuccess("");
-    UserApi.sendVerificationEmail()
+    MyProfileApi.sendVerificationEmail()
       .then((res) => {
         // console.log(res);
         setSendEmailSuccess(res);
@@ -115,10 +113,7 @@ const VerifyAccount = () => {
 
   const showAccountVerifiedError = () => (
     <Box>
-      <ErrorAlert
-        title="Account Verification Status:"
-        description={sendEmailerror}
-      />
+      <ErrorAlert title="Account Verification Status:" description={sendEmailerror} />
 
       <Button onClick={sendVerificationEmail} colorScheme="blue" mt={4}>
         Send Verification Email
@@ -138,16 +133,10 @@ const VerifyAccount = () => {
         {({ handleSubmit, errors, touched }) => (
           <form onSubmit={handleSubmit}>
             <Stack spacing={9} as={Container} maxW={"3xl"}>
-              {verifyEmailError && (
-                <ErrorAlert description={verifyEmailError} />
-              )}
-              {verifyEmailSuccess && (
-                <SuccessAlert description={verifyEmailSuccess} />
-              )}
+              {verifyEmailError && <ErrorAlert description={verifyEmailError} />}
+              {verifyEmailSuccess && <SuccessAlert description={verifyEmailSuccess} />}
               <FormControl isInvalid={!!errors.pinCode && touched.pinCode}>
-                <FormLabel htmlFor="pinCode">
-                  Email sent, Enter Pin Code
-                </FormLabel>
+                <FormLabel htmlFor="pinCode">Email sent, Enter Pin Code</FormLabel>
                 <HStack>
                   <PinInput onChange={(e) => setPinCodeValue(e)}>
                     <PinInputField />

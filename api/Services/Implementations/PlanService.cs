@@ -13,19 +13,19 @@ namespace api.Services.Implementations
     {
         private readonly IRepositoryManager _rep;
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
-        public PlanService(IRepositoryManager rep, 
-            IMapper mapper, 
-            IUserService userService)
+        private readonly IMyProfileService _myProfileService;
+        public PlanService(IRepositoryManager rep,
+            IMapper mapper,
+            IMyProfileService myProfileService)
         {
             _rep = rep;
             _mapper = mapper;
-            _userService = userService;
+            _myProfileService = myProfileService;
         }
 
         public async Task<PlanRes> Create(PlanEditReq dto)
         {
-            var user = await _userService.GetLoggedInUser();
+            var user = await _myProfileService.GetLoggedInUser();
 
             var entity = _mapper.Map<Plan>(dto);
             entity.AccountId = user.AccountId;
@@ -45,7 +45,7 @@ namespace api.Services.Implementations
 
         private async Task<Plan> FindPlanIfExists(int planId, bool trackChanges)
         {
-            var user = await _userService.GetLoggedInUser();
+            var user = await _myProfileService.GetLoggedInUser();
             var entity = _rep.PlanRepository.FindByCondition(
                 x => x.PlanId == planId &&
                     x.AccountId == user.AccountId,
@@ -69,7 +69,7 @@ namespace api.Services.Implementations
         public async Task<ApiOkPagedResponse<IEnumerable<PlanRes>, MetaData>> Search(
             PlanSearchReq dto)
         {
-            var user = await _userService.GetLoggedInUser();
+            var user = await _myProfileService.GetLoggedInUser();
             dto.AccountId = user.AccountId;
 
             var pagedEntities = _rep.PlanRepository.

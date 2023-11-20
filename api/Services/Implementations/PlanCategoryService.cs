@@ -13,19 +13,19 @@ namespace api.Services.Implementations
     {
         private readonly IRepositoryManager _rep;
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
+        private readonly IMyProfileService _myProfileService;
         public PlanCategoryService(IRepositoryManager rep,
             IMapper mapper,
-            IUserService userService)
+            IMyProfileService myProfileService)
         {
             _rep = rep;
             _mapper = mapper;
-            _userService = userService;
+            _myProfileService = myProfileService;
         }
 
         public async Task<PlanCategoryRes> Create(PlanCategoryEditReq dto)
         {
-            var user = await _userService.GetLoggedInUser();
+            var user = await _myProfileService.GetLoggedInUser();
 
             var entity = _mapper.Map<PlanCategory>(dto);
             entity.AccountId = user.AccountId;
@@ -44,7 +44,7 @@ namespace api.Services.Implementations
 
         private async Task<PlanCategory> FindPlanCategoryIfExists(int planCategoryId, bool trackChanges)
         {
-            var user = await _userService.GetLoggedInUser();
+            var user = await _myProfileService.GetLoggedInUser();
             var entity = _rep.PlanCategoryRepository.FindByCondition(
                 x => x.PlanCategoryId == planCategoryId &&
                     x.AccountId == user.AccountId,
@@ -64,7 +64,7 @@ namespace api.Services.Implementations
         public async Task<ApiOkPagedResponse<IEnumerable<PlanCategoryRes>, MetaData>> Search(
             PlanCategorySearchReq dto)
         {
-            var user = await _userService.GetLoggedInUser();
+            var user = await _myProfileService.GetLoggedInUser();
             dto.AccountId = user.AccountId;
 
             var pagedEntities = _rep.PlanCategoryRepository.

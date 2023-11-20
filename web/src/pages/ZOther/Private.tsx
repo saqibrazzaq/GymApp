@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { WeatherApi } from "../../api/WeatherApi";
-import { AuthApi } from "../../api/AuthApi";
 import { toastNotify } from "../../Helper";
+import { MyProfileApi } from "../../api";
 
 const Private = () => {
   useEffect(() => {
-    AuthApi.userInfo()
+    MyProfileApi.userInfo()
       .then((res) => {
         console.log(res);
       })

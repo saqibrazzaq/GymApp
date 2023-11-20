@@ -50,7 +50,7 @@ const AddressDelete = () => {
     if (!userAddressId) return;
     UserAddressApi.get(userAddressId)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setAddress(res.address);
       })
       .catch((err) => {

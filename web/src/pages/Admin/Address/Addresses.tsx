@@ -50,7 +50,7 @@ const Addresses = () => {
   }, []);
 
   const searchUserAddresses = () => {
-    console.log(email);
+    // console.log(email);
     UserAddressApi.getAll(email)
       .then((res) => {
         //let userRes: PagedResponse<UserDto> = res;

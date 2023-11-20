@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { AuthApi } from "./api";
 import { setLoggedInUser } from "./storage/Redux/userAuthSlice";
 import { toastNotify } from "./Helper";
 import { Footer, Header } from "./layout";
@@ -11,13 +10,14 @@ import { Private, Public } from "./pages/ZOther";
 import { AccountLayout } from "./layout/AccountLayout";
 import { AdminLayout } from "./layout/AdminLayout";
 import { SuperAdminLayout } from "./layout/SuperAdminLayout";
+import { MyProfileApi } from "./api";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const localToken = localStorage.getItem("token");
     if (localToken) {
-      AuthApi.userInfo()
+      MyProfileApi.userInfo()
         .then((res) => {
           // console.log("In App.tsx");
           // console.log(res);

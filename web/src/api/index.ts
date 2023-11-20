@@ -10,6 +10,7 @@ import { PlanApi } from "./PlanApi";
 import { UserTypeApi } from "./UserTypeApi";
 import { LeadStatusApi } from "./LeadStatusApi";
 import { UserAddressApi } from "./UserAddressApi";
+import { MyProfileApi } from "./MyProfileApi";
 
 export {
   AuthApi,
@@ -24,4 +25,5 @@ export {
   UserTypeApi,
   LeadStatusApi,
   UserAddressApi,
+  MyProfileApi,
 };

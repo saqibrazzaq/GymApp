@@ -70,6 +70,9 @@ namespace api.Extensions
             services.AddScoped<IUserTypeService, UserTypeService>();
             services.AddScoped<ILeadStatusService, LeadStatusService>();
             services.AddScoped<IUserAddressService, UserAddressService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IVerificationEmailSenderService, VerificationEmailSenderService>();
+            services.AddScoped<IMyProfileService, MyProfileService>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMyAddressService, MyAddressService>();

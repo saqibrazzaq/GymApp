@@ -5,51 +5,51 @@ import {
   SendForgotPasswordEmailReq,
   TokenRes,
   UserCreateReq,
+  VerifyEmailReq,
 } from "../models/User";
 import { axiosInstance } from "../provider";
 
-export const AuthApi = {
-  register: async function (data: UserCreateReq) {
+export const MyProfileApi = {
+  userInfo: async function () {
     const response = await axiosInstance.request({
-      url: "/auth/register",
-      method: "POST",
-      data: data,
-    });
-
-    return response.data;
-  },
-  login: async function (data: LoginReq) {
-    const response = await axiosInstance.request({
-      url: "/auth/login",
-      method: "POST",
-      data: data,
-    });
-
-    return response.data;
-  },
-  refreshToken: async function (data: TokenRes) {
-    const response = await axiosInstance.request({
-      url: "/auth/refresh-token",
-      method: "POST",
-      data: data,
-    });
-
-    return response.data;
-  },
-  sendForgotPasswordEmail: async function (params: SendForgotPasswordEmailReq) {
-    const response = await axiosInstance.request({
-      url: `/auth/send-forgot-password-email`,
+      url: `/MyProfile/info`,
       method: "GET",
-      params: params,
     });
 
     return response.data;
   },
-  resetPassword: async function (data: ResetPasswordReq) {
+  changePassword: async function (data: ChangePasswordReq) {
     const response = await axiosInstance.request({
-      url: "/auth/reset-password",
+      url: "/MyProfile/change-password",
       method: "POST",
       data: data,
+    });
+
+    return response.data;
+  },
+  verifyEmail: async function (data: VerifyEmailReq) {
+    const response = await axiosInstance.request({
+      url: "/MyProfile/verify-email",
+      method: "POST",
+      data: data,
+    });
+
+    return response.data;
+  },
+  sendVerificationEmail: async function () {
+    const response = await axiosInstance.request({
+      url: `/MyProfile/send-verification-email`,
+      method: "GET",
+    });
+
+    return response.data;
+  },
+  updateProfilePicture: async function (data: FormData) {
+    const response = await axiosInstance.request({
+      url: "/MyProfile/update-profile-picture",
+      method: "POST",
+      data: data,
+      headers: { "Content-Type": "multipart/form-data" },
     });
 
     return response.data;
