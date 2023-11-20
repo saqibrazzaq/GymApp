@@ -1,6 +1,6 @@
 import AccountHome from "./AccountHome";
 import ChangePassword from "./ChangePassword";
-import ProfilePicture from "./ProfilePicture";
+import MyProfilePicture from "./MyProfilePicture";
 import VerifyAccount from "./VerifyAccount";
 
-export { AccountHome, ChangePassword, ProfilePicture, VerifyAccount };
+export { AccountHome, ChangePassword, MyProfilePicture, VerifyAccount };

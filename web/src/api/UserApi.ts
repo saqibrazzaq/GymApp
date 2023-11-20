@@ -63,7 +63,7 @@ export const UserApi = {
 
     return response.data;
   },
-  getUserByName: async function (username: string) {
+  getUserByName: async function (username?: string) {
     const response = await axiosInstance.request({
       url: `/Users/get/` + username,
       method: "GET",
@@ -75,6 +75,16 @@ export const UserApi = {
     const response = await axiosInstance.request({
       url: `/Users/roles`,
       method: "GET",
+    });
+
+    return response.data;
+  },
+  updateProfilePicture: async function (email?: string, data?: FormData) {
+    const response = await axiosInstance.request({
+      url: "/Users/" + email + "/update-profile-picture",
+      method: "POST",
+      data: data,
+      headers: { "Content-Type": "multipart/form-data" },
     });
 
     return response.data;

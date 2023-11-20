@@ -14,5 +14,6 @@ namespace api.Services.Interfaces
         Task RemoveRoleFromUser(RemoveRoleReq dto);
         IList<RoleRes> GetAllRoles();
         Task UpdateStaff(string email, StaffEditReq dto);
+        Task UpdateProfilePicture(string email, IFormFile formFile);
     }
 }

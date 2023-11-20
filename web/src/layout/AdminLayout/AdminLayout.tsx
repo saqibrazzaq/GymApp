@@ -8,6 +8,7 @@ import { AiOutlineUnlock } from "react-icons/ai";
 import {
   AdminHome,
   DeleteUser,
+  ProfilePicture,
   StaffCreate,
   StaffEdit,
   UserRoles,
@@ -96,6 +97,7 @@ const AdminLayout = () => {
           <Route path="/plans/:planId/edit" element={<PlanEdit />} />
           <Route path="/plans/:planId/delete" element={<PlanDelete />} />
           <Route path="/:email/addresses" element={<Addresses />} />
+          <Route path="/:email/profile-picture" element={<ProfilePicture />} />
           <Route path="/:email/addresses/edit" element={<AddressEdit />} />
           <Route path="/:email/addresses/:userAddressId/edit" element={<AddressEdit />} />
           <Route path="/:email/addresses/:userAddressId/delete" element={<AddressDelete />} />

@@ -15,18 +15,19 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
-import Common from "../../utility/Common";
 import { useDropzone } from "react-dropzone";
-import { useNavigate } from "react-router-dom";
-import { ErrorAlert } from "../../models/Error/AlertBoxes";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLoggedInUser } from "../../storage/Redux/userAuthSlice";
-import { toastNotify } from "../../Helper";
-import { SubmitButton } from "../../components/Buttons";
-import { MyProfileApi } from "../../api";
-import { ErrorDetails } from "../../models/Error";
+import { Common } from "../../../utility";
+import { UserApi } from "../../../api";
+import { setLoggedInUser } from "../../../storage/Redux/userAuthSlice";
+import { ErrorAlert, ErrorDetails } from "../../../models/Error";
+import { toastNotify } from "../../../Helper";
+import { SubmitButton } from "../../../components/Buttons";
 
 const ProfilePicture = () => {
+  const params = useParams();
+  const email = params.email;
   const [error, setError] = useState("");
   const [image, setImage] = useState(Common.DEFAULT_PROFILE_PICTURE);
   const toast = useToast();
@@ -39,7 +40,7 @@ const ProfilePicture = () => {
 
   const loadUserInfo = () => {
     setError("");
-    MyProfileApi.userInfo()
+    UserApi.getUserByName(email)
       .then((res) => {
         // console.log("Load user info");
         // console.log(res);
@@ -60,7 +61,7 @@ const ProfilePicture = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    MyProfileApi.updateProfilePicture(fd)
+    UserApi.updateProfilePicture(email, fd)
       .then((res) => {
         // console.log(res.data);
         toastNotify("Profile picture updated successfully");

@@ -1,5 +1,6 @@
 ﻿using api.Common.ActionFilters;
 using api.Dtos.User;
+using api.Services.Implementations;
 using api.Services.Interfaces;
 using api.Utility;
 using Microsoft.AspNetCore.Authorization;
@@ -93,6 +94,14 @@ namespace api.Controllers
         {
             var res = _userService.GetAllRoles();
             return Ok(res);
+        }
+
+        [HttpPost("{email}/update-profile-picture")]
+        [Authorize(Roles = Constants.AllRoles)]
+        public async Task<IActionResult> UpdateProfilePicture(string email)
+        {
+            await _userService.UpdateProfilePicture(email, Request.Form.Files[0]);
+            return NoContent();
         }
     }
 }

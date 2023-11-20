@@ -223,6 +223,35 @@ namespace api.Services.Implementations
                 throw new Exception(result.Errors.FirstOrDefault().Description);
         }
 
+        public async Task UpdateProfilePicture(string email, IFormFile file)
+        {
+            var uploadResult = _cloudinaryService.UploadProfilePictureThumbnail(file, TempFolderPath);
+            await updateProfilePictureInRepository(email, uploadResult);
+        }
+
+        private async Task updateProfilePictureInRepository(string email, CloudinaryUploadResultRes uploadResult)
+        {
+            var userEntity = await _userManager.FindByNameAsync(email);
+            var currentUser = await _userManager.FindByNameAsync(UserName);
+            
+            if (userEntity == null) throw new Exception("Username not found " + email);
+            if (userEntity.AccountId != currentUser.AccountId) 
+                throw new Exception("Username not found in this account " + email);
+            
+            _cloudinaryService.DeleteImage(userEntity.ProfilePictureCloudinaryId);
+            userEntity.ProfilePictureUrl = uploadResult.SecureUrl;
+            userEntity.ProfilePictureCloudinaryId = uploadResult.PublicId;
+            await _userManager.UpdateAsync(userEntity);
+        }
+
+        public string TempFolderPath
+        {
+            get
+            {
+                return Path.Combine(_environment.WebRootPath, Constants.TempFolderName);
+            }
+        }
+
         private string? UserName
         {
             get

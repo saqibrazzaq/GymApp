@@ -5,7 +5,7 @@ import { FiCompass, FiHome, FiTrendingUp } from "react-icons/fi";
 import LeftSideMenu, { LinkItemProps } from "./LeftSideMenu";
 import { MdOutlineVerifiedUser, MdPerson } from "react-icons/md";
 import { AiOutlineUnlock } from "react-icons/ai";
-import { AccountHome, ChangePassword, ProfilePicture, VerifyAccount } from "../../pages/Account";
+import { AccountHome, ChangePassword, MyProfilePicture, VerifyAccount } from "../../pages/Account";
 import { NotFound } from "../../pages/ZOther";
 import { withAuth } from "../../hoc";
 import { MyAddressDelete, MyAddressEdit, MyAddresses } from "../../pages/Account/MyAddress";
@@ -42,7 +42,7 @@ const AccountLayout = () => {
           <Route path="/" element={<AccountHome />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/verify-account" element={<VerifyAccount />} />
-          <Route path="/profile-picture" element={<ProfilePicture />} />
+          <Route path="/profile-picture" element={<MyProfilePicture />} />
           <Route path="/addresses" element={<MyAddresses />} />
           <Route path="/addresses/edit" element={<MyAddressEdit />} />
           <Route path="/addresses/:userAddressId/edit" element={<MyAddressEdit />} />

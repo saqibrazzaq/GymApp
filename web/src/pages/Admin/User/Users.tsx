@@ -147,7 +147,9 @@ const Users = () => {
                       <MenuItem as={RouteLink} to={"../" + item.email + "/addresses"}>
                         Addresses
                       </MenuItem>
-                      <MenuItem>Update Profile Picture</MenuItem>
+                      <MenuItem as={RouteLink} to={"../" + item.email + "/profile-picture"}>
+                        Profile Picture
+                      </MenuItem>
                       <MenuItem>Reset Password</MenuItem>
                       <MenuItem as={RouteLink} to={item.email + "/delete"}>
                         Delete
