@@ -229,6 +229,28 @@ namespace api.Services.Implementations
             await updateProfilePictureInRepository(email, uploadResult);
         }
 
+        public async Task SetNewPassword(string email, SetNewPasswordReq dto)
+        {
+            var userEntity = await _userManager.FindByEmailAsync(email);
+            if (userEntity == null) throw new Exception("User not found with email " + email);
+
+            var currentUserEntity = await _userManager.FindByEmailAsync(UserName);
+            if (currentUserEntity.AccountId != userEntity.AccountId)
+                throw new Exception("User not found in this account: " + email);
+
+            var hasPassword = await _userManager.HasPasswordAsync(userEntity);
+            if (hasPassword)
+            {
+                var removeResult = await _userManager.RemovePasswordAsync(userEntity);
+                if (removeResult.Succeeded == false)
+                    throw new Exception(AuthUtil.GetFirstErrorFromIdentityResult(removeResult, nameof(SetNewPassword)));
+            }
+
+            var newResult = await _userManager.AddPasswordAsync(userEntity, dto.NewPassword);
+            if (newResult.Succeeded == false)
+                throw new Exception(AuthUtil.GetFirstErrorFromIdentityResult(newResult, nameof(SetNewPassword)));
+        }
+
         private async Task updateProfilePictureInRepository(string email, CloudinaryUploadResultRes uploadResult)
         {
             var userEntity = await _userManager.FindByNameAsync(email);

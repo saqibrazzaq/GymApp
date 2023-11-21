@@ -5,5 +5,15 @@ import UserRoles from "./UserRoles";
 import Users from "./Users";
 import StaffEdit from "./StaffEdit";
 import ProfilePicture from "./ProfilePicture";
+import SetNewPassword from "./SetNewPassword";
 
-export { AdminHome, DeleteUser, StaffCreate, UserRoles, Users, StaffEdit, ProfilePicture };
+export {
+  AdminHome,
+  DeleteUser,
+  StaffCreate,
+  UserRoles,
+  Users,
+  StaffEdit,
+  ProfilePicture,
+  SetNewPassword,
+};

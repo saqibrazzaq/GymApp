@@ -2,12 +2,8 @@
 
 namespace api.Dtos.User
 {
-    public class ChangePasswordReq
+    public class SetNewPasswordReq
     {
-        [Required(ErrorMessage = "Current Password is required")]
-        [MinLength(6, ErrorMessage = "Minimum 6 characters for password")]
-        public string? CurrentPassword { get; set; }
-
         [Required(ErrorMessage = "New Password is required")]
         [MinLength(6, ErrorMessage = "Minimum 6 characters for New password")]
         public string? NewPassword { get; set; }

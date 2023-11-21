@@ -20,7 +20,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Common } from "../../../utility";
 import { UserApi } from "../../../api";
-import { setLoggedInUser } from "../../../storage/Redux/userAuthSlice";
 import { ErrorAlert, ErrorDetails } from "../../../models/Error";
 import { toastNotify } from "../../../Helper";
 import { SubmitButton } from "../../../components/Buttons";
@@ -32,7 +31,6 @@ const ProfilePicture = () => {
   const [image, setImage] = useState(Common.DEFAULT_PROFILE_PICTURE);
   const toast = useToast();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     loadUserInfo();
@@ -47,7 +45,6 @@ const ProfilePicture = () => {
         if (res.profilePictureUrl) {
           // console.log("Profile picture set");
           setImage(res.profilePictureUrl ?? "");
-          dispatch(setLoggedInUser(res));
         }
       })
       .catch((err) => {

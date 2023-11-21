@@ -137,7 +137,6 @@ export default function Header() {
     if (
       (userData?.roles?.indexOf(Roles.SuperAdmin) ?? -1) >= 0 ||
       (userData?.roles?.indexOf(Roles.Admin) ?? -1) >= 0 ||
-      (userData?.roles?.indexOf(Roles.Manager) ?? -1) >= 0 ||
       (userData?.roles?.indexOf(Roles.Owner) ?? -1) >= 0
     ) {
       // console.log("Admin");

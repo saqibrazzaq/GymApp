@@ -23,23 +23,15 @@ import { ChangePasswordReq } from "../../models/User";
 import { SubmitButton } from "../../components/Buttons";
 import { MyProfileApi } from "../../api";
 import { ErrorDetails } from "../../models/Error";
+import { toastNotify } from "../../Helper";
 
 YupPassword(Yup); // extend yup
 
-export default function ChangePassword(): JSX.Element {
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const navigate = useNavigate();
-
+export default function ChangeMyPassword(): JSX.Element {
   let pwdData = new ChangePasswordReq();
-  pwdData.currentPassword = "";
-  pwdData.newPassword = "";
-  pwdData.confirmNewPassword = "";
-  pwdData.email = "Common.user?.email";
 
   // Formik validation schema
   const validationSchema = Yup.object({
-    email: Yup.string().required("Email is required").email("Invalid email address"),
     currentPassword: Yup.string()
       .required("Current Password is required.")
       .min(6, "Minimum 6 characters required.")
@@ -64,17 +56,13 @@ export default function ChangePassword(): JSX.Element {
   });
 
   const submitForm = (values: ChangePasswordReq) => {
-    setError("");
-    setSuccess("");
     MyProfileApi.changePassword(values)
       .then((res) => {
-        console.log("Password changed successfully.");
-        setSuccess("Your password has been changed successfully");
+        toastNotify("Password changed successfully.");
       })
       .catch((err) => {
         let errDetails: ErrorDetails = err?.response?.data;
-        console.log("Error: " + err?.response?.data?.Message);
-        setError(errDetails?.Message || "Login service failed.");
+        toastNotify(errDetails?.Message || "Login service failed.", "error");
       });
   };
 
@@ -91,25 +79,6 @@ export default function ChangePassword(): JSX.Element {
           <form onSubmit={handleSubmit}>
             <Stack spacing={4} as={Container} maxW={"3xl"}>
               <Heading fontSize={"xl"}>Change Password</Heading>
-              {error && (
-                <Alert status="error">
-                  <AlertIcon />
-                  <AlertTitle>Login failed</AlertTitle>
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
-              {success && (
-                <Alert status="success">
-                  <AlertIcon />
-                  <AlertTitle>Password Changed</AlertTitle>
-                  <AlertDescription>{success}</AlertDescription>
-                </Alert>
-              )}
-              <FormControl isInvalid={!!errors.email && touched.email}>
-                <FormLabel htmlFor="email">Email address</FormLabel>
-                <Field disabled={true} as={Input} id="email" name="email" type="email" />
-                <FormErrorMessage>{errors.email}</FormErrorMessage>
-              </FormControl>
               <FormControl isInvalid={!!errors.currentPassword && touched.currentPassword}>
                 <FormLabel htmlFor="currentPassword">Current Password</FormLabel>
                 <Field as={Input} id="currentPassword" name="currentPassword" type="password" />

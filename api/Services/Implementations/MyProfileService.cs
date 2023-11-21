@@ -36,9 +36,9 @@ namespace api.Services.Implementations
         public async Task ChangePassword(ChangePasswordReq dto)
         {
             // Verify email address
-            var userEntity = await _userManager.FindByEmailAsync(dto.Email);
+            var userEntity = await _userManager.FindByEmailAsync(UserName);
             if (userEntity == null)
-                throw new NotFoundException("No email address found " + dto.Email);
+                throw new NotFoundException("No email address found " + UserName);
 
             // Reset password
             var result = await _userManager.ChangePasswordAsync(

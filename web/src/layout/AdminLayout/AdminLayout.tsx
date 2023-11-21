@@ -9,6 +9,7 @@ import {
   AdminHome,
   DeleteUser,
   ProfilePicture,
+  SetNewPassword,
   StaffCreate,
   StaffEdit,
   UserRoles,
@@ -98,6 +99,7 @@ const AdminLayout = () => {
           <Route path="/plans/:planId/delete" element={<PlanDelete />} />
           <Route path="/:email/addresses" element={<Addresses />} />
           <Route path="/:email/profile-picture" element={<ProfilePicture />} />
+          <Route path="/:email/new-password" element={<SetNewPassword />} />
           <Route path="/:email/addresses/edit" element={<AddressEdit />} />
           <Route path="/:email/addresses/:userAddressId/edit" element={<AddressEdit />} />
           <Route path="/:email/addresses/:userAddressId/delete" element={<AddressDelete />} />

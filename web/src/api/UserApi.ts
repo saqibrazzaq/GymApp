@@ -2,6 +2,7 @@ import {
   AddRoleReq,
   RemoveRoleReq,
   SearchUsersReq,
+  SetNewPasswordReq,
   StaffEditReq,
   UserCreateReq,
   VerifyEmailReq,
@@ -85,6 +86,15 @@ export const UserApi = {
       method: "POST",
       data: data,
       headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    return response.data;
+  },
+  setNewPassword: async function (email?: string, data?: SetNewPasswordReq) {
+    const response = await axiosInstance.request({
+      url: "/Users/" + email + "/set-new-password",
+      method: "POST",
+      data: data,
     });
 
     return response.data;

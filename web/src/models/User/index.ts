@@ -19,6 +19,7 @@ import LeadStatusRes from "./LeadStatusRes";
 import UserTypeSearchReq from "./UserTypeSearchReq";
 import LeadStatusSearchReq from "./LeadStatusSearchReq";
 import StaffEditReq from "./StaffEditReq";
+import SetNewPasswordReq from "./SetNewPasswordReq";
 
 export {
   AddRoleReq,
@@ -40,5 +41,6 @@ export {
   UserTypeSearchReq,
   LeadStatusSearchReq,
   StaffEditReq,
+  SetNewPasswordReq,
 };
 export type { RoleRes, TokenRes };

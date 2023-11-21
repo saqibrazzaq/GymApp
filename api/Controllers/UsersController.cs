@@ -103,5 +103,13 @@ namespace api.Controllers
             await _userService.UpdateProfilePicture(email, Request.Form.Files[0]);
             return NoContent();
         }
+
+        [HttpPost("{email}/set-new-password")]
+        [Authorize(Roles = Constants.AllAdminRoles)]
+        public async Task<IActionResult> SetNewPassword(string email, SetNewPasswordReq dto)
+        {
+            await _userService.SetNewPassword(email, dto);
+            return NoContent();
+        }
     }
 }

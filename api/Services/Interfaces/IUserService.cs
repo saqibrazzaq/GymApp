@@ -15,5 +15,6 @@ namespace api.Services.Interfaces
         IList<RoleRes> GetAllRoles();
         Task UpdateStaff(string email, StaffEditReq dto);
         Task UpdateProfilePicture(string email, IFormFile formFile);
+        Task SetNewPassword(string email, SetNewPasswordReq dto);
     }
 }
