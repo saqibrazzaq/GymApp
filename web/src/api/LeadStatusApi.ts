@@ -1,4 +1,4 @@
-import { LeadStatusSearchReq } from "../models/User";
+import { LeadStatusSearchReq } from "../dtos/User";
 import { axiosInstance } from "../provider";
 
 export const LeadStatusApi = {

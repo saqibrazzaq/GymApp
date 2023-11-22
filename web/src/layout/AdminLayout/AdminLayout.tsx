@@ -7,14 +7,14 @@ import { MdOutlineVerifiedUser, MdPerson } from "react-icons/md";
 import { AiOutlineUnlock } from "react-icons/ai";
 import {
   AdminHome,
-  DeleteUser,
-  ProfilePicture,
-  SetNewPassword,
+  StaffDelete,
+  StaffProfilePicture,
+  StaffSetNewPassword,
   StaffCreate,
   StaffEdit,
-  UserRoles,
-  Users,
-} from "../../pages/Admin/User";
+  StaffRoles,
+  Staff,
+} from "../../pages/Admin/Staff";
 import { NotFound } from "../../pages/ZOther";
 import { withAdminAuth } from "../../hoc";
 import { BusinessLogo, SettingsHome } from "../../pages/Admin/Settings";
@@ -82,11 +82,11 @@ const AdminLayout = () => {
       <Box flex="1">
         <Routes>
           <Route path="/" element={<AdminHome />} />
-          <Route path="/staff" element={<Users />} />
+          <Route path="/staff" element={<Staff />} />
           <Route path="/staff/edit" element={<StaffCreate />} />
           <Route path="/staff/:username/edit" element={<StaffEdit />} />
-          <Route path="/staff/:username/delete" element={<DeleteUser />} />
-          <Route path="/staff/:username/roles" element={<UserRoles />} />
+          <Route path="/staff/:username/delete" element={<StaffDelete />} />
+          <Route path="/staff/:username/roles" element={<StaffRoles />} />
           <Route path="/settings" element={<SettingsHome />} />
           <Route path="/settings/logo" element={<BusinessLogo />} />
           <Route path="/plans/categories" element={<PlanCategories />} />
@@ -98,8 +98,8 @@ const AdminLayout = () => {
           <Route path="/plans/:planId/edit" element={<PlanEdit />} />
           <Route path="/plans/:planId/delete" element={<PlanDelete />} />
           <Route path="/:email/addresses" element={<Addresses />} />
-          <Route path="/:email/profile-picture" element={<ProfilePicture />} />
-          <Route path="/:email/new-password" element={<SetNewPassword />} />
+          <Route path="/:email/profile-picture" element={<StaffProfilePicture />} />
+          <Route path="/:email/new-password" element={<StaffSetNewPassword />} />
           <Route path="/:email/addresses/edit" element={<AddressEdit />} />
           <Route path="/:email/addresses/:userAddressId/edit" element={<AddressEdit />} />
           <Route path="/:email/addresses/:userAddressId/delete" element={<AddressDelete />} />

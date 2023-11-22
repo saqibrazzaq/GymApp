@@ -1,4 +1,4 @@
-import { UserTypeSearchReq } from "../models/User";
+import { UserTypeSearchReq } from "../dtos/User";
 import { axiosInstance } from "../provider";
 
 export const UserTypeApi = {

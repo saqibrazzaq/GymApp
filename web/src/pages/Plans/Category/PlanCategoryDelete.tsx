@@ -27,9 +27,9 @@ import {
 import React, { useEffect, useState } from "react";
 import { useParams, Link as RouteLink, useNavigate } from "react-router-dom";
 import { toastNotify } from "../../../Helper";
-import { PlanCategoryRes } from "../../../models/Plan";
+import { PlanCategoryRes } from "../../../dtos/Plan";
 import { PlanCategoryApi } from "../../../api";
-import { ErrorDetails } from "../../../models/Error";
+import { ErrorDetails } from "../../../dtos/Error";
 
 const PlanCategoryDelete = () => {
   let params = useParams();

@@ -1,7 +1,7 @@
 import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
-import { UserApi } from "../../api/UserApi";
-import { RoleRes } from "../../models/User";
+import { StaffApi } from "../../api/StaffApi";
+import { RoleRes } from "../../dtos/User";
 
 interface RoleDropdownParams {
   handleChange?: any;
@@ -15,7 +15,7 @@ const RoleDropdown = ({ handleChange, selectedRole }: RoleDropdownParams) => {
 
   const loadRoles = () => {
     setIsLoading(true);
-    UserApi.getAllRoles()
+    StaffApi.getAllRoles()
       .then((res) => {
         setItems(res);
       })

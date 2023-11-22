@@ -27,8 +27,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { useParams, Link as RouteLink, useNavigate } from "react-router-dom";
 import { toastNotify } from "../../../Helper";
-import { ErrorDetails } from "../../../models/Error";
-import { PlanRes } from "../../../models/Plan";
+import { ErrorDetails } from "../../../dtos/Error";
+import { PlanRes } from "../../../dtos/Plan";
 import { PlanApi } from "../../../api";
 
 const PlanDelete = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { AddressRes } from "../../models/Address";
+import { AddressRes } from "../../dtos/Address";
 import { Text } from "@chakra-ui/react";
 
 interface AddressBlockParams {
@@ -14,11 +14,7 @@ const AddressBlock = (p: AddressBlockParams) => {
       <Text>{p.address?.address1}</Text>
       <Text>{p.address?.address2}</Text>
       <Text>{p.address?.city}</Text>
-      <Text>
-        {p.address?.state?.stateName +
-          ", " +
-          p.address?.state?.country?.countryName}
-      </Text>
+      <Text>{p.address?.state?.stateName + ", " + p.address?.state?.country?.countryName}</Text>
     </div>
   );
 };

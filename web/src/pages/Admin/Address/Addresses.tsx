@@ -30,8 +30,8 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import { UserAddressRes } from "../../../models/User";
-import { ErrorDetails } from "../../../models/Error";
+import { UserAddressRes } from "../../../dtos/User";
+import { ErrorDetails } from "../../../dtos/Error";
 import { toastNotify } from "../../../Helper";
 import { BackButton, RegularButton } from "../../../components/Buttons";
 import { DeleteIconButton, EditIconButton } from "../../../components/Icons";

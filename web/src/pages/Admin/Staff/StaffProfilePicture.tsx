@@ -19,12 +19,12 @@ import { useDropzone } from "react-dropzone";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Common } from "../../../utility";
-import { UserApi } from "../../../api";
-import { ErrorAlert, ErrorDetails } from "../../../models/Error";
+import { StaffApi } from "../../../api";
+import { ErrorAlert, ErrorDetails } from "../../../dtos/Error";
 import { toastNotify } from "../../../Helper";
 import { SubmitButton } from "../../../components/Buttons";
 
-const ProfilePicture = () => {
+const StaffProfilePicture = () => {
   const params = useParams();
   const email = params.email;
   const [error, setError] = useState("");
@@ -38,7 +38,7 @@ const ProfilePicture = () => {
 
   const loadUserInfo = () => {
     setError("");
-    UserApi.getUserByName(email)
+    StaffApi.getUserByName(email)
       .then((res) => {
         // console.log("Load user info");
         // console.log(res);
@@ -58,7 +58,7 @@ const ProfilePicture = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    UserApi.updateProfilePicture(email, fd)
+    StaffApi.updateProfilePicture(email, fd)
       .then((res) => {
         // console.log(res.data);
         toastNotify("Profile picture updated successfully");
@@ -115,4 +115,4 @@ const ProfilePicture = () => {
   );
 };
 
-export default ProfilePicture;
+export default StaffProfilePicture;

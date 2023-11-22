@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Common } from "../../../utility";
 import { AccountApi } from "../../../api/AccountApi";
-import { ErrorAlert, ErrorDetails } from "../../../models/Error";
+import { ErrorAlert, ErrorDetails } from "../../../dtos/Error";
 import { toastNotify } from "../../../Helper";
 import { SubmitButton } from "../../../components/Buttons";
 

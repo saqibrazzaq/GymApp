@@ -1,4 +1,4 @@
-import { AccountEditReq } from "../models/Account";
+import { AccountEditReq } from "../dtos/Account";
 import { axiosInstance } from "../provider";
 
 export const AccountApi = {

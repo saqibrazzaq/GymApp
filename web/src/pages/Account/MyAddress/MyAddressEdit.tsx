@@ -18,10 +18,10 @@ import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
 import { toastNotify } from "../../../Helper";
-import { UserAddressEditReq } from "../../../models/User";
-import { ErrorDetails } from "../../../models/Error";
-import { AddressEditReq } from "../../../models/Address";
-import { StateRes } from "../../../models/Country";
+import { UserAddressEditReq } from "../../../dtos/User";
+import { ErrorDetails } from "../../../dtos/Error";
+import { AddressEditReq } from "../../../dtos/Address";
+import { StateRes } from "../../../dtos/Country";
 import { StateDropdown } from "../../../components/Dropdowns";
 import { MyAddressApi } from "../../../api";
 

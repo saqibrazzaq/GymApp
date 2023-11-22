@@ -1,4 +1,4 @@
-import { CurrencyEditReq, CurrencySearchReq } from "../models/Currency";
+import { CurrencyEditReq, CurrencySearchReq } from "../dtos/Currency";
 import { axiosInstance } from "../provider";
 
 export const CurrencyApi = {

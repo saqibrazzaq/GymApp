@@ -18,9 +18,9 @@ import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
 import { toastNotify } from "../../../Helper";
-import { PlanCategoryEditReq } from "../../../models/Plan";
+import { PlanCategoryEditReq } from "../../../dtos/Plan";
 import { PlanCategoryApi } from "../../../api";
-import { ErrorDetails } from "../../../models/Error";
+import { ErrorDetails } from "../../../dtos/Error";
 
 const PlanCategoryEdit = () => {
   const params = useParams();

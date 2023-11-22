@@ -20,13 +20,13 @@ import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
 import { toastNotify } from "../../../Helper";
-import { ErrorDetails } from "../../../models/Error";
-import { StateRes } from "../../../models/Country";
+import { ErrorDetails } from "../../../dtos/Error";
+import { StateRes } from "../../../dtos/Country";
 import { CurrencyDropdown, StateDropdown } from "../../../components/Dropdowns";
-import { AccountEditReq } from "../../../models/Account";
+import { AccountEditReq } from "../../../dtos/Account";
 import { AccountApi } from "../../../api/AccountApi";
 import { CancelButton, RegularButton } from "../../../components/Buttons";
-import { CurrencyRes } from "../../../models/Currency";
+import { CurrencyRes } from "../../../dtos/Currency";
 
 const SettingsHome = () => {
   const params = useParams();
@@ -123,25 +123,14 @@ const SettingsHome = () => {
               </FormControl>
               <Heading size={"md"}>Contact</Heading>
               <Flex>
-                <FormControl
-                  mr={5}
-                  isInvalid={!!errors.companyName && touched.companyName}
-                >
+                <FormControl mr={5} isInvalid={!!errors.companyName && touched.companyName}>
                   <FormLabel fontSize={"sm"} htmlFor="companyName">
                     Company Name
                   </FormLabel>
-                  <Field
-                    size={"sm"}
-                    as={Input}
-                    id="companyName"
-                    name="companyName"
-                    type="text"
-                  />
+                  <Field size={"sm"} as={Input} id="companyName" name="companyName" type="text" />
                   <FormErrorMessage>{errors.companyName}</FormErrorMessage>
                 </FormControl>
-                <FormControl
-                  isInvalid={!!errors.companyWebsite && touched.companyWebsite}
-                >
+                <FormControl isInvalid={!!errors.companyWebsite && touched.companyWebsite}>
                   <FormLabel fontSize={"sm"} htmlFor="companyWebsite">
                     Company Website
                   </FormLabel>
@@ -156,35 +145,18 @@ const SettingsHome = () => {
                 </FormControl>
               </Flex>
               <Flex>
-                <FormControl
-                  mr={5}
-                  isInvalid={!!errors.companyEmail && touched.companyEmail}
-                >
+                <FormControl mr={5} isInvalid={!!errors.companyEmail && touched.companyEmail}>
                   <FormLabel fontSize={"sm"} htmlFor="companyEmail">
                     Company Email
                   </FormLabel>
-                  <Field
-                    size={"sm"}
-                    as={Input}
-                    id="companyEmail"
-                    name="companyEmail"
-                    type="text"
-                  />
+                  <Field size={"sm"} as={Input} id="companyEmail" name="companyEmail" type="text" />
                   <FormErrorMessage>{errors.companyEmail}</FormErrorMessage>
                 </FormControl>
-                <FormControl
-                  isInvalid={!!errors.companyPhone && touched.companyPhone}
-                >
+                <FormControl isInvalid={!!errors.companyPhone && touched.companyPhone}>
                   <FormLabel fontSize={"sm"} htmlFor="companyPhone">
                     Company Phone
                   </FormLabel>
-                  <Field
-                    size={"sm"}
-                    as={Input}
-                    id="companyPhone"
-                    name="companyPhone"
-                    type="text"
-                  />
+                  <Field size={"sm"} as={Input} id="companyPhone" name="companyPhone" type="text" />
                   <FormErrorMessage>{errors.companyPhone}</FormErrorMessage>
                 </FormControl>
               </Flex>
@@ -192,39 +164,21 @@ const SettingsHome = () => {
                 <FormLabel fontSize={"sm"} htmlFor="address1">
                   Address 1
                 </FormLabel>
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="address1"
-                  name="address1"
-                  type="text"
-                />
+                <Field size={"sm"} as={Input} id="address1" name="address1" type="text" />
                 <FormErrorMessage>{errors.address1}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors.address2 && touched.address2}>
                 <FormLabel fontSize={"sm"} htmlFor="address2">
                   Address 2
                 </FormLabel>
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="address2"
-                  name="address2"
-                  type="text"
-                />
+                <Field size={"sm"} as={Input} id="address2" name="address2" type="text" />
                 <FormErrorMessage>{errors.address2}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors.city && touched.city}>
                 <FormLabel fontSize={"sm"} htmlFor="city">
                   City
                 </FormLabel>
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="city"
-                  name="city"
-                  type="text"
-                />
+                <Field size={"sm"} as={Input} id="city" name="city" type="text" />
                 <FormErrorMessage>{errors.city}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors.stateId && touched.stateId}>
@@ -242,9 +196,7 @@ const SettingsHome = () => {
                 ></StateDropdown>
               </FormControl>
               <Heading size={"md"}>Misc. Settings</Heading>
-              <FormControl
-                isInvalid={!!errors.businessLicense && touched.businessLicense}
-              >
+              <FormControl isInvalid={!!errors.businessLicense && touched.businessLicense}>
                 <FormLabel fontSize={"sm"} htmlFor="businessLicense">
                   Business License
                 </FormLabel>
@@ -259,25 +211,14 @@ const SettingsHome = () => {
               </FormControl>
               <Heading size={"md"}>Social Settings</Heading>
               <Flex>
-                <FormControl
-                  mr={5}
-                  isInvalid={!!errors.facebookPage && touched.facebookPage}
-                >
+                <FormControl mr={5} isInvalid={!!errors.facebookPage && touched.facebookPage}>
                   <FormLabel fontSize={"sm"} htmlFor="facebookPage">
                     Facebook Page
                   </FormLabel>
-                  <Field
-                    size={"sm"}
-                    as={Input}
-                    id="facebookPage"
-                    name="facebookPage"
-                    type="text"
-                  />
+                  <Field size={"sm"} as={Input} id="facebookPage" name="facebookPage" type="text" />
                   <FormErrorMessage>{errors.facebookPage}</FormErrorMessage>
                 </FormControl>
-                <FormControl
-                  isInvalid={!!errors.facebookGroup && touched.facebookGroup}
-                >
+                <FormControl isInvalid={!!errors.facebookGroup && touched.facebookGroup}>
                   <FormLabel fontSize={"sm"} htmlFor="facebookGroup">
                     Facebook Group
                   </FormLabel>
@@ -292,10 +233,7 @@ const SettingsHome = () => {
                 </FormControl>
               </Flex>
               <Flex>
-                <FormControl
-                  mr={5}
-                  isInvalid={!!errors.twitterHandle && touched.twitterHandle}
-                >
+                <FormControl mr={5} isInvalid={!!errors.twitterHandle && touched.twitterHandle}>
                   <FormLabel fontSize={"sm"} htmlFor="twitterHandle">
                     Twitter Handle
                   </FormLabel>
@@ -308,11 +246,7 @@ const SettingsHome = () => {
                   />
                   <FormErrorMessage>{errors.twitterHandle}</FormErrorMessage>
                 </FormControl>
-                <FormControl
-                  isInvalid={
-                    !!errors.instagramUsername && touched.instagramUsername
-                  }
-                >
+                <FormControl isInvalid={!!errors.instagramUsername && touched.instagramUsername}>
                   <FormLabel fontSize={"sm"} htmlFor="instagramUsername">
                     Instagram Username
                   </FormLabel>
@@ -323,22 +257,13 @@ const SettingsHome = () => {
                     name="instagramUsername"
                     type="text"
                   />
-                  <FormErrorMessage>
-                    {errors.instagramUsername}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{errors.instagramUsername}</FormErrorMessage>
                 </FormControl>
               </Flex>
               <Heading size={"md"}>Financial Settings</Heading>
-              <FormControl
-                isInvalid={!!errors.currencyId && touched.currencyId}
-              >
+              <FormControl isInvalid={!!errors.currencyId && touched.currencyId}>
                 <FormLabel htmlFor="currencyId">Currency</FormLabel>
-                <Field
-                  as={Input}
-                  id="currencyId"
-                  name="currencyId"
-                  type="hidden"
-                />
+                <Field as={Input} id="currencyId" name="currencyId" type="hidden" />
                 <FormErrorMessage>{errors.currencyId}</FormErrorMessage>
 
                 <CurrencyDropdown
@@ -368,12 +293,7 @@ const SettingsHome = () => {
       </Box>
       <Spacer />
       <Box>
-        <Button
-          size={"sm"}
-          type="button"
-          colorScheme={"gray"}
-          onClick={() => navigate(-1)}
-        >
+        <Button size={"sm"} type="button" colorScheme={"gray"} onClick={() => navigate(-1)}>
           Back
         </Button>
       </Box>

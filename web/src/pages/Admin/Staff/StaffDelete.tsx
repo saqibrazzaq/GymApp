@@ -30,14 +30,14 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
-import { UserApi } from "../../../api/UserApi";
-import { ErrorAlert } from "../../../models/Error/AlertBoxes";
-import { UserRes } from "../../../models/User";
-import ErrorDetails from "../../../models/Error/ErrorDetails";
+import { StaffApi } from "../../../api/StaffApi";
+import { ErrorAlert } from "../../../dtos/Error/AlertBoxes";
+import { UserRes } from "../../../dtos/User";
+import ErrorDetails from "../../../dtos/Error/ErrorDetails";
 import { toastNotify } from "../../../Helper";
 import { CancelButton, DeleteButton, BackButton } from "../../../components/Buttons";
 
-const DeleteUser = () => {
+const StaffDelete = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLAnchorElement>(null);
 
@@ -51,7 +51,7 @@ const DeleteUser = () => {
   const username = params.username || "";
 
   useEffect(() => {
-    UserApi.getUserByName(username)
+    StaffApi.getUserByName(username)
       .then((res) => {
         // console.log(res);
         setUser(res);
@@ -66,7 +66,7 @@ const DeleteUser = () => {
 
   const deleteUser = () => {
     onClose();
-    UserApi.deleteUser(username)
+    StaffApi.deleteUser(username)
       .then((res) => {
         // console.log("User deleted successfully.");
         toastNotify(username + " deleted successfully.");
@@ -162,4 +162,4 @@ const DeleteUser = () => {
   );
 };
 
-export default DeleteUser;
+export default StaffDelete;

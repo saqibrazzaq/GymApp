@@ -20,11 +20,11 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 import { AuthApi } from "../../api/AuthApi";
-import ErrorDetails from "../../models/Error/ErrorDetails";
+import ErrorDetails from "../../dtos/Error/ErrorDetails";
 import { useDispatch } from "react-redux";
 import { setLoggedInUser } from "../../storage/Redux/userAuthSlice";
-import { ErrorAlert, SuccessAlert } from "../../models/Error/AlertBoxes";
-import { LoginReq, UserCreateReq } from "../../models/User";
+import { ErrorAlert, SuccessAlert } from "../../dtos/Error/AlertBoxes";
+import { LoginReq, UserCreateReq } from "../../dtos/User";
 import { toastNotify } from "../../Helper";
 import { SubmitButton } from "../../components/Buttons";
 

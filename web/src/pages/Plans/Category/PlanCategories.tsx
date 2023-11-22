@@ -24,13 +24,13 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { PagedResponse } from "../../../models/Request";
+import { PagedResponse } from "../../../dtos/Request";
 import { Common } from "../../../utility";
 import { toastNotify } from "../../../Helper";
 import { BackButton, RegularButton } from "../../../components/Buttons";
 import { DeleteIconButton, EditIconButton, StateIconButton } from "../../../components/Icons";
-import { ErrorDetails } from "../../../models/Error";
-import { PlanCategoryRes } from "../../../models/Plan";
+import { ErrorDetails } from "../../../dtos/Error";
+import { PlanCategoryRes } from "../../../dtos/Plan";
 import { PlanCategoryApi } from "../../../api";
 
 const PlanCategories = () => {

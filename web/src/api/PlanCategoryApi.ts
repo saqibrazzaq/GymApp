@@ -1,4 +1,4 @@
-import { PlanCategoryEditReq, PlanCategorySearchReq } from "../models/Plan";
+import { PlanCategoryEditReq, PlanCategorySearchReq } from "../dtos/Plan";
 import { axiosInstance } from "../provider";
 
 export const PlanCategoryApi = {

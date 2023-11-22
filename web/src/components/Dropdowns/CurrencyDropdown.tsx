@@ -1,6 +1,6 @@
 import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
-import { CurrencyRes, CurrencySearchReq } from "../../models/Currency";
+import { CurrencyRes, CurrencySearchReq } from "../../dtos/Currency";
 import { CurrencyApi } from "../../api";
 
 interface CurrencyDropdownParams {
@@ -8,10 +8,7 @@ interface CurrencyDropdownParams {
   selectedCurrency?: CurrencyRes;
 }
 
-const CurrencyDropdown = ({
-  handleChange,
-  selectedCurrency,
-}: CurrencyDropdownParams) => {
+const CurrencyDropdown = ({ handleChange, selectedCurrency }: CurrencyDropdownParams) => {
   const [inputValue, setInputValue] = useState("");
   const [items, setItems] = useState<CurrencyRes[]>([]);
   const [isLoading, setIsLoading] = useState(false);

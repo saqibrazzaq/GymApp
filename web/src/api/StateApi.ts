@@ -1,4 +1,4 @@
-import { StateEditReq, StateSearchReq } from "../models/Country";
+import { StateEditReq, StateSearchReq } from "../dtos/Country";
 import { axiosInstance } from "../provider";
 
 export const StateApi = {

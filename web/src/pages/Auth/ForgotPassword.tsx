@@ -20,10 +20,10 @@ import * as Yup from "yup";
 import YupPassword from "yup-password";
 import { useNavigate } from "react-router-dom";
 import { AuthApi } from "../../api/AuthApi";
-import { ErrorAlert, SuccessAlert } from "../../models/Error/AlertBoxes";
-import { SendForgotPasswordEmailReq } from "../../models/User";
+import { ErrorAlert, SuccessAlert } from "../../dtos/Error/AlertBoxes";
+import { SendForgotPasswordEmailReq } from "../../dtos/User";
 import { toastNotify } from "../../Helper";
-import ErrorDetails from "../../models/Error/ErrorDetails";
+import ErrorDetails from "../../dtos/Error/ErrorDetails";
 import { SubmitButton } from "../../components/Buttons";
 
 const ForgotPassword = () => {
@@ -35,9 +35,7 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Invalid email address"),
+    email: Yup.string().required("Email is required").email("Invalid email address"),
   });
 
   const submitForm = (values: SendForgotPasswordEmailReq) => {

@@ -26,9 +26,9 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams, Link as RouteLink, useNavigate } from "react-router-dom";
-import { CountryWithStateCountRes } from "../../../models/Country";
+import { CountryWithStateCountRes } from "../../../dtos/Country";
 import { CountryApi } from "../../../api";
-import ErrorDetails from "../../../models/Error/ErrorDetails";
+import ErrorDetails from "../../../dtos/Error/ErrorDetails";
 import { toastNotify } from "../../../Helper";
 
 const CountryDelete = () => {
@@ -88,9 +88,7 @@ const CountryDelete = () => {
 
   const showCountryInfo = () => (
     <div>
-      <Text fontSize="xl">
-        Are you sure you want to delete the following Country?
-      </Text>
+      <Text fontSize="xl">Are you sure you want to delete the following Country?</Text>
       <TableContainer>
         <Table variant="simple">
           <Tbody>
@@ -118,20 +116,14 @@ const CountryDelete = () => {
   );
 
   const showAlertDialog = () => (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
+    <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             Delete Country
           </AlertDialogHeader>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+          <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
 
           <AlertDialogFooter>
             <Link ref={cancelRef} onClick={onClose}>

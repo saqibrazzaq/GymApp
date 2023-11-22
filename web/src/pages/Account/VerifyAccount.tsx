@@ -23,11 +23,11 @@ import { BsCheckCircle } from "react-icons/bs";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
 import { useNavigate } from "react-router-dom";
-import { ErrorAlert, SuccessAlert } from "../../models/Error/AlertBoxes";
+import { ErrorAlert, SuccessAlert } from "../../dtos/Error/AlertBoxes";
 import { toastNotify } from "../../Helper";
-import { AuthenticationRes, VerifyEmailReq } from "../../models/User";
+import { AuthenticationRes, VerifyEmailReq } from "../../dtos/User";
 import { MyProfileApi } from "../../api";
-import { ErrorDetails } from "../../models/Error";
+import { ErrorDetails } from "../../dtos/Error";
 
 const VerifyAccount = () => {
   const [user, setUser] = useState<AuthenticationRes>();

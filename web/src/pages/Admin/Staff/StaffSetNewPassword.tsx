@@ -19,15 +19,15 @@ import YupPassword from "yup-password";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Field, Formik } from "formik";
-import { SetNewPasswordReq } from "../../../models/User";
-import { UserApi } from "../../../api";
+import { SetNewPasswordReq } from "../../../dtos/User";
+import { StaffApi } from "../../../api";
 import { toastNotify } from "../../../Helper";
-import { ErrorDetails } from "../../../models/Error";
+import { ErrorDetails } from "../../../dtos/Error";
 import { SubmitButton } from "../../../components/Buttons";
 
 YupPassword(Yup); // extend yup
 
-export default function SetNewPassword(): JSX.Element {
+export default function StaffSetNewPassword(): JSX.Element {
   const params = useParams();
   const email = params.email;
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ export default function SetNewPassword(): JSX.Element {
 
   const submitForm = (values: SetNewPasswordReq) => {
     // console.log(values);
-    UserApi.setNewPassword(email, values)
+    StaffApi.setNewPassword(email, values)
       .then((res) => {
         // console.log("Password changed successfully.");
         toastNotify("New Password set successfully for " + email);

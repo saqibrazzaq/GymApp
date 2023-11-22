@@ -1,6 +1,6 @@
 import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
-import { PlanCategoryRes, PlanCategorySearchReq } from "../../models/Plan";
+import { PlanCategoryRes, PlanCategorySearchReq } from "../../dtos/Plan";
 import { PlanCategoryApi } from "../../api";
 
 interface PlanCategoryDropdownParams {

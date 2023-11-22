@@ -27,9 +27,9 @@ import {
 import React, { useEffect, useState } from "react";
 import { useParams, Link as RouteLink, useNavigate } from "react-router-dom";
 import { toastNotify } from "../../../Helper";
-import { CurrencyRes } from "../../../models/Currency";
+import { CurrencyRes } from "../../../dtos/Currency";
 import { CurrencyApi } from "../../../api";
-import { ErrorDetails } from "../../../models/Error";
+import { ErrorDetails } from "../../../dtos/Error";
 
 const CurrencyDelete = () => {
   let params = useParams();

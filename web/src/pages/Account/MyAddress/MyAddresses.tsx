@@ -24,8 +24,8 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { UserAddressRes } from "../../../models/User";
-import { ErrorDetails } from "../../../models/Error";
+import { UserAddressRes } from "../../../dtos/User";
+import { ErrorDetails } from "../../../dtos/Error";
 import { toastNotify } from "../../../Helper";
 import { BackButton, RegularButton } from "../../../components/Buttons";
 import { DeleteIconButton, EditIconButton } from "../../../components/Icons";

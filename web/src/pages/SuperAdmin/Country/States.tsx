@@ -30,14 +30,14 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import { PagedResponse } from "../../../models/Request";
+import { PagedResponse } from "../../../dtos/Request";
 import { Common } from "../../../utility";
-import { CountryRes, StateRes } from "../../../models/Country";
+import { CountryRes, StateRes } from "../../../dtos/Country";
 import { toastNotify } from "../../../Helper";
 import { BackButton, RegularButton } from "../../../components/Buttons";
 import { DeleteIconButton, EditIconButton } from "../../../components/Icons";
 import { CountryApi, StateApi } from "../../../api";
-import { ErrorDetails } from "../../../models/Error";
+import { ErrorDetails } from "../../../dtos/Error";
 
 const States = () => {
   const params = useParams();
@@ -46,9 +46,7 @@ const States = () => {
   const [searchParams, setSearchParams] = useSearchParams(location.search);
   searchParams.set("pageSize", Common.DEFAULT_PAGE_SIZE.toString());
   searchParams.set("countryId", countryId ?? "");
-  const [searchText, setSearchText] = useState<string>(
-    searchParams.get("searchText") ?? ""
-  );
+  const [searchText, setSearchText] = useState<string>(searchParams.get("searchText") ?? "");
   const [country, setCountry] = useState<CountryRes>();
   const [pagedRes, setPagedRes] = useState<PagedResponse<StateRes>>();
   const navigate = useNavigate();
@@ -106,9 +104,7 @@ const States = () => {
   const displayHeading = () => (
     <Flex>
       <Box>
-        <Heading fontSize={"xl"}>
-          Search States - {country?.countryName}
-        </Heading>
+        <Heading fontSize={"xl"}>Search States - {country?.countryName}</Heading>
       </Box>
       <Spacer />
       <Box>
@@ -163,8 +159,7 @@ const States = () => {
               >
                 Previous
               </Button>
-              Page {pagedRes?.metaData?.currentPage} of{" "}
-              {pagedRes?.metaData?.totalPages}
+              Page {pagedRes?.metaData?.currentPage} of {pagedRes?.metaData?.totalPages}
               <Button
                 isDisabled={!pagedRes?.metaData?.hasNext}
                 variant="link"

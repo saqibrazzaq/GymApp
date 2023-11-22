@@ -6,7 +6,7 @@ import {
   TokenRes,
   UserCreateReq,
   VerifyEmailReq,
-} from "../models/User";
+} from "../dtos/User";
 import { axiosInstance } from "../provider";
 
 export const MyProfileApi = {

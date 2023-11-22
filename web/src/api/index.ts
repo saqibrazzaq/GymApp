@@ -1,5 +1,5 @@
 import { AuthApi } from "./AuthApi";
-import { UserApi } from "./UserApi";
+import { StaffApi } from "./StaffApi";
 import { WeatherApi } from "./WeatherApi";
 import { CountryApi } from "./CountryApi";
 import { StateApi } from "./StateApi";
@@ -9,12 +9,12 @@ import { PlanCategoryApi } from "./PlanCategoryApi";
 import { PlanApi } from "./PlanApi";
 import { UserTypeApi } from "./UserTypeApi";
 import { LeadStatusApi } from "./LeadStatusApi";
-import { UserAddressApi } from "./UserAddressApi";
+import { StaffAddressApi } from "./StaffAddressApi";
 import { MyProfileApi } from "./MyProfileApi";
 
 export {
   AuthApi,
-  UserApi,
+  StaffApi,
   WeatherApi,
   CountryApi,
   StateApi,
@@ -24,6 +24,6 @@ export {
   PlanApi,
   UserTypeApi,
   LeadStatusApi,
-  UserAddressApi,
+  StaffAddressApi as UserAddressApi,
   MyProfileApi,
 };

@@ -20,10 +20,10 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 import { AuthApi } from "../../api/AuthApi";
-import ErrorDetails from "../../models/Error/ErrorDetails";
-import { ErrorAlert, SuccessAlert } from "../../models/Error/AlertBoxes";
+import ErrorDetails from "../../dtos/Error/ErrorDetails";
+import { ErrorAlert, SuccessAlert } from "../../dtos/Error/AlertBoxes";
 import { useNavigate } from "react-router-dom";
-import { ResetPasswordReq } from "../../models/User";
+import { ResetPasswordReq } from "../../dtos/User";
 import { toastNotify } from "../../Helper";
 import { SubmitButton } from "../../components/Buttons";
 YupPassword(Yup); // extend yup
@@ -33,12 +33,7 @@ const ResetPassword = () => {
   const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
-  const data = new ResetPasswordReq(
-    "",
-    "saqibrazzaq@gmail.com",
-    "Saqib123!",
-    "Saqib123!"
-  );
+  const data = new ResetPasswordReq("", "saqibrazzaq@gmail.com", "Saqib123!", "Saqib123!");
 
   const submitForm = (values: ResetPasswordReq) => {
     setSuccess("");
@@ -58,9 +53,7 @@ const ResetPassword = () => {
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Invalid email address"),
+    email: Yup.string().required("Email is required").email("Invalid email address"),
     password: Yup.string()
       .required("Password is required.")
       .min(6, "Minimum 6 characters required.")
@@ -89,19 +82,9 @@ const ResetPassword = () => {
       {({ handleSubmit, errors, touched }) => (
         <form onSubmit={handleSubmit}>
           <Stack spacing={4}>
-            <FormControl
-              isInvalid={
-                !!errors.forgotPasswordToken && touched.forgotPasswordToken
-              }
-            >
-              <FormLabel htmlFor="forgotPasswordToken">
-                Reset password token
-              </FormLabel>
-              <Field
-                as={Textarea}
-                id="forgotPasswordToken"
-                name="forgotPasswordToken"
-              />
+            <FormControl isInvalid={!!errors.forgotPasswordToken && touched.forgotPasswordToken}>
+              <FormLabel htmlFor="forgotPasswordToken">Reset password token</FormLabel>
+              <Field as={Textarea} id="forgotPasswordToken" name="forgotPasswordToken" />
               <FormErrorMessage>{errors.forgotPasswordToken}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!errors.email && touched.email}>
@@ -114,16 +97,9 @@ const ResetPassword = () => {
               <Field as={Input} id="password" name="password" type="password" />
               <FormErrorMessage>{errors.password}</FormErrorMessage>
             </FormControl>
-            <FormControl
-              isInvalid={!!errors.confirmPassword && touched.confirmPassword}
-            >
+            <FormControl isInvalid={!!errors.confirmPassword && touched.confirmPassword}>
               <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
-              <Field
-                as={Input}
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-              />
+              <Field as={Input} id="confirmPassword" name="confirmPassword" type="password" />
               <FormErrorMessage>{errors.confirmPassword}</FormErrorMessage>
             </FormControl>
             <SubmitButton text="Reset Password" />
@@ -137,9 +113,7 @@ const ResetPassword = () => {
     <Box p={4} justifySelf="center">
       <Stack spacing={4} as={Container} maxW={"3xl"}>
         <Heading fontSize={"2xl"}>Reset Password</Heading>
-        <Text fontSize={"lg"}>
-          Please check your email for the reset password token.
-        </Text>
+        <Text fontSize={"lg"}>Please check your email for the reset password token.</Text>
         {error && <ErrorAlert description={error} />}
         {success && <SuccessAlert description={success} />}
         {showForm()}

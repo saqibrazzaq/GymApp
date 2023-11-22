@@ -34,16 +34,16 @@ import {
 import * as Yup from "yup";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
-import { UserApi } from "../../../api/UserApi";
+import { StaffApi } from "../../../api/StaffApi";
 import { Field, Formik } from "formik";
-import { AddRoleReq, RemoveRoleReq, RoleRes, UserRes } from "../../../models/User";
-import ErrorDetails from "../../../models/Error/ErrorDetails";
+import { AddRoleReq, RemoveRoleReq, RoleRes, UserRes } from "../../../dtos/User";
+import ErrorDetails from "../../../dtos/Error/ErrorDetails";
 import { toastNotify } from "../../../Helper";
 import { CancelButton, DeleteButton, BackButton, SubmitButton } from "../../../components/Buttons";
 import { DeleteIconButton } from "../../../components/Icons";
 import { RoleDropdown } from "../../../components/Dropdowns";
 
-const UserRoles = () => {
+const StaffRoles = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState<UserRes>();
   const params = useParams();
@@ -58,7 +58,7 @@ const UserRoles = () => {
   }, []);
 
   const loadUserRoles = () => {
-    UserApi.getUserByName(username ?? "")
+    StaffApi.getUserByName(username ?? "")
       .then((res) => setUserData(res))
       .catch((err) => {
         let errDetails: ErrorDetails = err?.response?.data;
@@ -117,7 +117,7 @@ const UserRoles = () => {
 
   const submitForm = (values: AddRoleReq) => {
     // console.log(values);
-    UserApi.addRoleToUser(values)
+    StaffApi.addRoleToUser(values)
       .then((res) => {
         toastNotify("Role added.");
         navigate(-1);
@@ -177,7 +177,7 @@ const UserRoles = () => {
 
   const removeRole = () => {
     onClose();
-    UserApi.removeRoleFromUser(new RemoveRoleReq(username, selectedRole))
+    StaffApi.removeRoleFromUser(new RemoveRoleReq(username, selectedRole))
       .then((res) => {
         toastNotify(selectedRole + " removed successfully.");
         loadUserRoles();
@@ -224,4 +224,4 @@ const UserRoles = () => {
   );
 };
 
-export default UserRoles;
+export default StaffRoles;

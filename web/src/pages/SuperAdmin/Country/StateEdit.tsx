@@ -17,14 +17,10 @@ import { useState, useEffect } from "react";
 import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
-import {
-  CountryEditReq,
-  CountryRes,
-  StateEditReq,
-} from "../../../models/Country";
+import { CountryEditReq, CountryRes, StateEditReq } from "../../../dtos/Country";
 import { CountryApi, StateApi } from "../../../api";
 import { toastNotify } from "../../../Helper";
-import ErrorDetails from "../../../models/Error/ErrorDetails";
+import ErrorDetails from "../../../dtos/Error/ErrorDetails";
 
 const StateEdit = () => {
   const params = useParams();
@@ -107,32 +103,15 @@ const StateEdit = () => {
                 <FormLabel fontSize={"sm"} htmlFor="stateCode">
                   State Code
                 </FormLabel>
-                <Field
-                  as={Input}
-                  id="countryId"
-                  name="countryId"
-                  type="hidden"
-                />
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="stateCode"
-                  name="stateCode"
-                  type="text"
-                />
+                <Field as={Input} id="countryId" name="countryId" type="hidden" />
+                <Field size={"sm"} as={Input} id="stateCode" name="stateCode" type="text" />
                 <FormErrorMessage>{errors.stateCode}</FormErrorMessage>
               </FormControl>
               <FormControl isInvalid={!!errors.stateName && touched.stateName}>
                 <FormLabel fontSize={"sm"} htmlFor="stateName">
                   State Name
                 </FormLabel>
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="stateName"
-                  name="stateName"
-                  type="text"
-                />
+                <Field size={"sm"} as={Input} id="stateName" name="stateName" type="text" />
                 <FormErrorMessage>{errors.stateName}</FormErrorMessage>
               </FormControl>
               <Stack direction={"row"} spacing={6}>
@@ -150,18 +129,11 @@ const StateEdit = () => {
   const displayHeading = () => (
     <Flex>
       <Box>
-        <Heading fontSize={"lg"}>
-          {updateText + " - " + state?.stateName}
-        </Heading>
+        <Heading fontSize={"lg"}>{updateText + " - " + state?.stateName}</Heading>
       </Box>
       <Spacer />
       <Box>
-        <Button
-          size={"sm"}
-          type="button"
-          colorScheme={"gray"}
-          onClick={() => navigate(-1)}
-        >
+        <Button size={"sm"} type="button" colorScheme={"gray"} onClick={() => navigate(-1)}>
           Back
         </Button>
       </Box>

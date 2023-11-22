@@ -23,32 +23,21 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import {
-  Link as RouteLink,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import { PagedResponse } from "../../../models/Request";
+import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { PagedResponse } from "../../../dtos/Request";
 import { Common } from "../../../utility";
-import { CountryRes } from "../../../models/Country";
+import { CountryRes } from "../../../dtos/Country";
 import { toastNotify } from "../../../Helper";
 import { BackButton, RegularButton } from "../../../components/Buttons";
-import {
-  DeleteIconButton,
-  EditIconButton,
-  StateIconButton,
-} from "../../../components/Icons";
+import { DeleteIconButton, EditIconButton, StateIconButton } from "../../../components/Icons";
 import { CountryApi } from "../../../api";
-import { ErrorDetails } from "../../../models/Error";
+import { ErrorDetails } from "../../../dtos/Error";
 
 const Countries = () => {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(location.search);
   searchParams.set("pageSize", Common.DEFAULT_PAGE_SIZE.toString());
-  const [searchText, setSearchText] = useState<string>(
-    searchParams.get("searchText") ?? ""
-  );
+  const [searchText, setSearchText] = useState<string>(searchParams.get("searchText") ?? "");
   const [pagedRes, setPagedRes] = useState<PagedResponse<CountryRes>>();
   const navigate = useNavigate();
 
@@ -149,8 +138,7 @@ const Countries = () => {
               >
                 Previous
               </Button>
-              Page {pagedRes?.metaData?.currentPage} of{" "}
-              {pagedRes?.metaData?.totalPages}
+              Page {pagedRes?.metaData?.currentPage} of {pagedRes?.metaData?.totalPages}
               <Button
                 isDisabled={!pagedRes?.metaData?.hasNext}
                 variant="link"

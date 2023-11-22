@@ -1,7 +1,7 @@
 import { AuthApi } from "../../api/AuthApi";
 import { useState } from "react";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
-import ErrorDetails from "../../models/Error/ErrorDetails";
+import ErrorDetails from "../../dtos/Error/ErrorDetails";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 import {
@@ -25,7 +25,7 @@ import {
 import { Field, Formik, replace } from "formik";
 import { useDispatch } from "react-redux";
 import { setLoggedInUser } from "../../storage/Redux/userAuthSlice";
-import { AuthenticationRes, LoginReq } from "../../models/User";
+import { AuthenticationRes, LoginReq } from "../../dtos/User";
 import { toastNotify } from "../../Helper";
 
 YupPassword(Yup); // extend yup
@@ -69,9 +69,7 @@ const Login = () => {
 
   // Formik validation schema
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .required("Email is required")
-      .email("Invalid email address"),
+    email: Yup.string().required("Email is required").email("Invalid email address"),
     password: Yup.string()
       .required("Password is required.")
       .min(6, "Minimum 6 characters required.")
@@ -108,12 +106,7 @@ const Login = () => {
               </FormControl>
               <FormControl isInvalid={!!errors.password && touched.password}>
                 <FormLabel htmlFor="password">Password</FormLabel>
-                <Field
-                  as={Input}
-                  id="password"
-                  name="password"
-                  type="password"
-                />
+                <Field as={Input} id="password" name="password" type="password" />
                 <FormErrorMessage>{errors.password}</FormErrorMessage>
               </FormControl>
               <Stack spacing={6}>

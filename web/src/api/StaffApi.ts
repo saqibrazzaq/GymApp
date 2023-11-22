@@ -6,14 +6,14 @@ import {
   StaffEditReq,
   UserCreateReq,
   VerifyEmailReq,
-} from "../models/User";
+} from "../dtos/User";
 
 import { axiosInstance } from "../provider";
 
-export const UserApi = {
+export const StaffApi = {
   search: async function (data: SearchUsersReq) {
     const response = await axiosInstance.request({
-      url: `/Users/search`,
+      url: `/Staff/search`,
       method: "GET",
       params: data,
     });
@@ -22,7 +22,7 @@ export const UserApi = {
   },
   createUser: async function (data: UserCreateReq) {
     const response = await axiosInstance.request({
-      url: "/Users",
+      url: "/Staff",
       method: "POST",
       data: data,
     });
@@ -31,7 +31,7 @@ export const UserApi = {
   },
   updateStaff: async function (email?: string, data?: StaffEditReq) {
     const response = await axiosInstance.request({
-      url: "/Users/" + email,
+      url: "/Staff/" + email,
       method: "PUT",
       data: data,
     });
@@ -40,7 +40,7 @@ export const UserApi = {
   },
   addRoleToUser: async function (data: AddRoleReq) {
     const response = await axiosInstance.request({
-      url: "/Users/add-role",
+      url: "/Staff/add-role",
       method: "POST",
       data: data,
     });
@@ -49,7 +49,7 @@ export const UserApi = {
   },
   removeRoleFromUser: async function (data: RemoveRoleReq) {
     const response = await axiosInstance.request({
-      url: "/Users/remove-role",
+      url: "/Staff/remove-role",
       method: "DELETE",
       data: data,
     });
@@ -58,7 +58,7 @@ export const UserApi = {
   },
   deleteUser: async function (username: string) {
     const response = await axiosInstance.request({
-      url: `/Users/` + username,
+      url: `/Staff/` + username,
       method: "DELETE",
     });
 
@@ -66,7 +66,7 @@ export const UserApi = {
   },
   getUserByName: async function (username?: string) {
     const response = await axiosInstance.request({
-      url: `/Users/get/` + username,
+      url: `/Staff/get/` + username,
       method: "GET",
     });
 
@@ -74,7 +74,7 @@ export const UserApi = {
   },
   getAllRoles: async function () {
     const response = await axiosInstance.request({
-      url: `/Users/roles`,
+      url: `/Staff/roles`,
       method: "GET",
     });
 
@@ -82,7 +82,7 @@ export const UserApi = {
   },
   updateProfilePicture: async function (email?: string, data?: FormData) {
     const response = await axiosInstance.request({
-      url: "/Users/" + email + "/update-profile-picture",
+      url: "/Staff/" + email + "/update-profile-picture",
       method: "POST",
       data: data,
       headers: { "Content-Type": "multipart/form-data" },
@@ -92,7 +92,7 @@ export const UserApi = {
   },
   setNewPassword: async function (email?: string, data?: SetNewPasswordReq) {
     const response = await axiosInstance.request({
-      url: "/Users/" + email + "/set-new-password",
+      url: "/Staff/" + email + "/set-new-password",
       method: "POST",
       data: data,
     });

@@ -1,4 +1,4 @@
-import { CountryEditReq, CountrySearchReq } from "../models/Country";
+import { CountryEditReq, CountrySearchReq } from "../dtos/Country";
 import { axiosInstance } from "../provider";
 
 export const CountryApi = {

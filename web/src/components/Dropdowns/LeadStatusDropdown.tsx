@@ -1,6 +1,6 @@
 import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
-import { LeadStatusRes, LeadStatusSearchReq } from "../../models/User";
+import { LeadStatusRes, LeadStatusSearchReq } from "../../dtos/User";
 import { LeadStatusApi } from "../../api";
 
 interface LeadStatusDropdownParams {

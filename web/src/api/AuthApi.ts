@@ -5,7 +5,7 @@ import {
   SendForgotPasswordEmailReq,
   TokenRes,
   UserCreateReq,
-} from "../models/User";
+} from "../dtos/User";
 import { axiosInstance } from "../provider";
 
 export const AuthApi = {

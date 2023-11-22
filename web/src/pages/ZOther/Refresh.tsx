@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { AuthApi } from "../../api/AuthApi";
-import { TokenRes } from "../../models/User";
+import { TokenRes } from "../../dtos/User";
 
 const Refresh = () => {
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AuthenticationRes } from "../../models/User";
+import { AuthenticationRes } from "../../dtos/User";
 
 export const emptyUserState: AuthenticationRes = {
   userName: "",

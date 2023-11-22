@@ -27,9 +27,9 @@ import {
 import React, { useEffect, useState } from "react";
 import { useParams, Link as RouteLink, useNavigate } from "react-router-dom";
 import { toastNotify } from "../../../Helper";
-import { StateRes } from "../../../models/Country";
+import { StateRes } from "../../../dtos/Country";
 import { StateApi } from "../../../api";
-import { ErrorDetails } from "../../../models/Error";
+import { ErrorDetails } from "../../../dtos/Error";
 
 const StateDelete = () => {
   let params = useParams();
@@ -88,9 +88,7 @@ const StateDelete = () => {
 
   const showStateInfo = () => (
     <div>
-      <Text fontSize="xl">
-        Are you sure you want to delete the following State?
-      </Text>
+      <Text fontSize="xl">Are you sure you want to delete the following State?</Text>
       <TableContainer>
         <Table variant="simple">
           <Tbody>
@@ -118,20 +116,14 @@ const StateDelete = () => {
   );
 
   const showAlertDialog = () => (
-    <AlertDialog
-      isOpen={isOpen}
-      leastDestructiveRef={cancelRef}
-      onClose={onClose}
-    >
+    <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
             Delete State
           </AlertDialogHeader>
 
-          <AlertDialogBody>
-            Are you sure? You can't undo this action afterwards.
-          </AlertDialogBody>
+          <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
 
           <AlertDialogFooter>
             <Link ref={cancelRef} onClick={onClose}>

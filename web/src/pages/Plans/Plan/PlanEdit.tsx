@@ -18,8 +18,8 @@ import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
 import { toastNotify } from "../../../Helper";
-import { ErrorDetails } from "../../../models/Error";
-import { PlanCategoryRes, PlanEditReq, PlanTypeRes } from "../../../models/Plan";
+import { ErrorDetails } from "../../../dtos/Error";
+import { PlanCategoryRes, PlanEditReq, PlanTypeRes } from "../../../dtos/Plan";
 import { PlanApi } from "../../../api";
 import { PlanCategoryDropdown, PlanTypeDropdown } from "../../../components/Dropdowns";
 

@@ -18,9 +18,9 @@ import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
 import { toastNotify } from "../../../Helper";
-import { CurrencyEditReq } from "../../../models/Currency";
+import { CurrencyEditReq } from "../../../dtos/Currency";
 import { CurrencyApi } from "../../../api";
-import { ErrorDetails } from "../../../models/Error";
+import { ErrorDetails } from "../../../dtos/Error";
 
 const CurrencyEdit = () => {
   const params = useParams();

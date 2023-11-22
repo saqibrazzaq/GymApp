@@ -1,4 +1,4 @@
-import { AddressEditReq } from "../models/Address";
+import { AddressEditReq } from "../dtos/Address";
 import { axiosInstance } from "../provider";
 
 export const MyAddressApi = {

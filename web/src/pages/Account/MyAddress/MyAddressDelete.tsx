@@ -27,10 +27,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { useParams, Link as RouteLink, useNavigate } from "react-router-dom";
 import { toastNotify } from "../../../Helper";
-import { UserAddressRes } from "../../../models/User";
+import { UserAddressRes } from "../../../dtos/User";
 import { MyAddressApi } from "../../../api";
-import { AddressRes } from "../../../models/Address";
-import { ErrorDetails } from "../../../models/Error";
+import { AddressRes } from "../../../dtos/Address";
+import { ErrorDetails } from "../../../dtos/Error";
 
 const MyAddressDelete = () => {
   let params = useParams();

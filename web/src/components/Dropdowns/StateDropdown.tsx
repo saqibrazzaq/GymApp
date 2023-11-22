@@ -1,6 +1,6 @@
 import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
-import { StateRes, StateSearchReq } from "../../models/Country";
+import { StateRes, StateSearchReq } from "../../dtos/Country";
 import { StateApi } from "../../api";
 
 interface StateDropdownParams {
@@ -8,10 +8,7 @@ interface StateDropdownParams {
   selectedState?: StateRes;
 }
 
-const StateDropdown = ({
-  handleChange,
-  selectedState,
-}: StateDropdownParams) => {
+const StateDropdown = ({ handleChange, selectedState }: StateDropdownParams) => {
   const [inputValue, setInputValue] = useState("");
   const [items, setItems] = useState<StateRes[]>([]);
   const [isLoading, setIsLoading] = useState(false);

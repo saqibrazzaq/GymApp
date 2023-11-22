@@ -25,9 +25,9 @@ import {
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Roles } from "../../models/User/Roles";
+import { Roles } from "../../dtos/User/Roles";
 import Common from "../../utility/Common";
-import AuthenticationRes from "../../models/User/AuthenticationRes";
+import AuthenticationRes from "../../dtos/User/AuthenticationRes";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../storage/Redux/store";
 import { setLoggedInUser, emptyUserState } from "../../storage/Redux/userAuthSlice";

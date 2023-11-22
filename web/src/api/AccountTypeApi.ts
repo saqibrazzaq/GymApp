@@ -1,4 +1,4 @@
-import { AccountTypeSearchReq } from "../models/Account";
+import { AccountTypeSearchReq } from "../dtos/Account";
 import { axiosInstance } from "../provider";
 
 export const AccountTypeApi = {

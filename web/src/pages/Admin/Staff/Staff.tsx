@@ -28,18 +28,18 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { UserApi } from "../../../api/UserApi";
-import { PagedResponse } from "../../../models/Request";
-import { SearchUsersReq, UserRes } from "../../../models/User";
+import { StaffApi } from "../../../api/StaffApi";
+import { PagedResponse } from "../../../dtos/Request";
+import { SearchUsersReq, UserRes } from "../../../dtos/User";
 import { Common } from "../../../utility";
-import ErrorDetails from "../../../models/Error/ErrorDetails";
+import ErrorDetails from "../../../dtos/Error/ErrorDetails";
 import { toastNotify } from "../../../Helper";
 import { BackButton, RegularButton } from "../../../components/Buttons";
 import { DeleteIconButton, EditIconButton, RoleIconButton } from "../../../components/Icons";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { CiMenuKebab } from "react-icons/ci";
 
-const Users = () => {
+const Staff = () => {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(location.search);
   searchParams.set("pageSize", Common.DEFAULT_PAGE_SIZE.toString());
@@ -71,7 +71,7 @@ const Users = () => {
   };
 
   const searchUsers = () => {
-    UserApi.search(Object.fromEntries(searchParams))
+    StaffApi.search(Object.fromEntries(searchParams))
       .then((res) => {
         //let userRes: PagedResponse<UserDto> = res;
         // console.log(res);
@@ -237,4 +237,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Staff;

@@ -18,13 +18,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import Common from "../../utility/Common";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
-import { ErrorAlert } from "../../models/Error/AlertBoxes";
+import { ErrorAlert } from "../../dtos/Error/AlertBoxes";
 import { useDispatch } from "react-redux";
 import { setLoggedInUser } from "../../storage/Redux/userAuthSlice";
 import { toastNotify } from "../../Helper";
 import { SubmitButton } from "../../components/Buttons";
 import { MyProfileApi } from "../../api";
-import { ErrorDetails } from "../../models/Error";
+import { ErrorDetails } from "../../dtos/Error";
 
 const MyProfilePicture = () => {
   const [error, setError] = useState("");

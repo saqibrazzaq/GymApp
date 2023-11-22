@@ -1,10 +1,10 @@
-import { AddressEditReq } from "../models/Address";
+import { AddressEditReq } from "../dtos/Address";
 import { axiosInstance } from "../provider";
 
-export const UserAddressApi = {
+export const StaffAddressApi = {
   create: async function (email?: string, data?: AddressEditReq) {
     const response = await axiosInstance.request({
-      url: "/UserAddresses/" + email,
+      url: "/StaffAddresses/" + email,
       method: "POST",
       data: data,
     });
@@ -13,7 +13,7 @@ export const UserAddressApi = {
   },
   update: async function (userAddressId?: string, data?: AddressEditReq) {
     const response = await axiosInstance.request({
-      url: "/UserAddresses/" + userAddressId,
+      url: "/StaffAddresses/" + userAddressId,
       method: "PUT",
       data: data,
     });
@@ -22,7 +22,7 @@ export const UserAddressApi = {
   },
   delete: async function (userAddressId?: string) {
     const response = await axiosInstance.request({
-      url: `/UserAddresses/` + userAddressId,
+      url: `/StaffAddresses/` + userAddressId,
       method: "DELETE",
     });
 
@@ -30,7 +30,7 @@ export const UserAddressApi = {
   },
   get: async function (userAddressId?: string) {
     const response = await axiosInstance.request({
-      url: `/UserAddresses/` + userAddressId,
+      url: `/StaffAddresses/` + userAddressId,
       method: "GET",
     });
 
@@ -38,7 +38,7 @@ export const UserAddressApi = {
   },
   getAll: async function (email?: string) {
     const response = await axiosInstance.request({
-      url: "/UserAddresses/" + email + "/all",
+      url: "/StaffAddresses/" + email + "/all",
       method: "GET",
     });
 

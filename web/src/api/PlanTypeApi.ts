@@ -1,4 +1,4 @@
-import { PlanTypeSearchReq } from "../models/Plan";
+import { PlanTypeSearchReq } from "../dtos/Plan";
 import { axiosInstance } from "../provider";
 
 export const PlanTypeApi = {

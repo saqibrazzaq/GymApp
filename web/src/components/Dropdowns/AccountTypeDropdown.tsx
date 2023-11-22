@@ -1,6 +1,6 @@
 import { Select } from "chakra-react-select";
 import React, { useEffect, useState } from "react";
-import { AccountTypeRes, AccountTypeSearchReq } from "../../models/Account";
+import { AccountTypeRes, AccountTypeSearchReq } from "../../dtos/Account";
 import { AccountTypeApi } from "../../api/AccountTypeApi";
 
 interface AccountTypeDropdownParams {

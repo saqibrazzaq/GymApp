@@ -17,10 +17,10 @@ import { useState, useEffect } from "react";
 import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
-import { CountryEditReq, CountryRes } from "../../../models/Country";
+import { CountryEditReq, CountryRes } from "../../../dtos/Country";
 import { CountryApi } from "../../../api";
 import { toastNotify } from "../../../Helper";
-import ErrorDetails from "../../../models/Error/ErrorDetails";
+import ErrorDetails from "../../../dtos/Error/ErrorDetails";
 
 const CountryEdit = () => {
   const params = useParams();
@@ -98,34 +98,18 @@ const CountryEdit = () => {
         {({ handleSubmit, errors, touched, setFieldValue }) => (
           <form onSubmit={handleSubmit}>
             <Stack spacing={4} as={Container} maxW={"3xl"}>
-              <FormControl
-                isInvalid={!!errors.countryCode && touched.countryCode}
-              >
+              <FormControl isInvalid={!!errors.countryCode && touched.countryCode}>
                 <FormLabel fontSize={"sm"} htmlFor="countryCode">
                   Country Code
                 </FormLabel>
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="countryCode"
-                  name="countryCode"
-                  type="text"
-                />
+                <Field size={"sm"} as={Input} id="countryCode" name="countryCode" type="text" />
                 <FormErrorMessage>{errors.countryCode}</FormErrorMessage>
               </FormControl>
-              <FormControl
-                isInvalid={!!errors.countryName && touched.countryName}
-              >
+              <FormControl isInvalid={!!errors.countryName && touched.countryName}>
                 <FormLabel fontSize={"sm"} htmlFor="countryName">
                   Country Name
                 </FormLabel>
-                <Field
-                  size={"sm"}
-                  as={Input}
-                  id="countryName"
-                  name="countryName"
-                  type="text"
-                />
+                <Field size={"sm"} as={Input} id="countryName" name="countryName" type="text" />
                 <FormErrorMessage>{errors.countryName}</FormErrorMessage>
               </FormControl>
               <Stack direction={"row"} spacing={6}>
@@ -143,18 +127,11 @@ const CountryEdit = () => {
   const displayHeading = () => (
     <Flex>
       <Box>
-        <Heading fontSize={"lg"}>
-          {updateText + " - " + country?.countryName}
-        </Heading>
+        <Heading fontSize={"lg"}>{updateText + " - " + country?.countryName}</Heading>
       </Box>
       <Spacer />
       <Box>
-        <Button
-          size={"sm"}
-          type="button"
-          colorScheme={"gray"}
-          onClick={() => navigate(-1)}
-        >
+        <Button size={"sm"} type="button" colorScheme={"gray"} onClick={() => navigate(-1)}>
           Back
         </Button>
       </Box>

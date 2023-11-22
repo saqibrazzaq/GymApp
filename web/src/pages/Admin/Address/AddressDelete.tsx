@@ -27,9 +27,9 @@ import {
 import React, { useEffect, useState } from "react";
 import { useParams, Link as RouteLink, useNavigate } from "react-router-dom";
 import { toastNotify } from "../../../Helper";
-import { AddressRes } from "../../../models/Address";
+import { AddressRes } from "../../../dtos/Address";
 import { UserAddressApi } from "../../../api";
-import { ErrorDetails } from "../../../models/Error";
+import { ErrorDetails } from "../../../dtos/Error";
 
 const AddressDelete = () => {
   let params = useParams();
