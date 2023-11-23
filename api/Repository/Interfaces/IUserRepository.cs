@@ -6,7 +6,8 @@ namespace api.Repository.Interfaces
 {
     public interface IUserRepository : IRepositoryBase<AppIdentityUser>
     {
-        PagedList<AppIdentityUser> SearchUsers(
+        PagedList<AppIdentityUser> SearchMembers(SearchUsersReq userParameters, bool trackChanges);
+        PagedList<AppIdentityUser> SearchStaff(
             SearchUsersReq dto, bool trackChanges);
     }
 }

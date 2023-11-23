@@ -19,30 +19,28 @@ import YupPassword from "yup-password";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Field, Formik } from "formik";
-import { StaffApi } from "../../../api/StaffApi";
 import { toastNotify } from "../../../Helper";
 import { SubmitButton } from "../../../components/Buttons";
 import { ErrorDetails } from "../../../dtos/Error";
 import { UserCreateReq } from "../../../dtos/User";
+import { MemberApi } from "../../../api";
 
 YupPassword(Yup); // extend yup
 
-const StaffCreate = () => {
+const MemberCreate = () => {
   const params = useParams();
   const username = params.username;
-  const updateText = username ? "Update User" : "Create User";
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const updateText = username ? "Update Member" : "Create Member";
   const navigate = useNavigate();
   const [user, setUser] = useState<UserCreateReq>(new UserCreateReq());
 
   useEffect(() => {
-    loadUser();
+    loadMember();
   }, []);
 
-  const loadUser = () => {
+  const loadMember = () => {
     if (!username) return;
-    StaffApi.getUserByName(username)
+    MemberApi.getUserByName(username)
       .then((res) => {
         // console.log(res);
         setUser(res);
@@ -79,20 +77,16 @@ const StaffCreate = () => {
   });
 
   const submitForm = (values: UserCreateReq) => {
-    setError("");
-    setSuccess("");
     // console.log(values);
-    StaffApi.createUser(values)
+    MemberApi.createMember(values)
       .then((res) => {
         // console.log("New Admin user created successfully.");
-        setSuccess("User created successfully.");
-        toastNotify("User created successfully");
+        toastNotify("Member created successfully");
         navigate(-1);
       })
       .catch((err) => {
         let errDetails: ErrorDetails = err?.response?.data;
         // console.log("Error: " + err?.response?.data?.Message);
-        setError(errDetails?.Message || "User service failed.");
         toastNotify(errDetails?.Message || "User service failed.", "error");
       });
   };
@@ -111,20 +105,6 @@ const StaffCreate = () => {
           <form onSubmit={handleSubmit}>
             <Stack spacing={4} as={Container} maxW={"3xl"}>
               <Heading fontSize={"xl"}>{updateText}</Heading>
-              {error && (
-                <Alert status="error">
-                  <AlertIcon />
-                  <AlertTitle>Create user failed</AlertTitle>
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
-              {success && (
-                <Alert status="success">
-                  <AlertIcon />
-                  <AlertTitle>User created</AlertTitle>
-                  <AlertDescription>{success}</AlertDescription>
-                </Alert>
-              )}
               <FormControl isInvalid={!!errors.email && touched.email}>
                 <FormLabel htmlFor="email">Email address</FormLabel>
                 <Field as={Input} id="email" name="email" type="email" />
@@ -156,4 +136,4 @@ const StaffCreate = () => {
   );
 };
 
-export default StaffCreate;
+export default MemberCreate;

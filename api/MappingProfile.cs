@@ -17,7 +17,7 @@ namespace api
             CreateMap<AppIdentityUser, AuthenticationRes>();
             CreateMap<AppIdentityUser, UserRes>();
             CreateMap<StaffCreateReq, AppIdentityUser>();
-            CreateMap<StaffEditReq, AppIdentityUser>();
+            CreateMap<UserEditReq, AppIdentityUser>();
 
             // Account
             CreateMap<Account, AccountRes>();

@@ -5,15 +5,9 @@ namespace api.Services.Interfaces
 {
     public interface IUserService
     {
-        Task CreateStaff(StaffCreateReq dto);
         Task Delete(DeleteUserReq dto);
-        Task<ApiOkPagedResponse<IList<UserRes>, MetaData>>
-            SearchUsers(SearchUsersReq dto, bool trackChanges);
         Task<UserRes> FindByUsername(string username);
-        Task AddRoleToUser(AddRoleReq dto);
-        Task RemoveRoleFromUser(RemoveRoleReq dto);
-        IList<RoleRes> GetAllRoles();
-        Task UpdateStaff(string email, StaffEditReq dto);
+        Task UpdateUser(string email, UserEditReq dto);
         Task UpdateProfilePicture(string email, IFormFile formFile);
         Task SetNewPassword(string email, SetNewPasswordReq dto);
     }

@@ -28,18 +28,16 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { StaffApi } from "../../../api/StaffApi";
 import { PagedResponse } from "../../../dtos/Request";
 import { SearchUsersReq, UserRes } from "../../../dtos/User";
 import { Common } from "../../../utility";
-import ErrorDetails from "../../../dtos/Error/ErrorDetails";
 import { toastNotify } from "../../../Helper";
 import { BackButton, RegularButton } from "../../../components/Buttons";
-import { DeleteIconButton, EditIconButton, RoleIconButton } from "../../../components/Icons";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import { CiMenuKebab } from "react-icons/ci";
+import { MemberApi } from "../../../api";
+import { ErrorDetails } from "../../../dtos/Error";
 
-const Staff = () => {
+const Members = () => {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(location.search);
   searchParams.set("pageSize", Common.DEFAULT_PAGE_SIZE.toString());
@@ -48,7 +46,7 @@ const Staff = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    searchStaff();
+    searchMembers();
   }, [searchParams]);
 
   const updateSearchParams = (key: string, value: string) => {
@@ -70,8 +68,8 @@ const Staff = () => {
     }
   };
 
-  const searchStaff = () => {
-    StaffApi.search(Object.fromEntries(searchParams))
+  const searchMembers = () => {
+    MemberApi.search(Object.fromEntries(searchParams))
       .then((res) => {
         //let userRes: PagedResponse<UserDto> = res;
         // console.log(res);
@@ -86,12 +84,12 @@ const Staff = () => {
   const displayHeading = () => (
     <Flex>
       <Box>
-        <Heading fontSize={"xl"}>Search Users</Heading>
+        <Heading fontSize={"xl"}>Search Members</Heading>
       </Box>
       <Spacer />
       <Box>
         <Link as={RouteLink} to={"create"}>
-          <RegularButton text="Create Staff" />
+          <RegularButton text="Create Member" />
         </Link>
         <Link ml={2} onClick={() => navigate(-1)}>
           <BackButton />
@@ -100,7 +98,7 @@ const Staff = () => {
     </Flex>
   );
 
-  const displayStaff = () => (
+  const displayMembers = () => (
     <TableContainer>
       <Table variant="simple" size={"sm"}>
         <Thead>
@@ -108,7 +106,6 @@ const Staff = () => {
             <Th></Th>
             <Th>Full Name</Th>
             <Th>Email</Th>
-            <Th>Roles</Th>
             <Th></Th>
           </Tr>
         </Thead>
@@ -121,11 +118,6 @@ const Staff = () => {
                 </Td>
                 <Td>{item.fullName}</Td>
                 <Td>{item.email}</Td>
-                <Td>
-                  {item.roles?.map((role, index) => (
-                    <Text key={index}>{role + ", "}</Text>
-                  ))}
-                </Td>
                 <Td>
                   <Menu>
                     <MenuButton
@@ -140,9 +132,6 @@ const Staff = () => {
                     <MenuList>
                       <MenuItem as={RouteLink} to={item.email + "/edit"}>
                         Edit
-                      </MenuItem>
-                      <MenuItem as={RouteLink} to={item.email + "/roles"}>
-                        Roles
                       </MenuItem>
                       <MenuItem as={RouteLink} to={"../" + item.email + "/addresses"}>
                         Addresses
@@ -231,10 +220,10 @@ const Staff = () => {
       <Stack spacing={4} as={Container} maxW={"3xl"}>
         {displayHeading()}
         {displaySearchBar()}
-        {displayStaff()}
+        {displayMembers()}
       </Stack>
     </Box>
   );
 };
 
-export default Staff;
+export default Members;

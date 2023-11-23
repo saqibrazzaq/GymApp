@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace api.Dtos.User
 {
-    public class StaffEditReq
+    public class UserEditReq
     {
         public string FullName { get; set; } = "";
     }

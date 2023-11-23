@@ -88,7 +88,7 @@ namespace api.Services.Implementations
             return userDto;
         }
 
-        private async Task CheckExistingEmail(string email)
+        protected async Task CheckExistingEmail(string email)
         {
             // Email and username must not already exist
             var userEntity = await _userManager.FindByEmailAsync(email);
@@ -96,41 +96,14 @@ namespace api.Services.Implementations
                 throw new BadRequestException($"Email {email} is already registered. Use Forgot password if you own this account.");
         }
 
-        public async Task CreateStaff(StaffCreateReq dto)
-        {
-            await CheckExistingEmail(dto.Email);
-            var currentUserEntity = await _userManager.FindByEmailAsync(UserName);
-
-            // Create new user
-            var userEntity = new AppIdentityUser
-            {
-                UserName = dto.Email,
-                Email = dto.Email,
-                AccountId = currentUserEntity.AccountId,
-                FullName = dto.FullName,
-                UserTypeId = (int)UserTypeNames.Staff,
-            };
-            var resultUser = await _userManager.CreateAsync(userEntity, dto.Password);
-
-            if (resultUser.Succeeded == false)
-                throw new BadRequestException(AuthUtil.GetFirstErrorFromIdentityResult(
-                    resultUser, nameof(CreateStaff)));
-
-            // Assign default role
-            var roleResult = await _userManager.AddToRoleAsync(userEntity, Constants.ManagerRole);
-            if (roleResult.Succeeded == false)
-                throw new BadRequestException(AuthUtil.GetFirstErrorFromIdentityResult(
-                    roleResult, nameof(CreateStaff)));
-
-            await _verificationEmailSenerService.SendEmail(userEntity.Email);
-        }
-
-        public async Task UpdateStaff(string email, StaffEditReq dto)
+        public async Task UpdateUser(string email, UserEditReq dto)
         {
             var currentUserEntity = await _userManager.FindByEmailAsync(UserName);
             var user = await _userManager.FindByEmailAsync(email);
 
-            if (user == null) throw new Exception("No staff user found with email " + email);
+            if (user == null) throw new Exception("No user found with email " + email);
+            if (currentUserEntity.AccountId != user.AccountId)
+                throw new Exception("No user found in this account " + email);
 
             _mapper.Map(dto, user);
             var result = await _userManager.UpdateAsync(user);
@@ -140,40 +113,7 @@ namespace api.Services.Implementations
             }
         }
 
-        
-
-        public async Task<ApiOkPagedResponse<IList<UserRes>, MetaData>> SearchUsers(
-            SearchUsersReq dto, bool trackChanges)
-        {
-            var userEntity = await _userManager.FindByNameAsync(UserName ?? "");
-            dto.AccountId = userEntity?.AccountId ?? 0;
-
-            var usersWithMetadata = _repository.UserRepository.SearchUsers(
-                dto, trackChanges);
-            var usersDto = _mapper.Map<IList<UserRes>>(usersWithMetadata);
-            for (int i = 0; i < usersDto.Count; i++)
-            {
-                AppIdentityUser user = await _userManager.FindByEmailAsync(usersDto[i].Email);
-                usersDto[i].Roles = await _userManager.GetRolesAsync(user);
-            }
-            return new ApiOkPagedResponse<IList<UserRes>, MetaData>(
-                usersDto, usersWithMetadata.MetaData);
-        }
-
-        public async Task AddRoleToUser(AddRoleReq dto)
-        {
-            if (canAddRole(dto.RoleName) == false)
-                throw new Exception("Cannot add Role " + dto.RoleName + " to user.");
-            var currentUserEntity = await _userManager.FindByNameAsync(UserName);
-            var userEntity = await _userManager.FindByNameAsync(dto.UserName);
-            ValidateUserSameAccount(currentUserEntity, userEntity);
-
-            var result = await _userManager.AddToRoleAsync(userEntity, dto.RoleName);
-            if (result.Succeeded == false)
-                throw new Exception(result.Errors.FirstOrDefault().Description);
-        }
-
-        private void ValidateUserSameAccount(AppIdentityUser? currentUserEntity, AppIdentityUser? userEntity)
+        protected void ValidateUserSameAccount(AppIdentityUser? currentUserEntity, AppIdentityUser? userEntity)
         {
             if (userEntity == null)
                 throw new Exception("User not found");
@@ -181,46 +121,6 @@ namespace api.Services.Implementations
                 throw new Exception("User not found");
             if (userEntity.AccountId != currentUserEntity.AccountId)
                 throw new Exception("User does not belong to this account.");
-        }
-
-        private bool canAddRole(string? roleName)
-        {
-            var roles = Constants.AssignableRoles.Split(',');
-            var role = roles.Where(x => x ==  roleName).FirstOrDefault();
-            if (role != null)
-                return true;
-            else
-                return false;
-        }
-
-        private bool canRemoveRole(string? roleName)
-        {
-            var roles = Constants.AssignableRoles.Split(',');
-            var role = roles.Where(x => x == roleName).FirstOrDefault();
-            if (role != null)
-                return true;
-            else
-                return false;
-        }
-
-        public IList<RoleRes> GetAllRoles()
-        {
-            var roles = Constants.AssignableRoles.Split(',');
-            var list = roles.Select(x => new RoleRes { RoleName = x }).ToList();
-            return list;
-        }
-
-        public async Task RemoveRoleFromUser(RemoveRoleReq dto)
-        {
-            if (canRemoveRole(dto.RoleName) == false)
-                throw new Exception("Cannot remove Role " + dto.RoleName + " from user.");
-            var currentUserEntity = await _userManager.FindByNameAsync(UserName);
-            var userEntity = await _userManager.FindByNameAsync(dto.UserName);
-            ValidateUserSameAccount(currentUserEntity, userEntity);
-            
-            var result = await _userManager.RemoveFromRoleAsync(userEntity, dto.RoleName);
-            if (result.Succeeded == false)
-                throw new Exception(result.Errors.FirstOrDefault().Description);
         }
 
         public async Task UpdateProfilePicture(string email, IFormFile file)
@@ -274,7 +174,7 @@ namespace api.Services.Implementations
             }
         }
 
-        private string? UserName
+        protected string? UserName
         {
             get
             {

@@ -21,6 +21,7 @@ import { BusinessLogo, SettingsHome } from "../../pages/Admin/Settings";
 import { PlanCategories, PlanCategoryDelete, PlanCategoryEdit } from "../../pages/Plans/Category";
 import { PlanDelete, PlanEdit, Plans } from "../../pages/Plans/Plan";
 import { AddressDelete, AddressEdit, Addresses } from "../../pages/Admin/Address";
+import { MemberCreate, MemberEdit, Members } from "../../pages/Admin/Member";
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, href: "/admin" },
@@ -83,10 +84,13 @@ const AdminLayout = () => {
         <Routes>
           <Route path="/" element={<AdminHome />} />
           <Route path="/staff" element={<Staff />} />
-          <Route path="/staff/edit" element={<StaffCreate />} />
+          <Route path="/staff/create" element={<StaffCreate />} />
           <Route path="/staff/:username/edit" element={<StaffEdit />} />
           <Route path="/staff/:username/delete" element={<StaffDelete />} />
           <Route path="/staff/:username/roles" element={<StaffRoles />} />
+          <Route path="/members" element={<Members />} />
+          <Route path="/members/create" element={<MemberCreate />} />
+          <Route path="/members/:username/edit" element={<MemberEdit />} />
           <Route path="/settings" element={<SettingsHome />} />
           <Route path="/settings/logo" element={<BusinessLogo />} />
           <Route path="/plans/categories" element={<PlanCategories />} />

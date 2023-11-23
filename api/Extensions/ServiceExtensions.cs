@@ -74,6 +74,8 @@ namespace api.Extensions
             services.AddScoped<IVerificationEmailSenderService, VerificationEmailSenderService>();
             services.AddScoped<IMyProfileService, MyProfileService>();
 
+            services.AddScoped<IStaffService, StaffService>();
+            services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMyAddressService, MyAddressService>();
             services.AddScoped<ICountryService, CountryService>();

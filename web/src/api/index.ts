@@ -9,8 +9,9 @@ import { PlanCategoryApi } from "./PlanCategoryApi";
 import { PlanApi } from "./PlanApi";
 import { UserTypeApi } from "./UserTypeApi";
 import { LeadStatusApi } from "./LeadStatusApi";
-import { StaffAddressApi } from "./StaffAddressApi";
+import { UserAddressApi } from "./UserAddressApi";
 import { MyProfileApi } from "./MyProfileApi";
+import { MemberApi } from "./MemberApi";
 
 export {
   AuthApi,
@@ -24,6 +25,7 @@ export {
   PlanApi,
   UserTypeApi,
   LeadStatusApi,
-  StaffAddressApi as UserAddressApi,
+  UserAddressApi,
   MyProfileApi,
+  MemberApi,
 };
