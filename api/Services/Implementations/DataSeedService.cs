@@ -11,13 +11,15 @@ namespace api.Services.Implementations
         private readonly IUserTypeDataSeedService _userTypeDataSeedService;
         private readonly ILeadStatusDataSeedService _leadStatusDataSeedService;
         private readonly IGenderSeedService _genderSeedService;
+        private readonly IDiscountTypeDataSeedService _discountTypeDataSeedService;
         public DataSeedService(IAccountTypeDataSeedService accountTypeSeedService,
             IRoleDataSeedService roleDataSeedService,
             IAccountDataSeedService accountDataSeedService,
             IPlanTypeDataSeedService planTypeDataSeedService,
             IUserTypeDataSeedService userTypeDataSeedService,
             ILeadStatusDataSeedService leadStatusDataSeedService,
-            IGenderSeedService genderSeedService)
+            IGenderSeedService genderSeedService,
+            IDiscountTypeDataSeedService discountTypeDataSeedService)
         {
             _accountTypeSeedService = accountTypeSeedService;
             _roleDataSeedService = roleDataSeedService;
@@ -26,6 +28,7 @@ namespace api.Services.Implementations
             _userTypeDataSeedService = userTypeDataSeedService;
             _leadStatusDataSeedService = leadStatusDataSeedService;
             _genderSeedService = genderSeedService;
+            _discountTypeDataSeedService = discountTypeDataSeedService;
         }
 
         public async Task SeedData()
@@ -45,6 +48,8 @@ namespace api.Services.Implementations
             _leadStatusDataSeedService.SeedData();
             // Create default gender e.g. male, female
             _genderSeedService.SeedData();
+            // Create default discount types e.g. fixed, percentage
+            _discountTypeDataSeedService.SeedData();
         }
     }
 }

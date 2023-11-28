@@ -2,6 +2,7 @@
 using api.Dtos.Address;
 using api.Dtos.Country;
 using api.Dtos.Currency;
+using api.Dtos.Invoice;
 using api.Dtos.Plan;
 using api.Dtos.PlanCategory;
 using api.Dtos.User;
@@ -64,6 +65,9 @@ namespace api
 
             // LeadStatus
             CreateMap<LeadStatus, LeadStatusRes>();
+
+            // DiscountType
+            CreateMap<DiscountType, DiscountTypeRes>();
         }
     }
 }

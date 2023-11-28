@@ -16,6 +16,7 @@
         IUserTypeRepository UserTypeRepository { get; }
         ILeadStatusRepository LeadStatusRepository { get; }
         IGenderRepository GenderRepository { get; }
+        IDiscountTypeRepository DiscountTypeRepository { get; }
         void Save();
     }
 }

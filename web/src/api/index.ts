@@ -13,6 +13,7 @@ import { UserAddressApi } from "./UserAddressApi";
 import { MyProfileApi } from "./MyProfileApi";
 import { MemberApi } from "./MemberApi";
 import { GenderApi } from "./GenderApi";
+import { DiscountTypeApi } from "./DiscountTypeApi";
 
 export {
   AuthApi,
@@ -30,4 +31,5 @@ export {
   MyProfileApi,
   MemberApi,
   GenderApi,
+  DiscountTypeApi,
 };
