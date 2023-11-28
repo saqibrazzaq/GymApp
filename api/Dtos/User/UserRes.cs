@@ -7,5 +7,7 @@
         public bool EmailConfirmed { get; set; }
         public string? ProfilePictureUrl { get; set; }
         public IEnumerable<string>? Roles { get; set; }
+        public string? GenderId { get; set; }
+        public GenderRes? Gender { get; set; }
     }
 }

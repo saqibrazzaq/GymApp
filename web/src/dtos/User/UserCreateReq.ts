@@ -3,4 +3,5 @@ export default class UserCreateReq {
   password?: string = "";
   confirmPassword?: string = "";
   fullName?: string = "";
+  genderId?: string = "";
 }

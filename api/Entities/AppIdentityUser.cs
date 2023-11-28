@@ -23,5 +23,8 @@ namespace api.Entities
         public int? LeadStatusId { get; set; }
         [ForeignKey(nameof(LeadStatusId))]
         public LeadStatus? LeadStatus { get; set; }
+        public int? GenderId { get; set; }
+        [ForeignKey(nameof(GenderId))]
+        public Gender? Gender { get; set; }
     }
 }

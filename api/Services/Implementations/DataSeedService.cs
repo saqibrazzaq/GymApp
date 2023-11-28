@@ -10,13 +10,14 @@ namespace api.Services.Implementations
         private readonly IPlanTypeDataSeedService _planTypeDataSeedService;
         private readonly IUserTypeDataSeedService _userTypeDataSeedService;
         private readonly ILeadStatusDataSeedService _leadStatusDataSeedService;
-
+        private readonly IGenderSeedService _genderSeedService;
         public DataSeedService(IAccountTypeDataSeedService accountTypeSeedService,
             IRoleDataSeedService roleDataSeedService,
             IAccountDataSeedService accountDataSeedService,
             IPlanTypeDataSeedService planTypeDataSeedService,
             IUserTypeDataSeedService userTypeDataSeedService,
-            ILeadStatusDataSeedService leadStatusDataSeedService)
+            ILeadStatusDataSeedService leadStatusDataSeedService,
+            IGenderSeedService genderSeedService)
         {
             _accountTypeSeedService = accountTypeSeedService;
             _roleDataSeedService = roleDataSeedService;
@@ -24,6 +25,7 @@ namespace api.Services.Implementations
             _planTypeDataSeedService = planTypeDataSeedService;
             _userTypeDataSeedService = userTypeDataSeedService;
             _leadStatusDataSeedService = leadStatusDataSeedService;
+            _genderSeedService = genderSeedService;
         }
 
         public async Task SeedData()
@@ -41,6 +43,8 @@ namespace api.Services.Implementations
             _userTypeDataSeedService.SeedData();
             // Create default lead status e.g. New, Attempted, Converted
             _leadStatusDataSeedService.SeedData();
+            // Create default gender e.g. male, female
+            _genderSeedService.SeedData();
         }
     }
 }

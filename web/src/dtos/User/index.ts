@@ -20,6 +20,8 @@ import UserTypeSearchReq from "./UserTypeSearchReq";
 import LeadStatusSearchReq from "./LeadStatusSearchReq";
 import StaffEditReq from "./StaffEditReq";
 import SetNewPasswordReq from "./SetNewPasswordReq";
+import GenderRes from "./GenderRes";
+import GenderSearchReq from "./GenderSearchReq";
 
 export {
   AddRoleReq,
@@ -42,5 +44,7 @@ export {
   LeadStatusSearchReq,
   StaffEditReq,
   SetNewPasswordReq,
+  GenderRes,
+  GenderSearchReq,
 };
 export type { RoleRes, TokenRes };

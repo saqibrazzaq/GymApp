@@ -11,12 +11,10 @@ namespace api.Repository.Implementations
         public static IQueryable<AppIdentityUser> SearchStaff(this IQueryable<AppIdentityUser> items,
             SearchUsersReq searchParams)
         {
-            var itemsToReturn = items;
-
-            // Must match account id
-            itemsToReturn = itemsToReturn.Where(
-                x => x.AccountId == searchParams.AccountId &&
-                x.UserTypeId == (int)UserTypeNames.Staff);
+            var itemsToReturn = items
+                .Include(x => x.Gender)
+                .Where(x => x.AccountId == searchParams.AccountId &&
+                    x.UserTypeId == (int)UserTypeNames.Staff);
 
             if (string.IsNullOrWhiteSpace(searchParams.SearchText) == false)
             {
@@ -46,12 +44,10 @@ namespace api.Repository.Implementations
         public static IQueryable<AppIdentityUser> SearchMembers(this IQueryable<AppIdentityUser> items,
             SearchUsersReq searchParams)
         {
-            var itemsToReturn = items;
-
-            // Must match account id
-            itemsToReturn = itemsToReturn.Where(
-                x => x.AccountId == searchParams.AccountId &&
-                x.UserTypeId == (int)UserTypeNames.Member);
+            var itemsToReturn = items
+                .Include(x => x.Gender)
+                .Where(x => x.AccountId == searchParams.AccountId &&
+                    x.UserTypeId == (int)UserTypeNames.Member);
 
             if (string.IsNullOrWhiteSpace(searchParams.SearchText) == false)
             {

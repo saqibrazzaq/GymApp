@@ -20,6 +20,7 @@ namespace api.Repository.Implementations
         private readonly Lazy<IPlanRepository> _planRepository;
         private readonly Lazy<IUserTypeRepository> _userTypeRepository;
         private readonly Lazy<ILeadStatusRepository> _leadStatusRepository;
+        private readonly Lazy<IGenderRepository> _genderRepository;
         public RepositoryManager(AppDbContext context)
         {
             _context = context;
@@ -38,6 +39,7 @@ namespace api.Repository.Implementations
             _planRepository = new Lazy<IPlanRepository>(() => new PlanRepository(context));
             _userTypeRepository = new Lazy<IUserTypeRepository>(() => new UserTypeRepository(context));
             _leadStatusRepository = new Lazy<ILeadStatusRepository>(() => new LeadStatusRepository(context));
+            _genderRepository = new Lazy<IGenderRepository>(() => new GenderRepository(context));
         }
 
         public IUserRepository UserRepository => _userRepository.Value;
@@ -53,6 +55,7 @@ namespace api.Repository.Implementations
         public IPlanRepository PlanRepository => _planRepository.Value;
         public IUserTypeRepository UserTypeRepository => _userTypeRepository.Value;
         public ILeadStatusRepository LeadStatusRepository => _leadStatusRepository.Value;
+        public IGenderRepository GenderRepository => _genderRepository.Value;
 
         public void Save()
         {

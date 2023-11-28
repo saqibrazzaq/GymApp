@@ -26,5 +26,6 @@ namespace api.Data
         public DbSet<Plan>? Plans { get; set; }
         public DbSet<UserType>? UserTypes { get; set; }
         public DbSet<LeadStatus>? LeadStatuses { get; set; }
+        public DbSet<Gender>? Genders { get; set; }
     }
 }

@@ -83,7 +83,14 @@ namespace api.Services.Implementations
             var currentUserEntity = await _userManager.FindByNameAsync(UserName);
             ValidateUserSameAccount(currentUserEntity, userEntity);
 
+            var genderEntity = _repository.GenderRepository.FindByCondition(
+                x => x.GenderId == userEntity.GenderId,
+                false)
+                .FirstOrDefault();
+            var genderDto = _mapper.Map<GenderRes>(genderEntity);
+
             var userDto = _mapper.Map<UserRes>(userEntity);
+            userDto.Gender = genderDto;
             userDto.Roles = await _userManager.GetRolesAsync(userEntity);
             return userDto;
         }

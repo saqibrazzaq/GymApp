@@ -22,8 +22,9 @@ import { Field, Formik } from "formik";
 import { toastNotify } from "../../../Helper";
 import { SubmitButton } from "../../../components/Buttons";
 import { ErrorDetails } from "../../../dtos/Error";
-import { UserCreateReq } from "../../../dtos/User";
+import { GenderRes, UserCreateReq } from "../../../dtos/User";
 import { MemberApi } from "../../../api";
+import { GenderDropdown } from "../../../components/Dropdowns";
 
 YupPassword(Yup); // extend yup
 
@@ -33,6 +34,7 @@ const MemberEdit = () => {
   const updateText = username ? "Update Member" : "Create Member";
   const navigate = useNavigate();
   const [user, setUser] = useState<UserCreateReq>(new UserCreateReq());
+  const [gender, setGender] = useState<GenderRes>();
 
   useEffect(() => {
     loadMember();
@@ -44,6 +46,7 @@ const MemberEdit = () => {
       .then((res) => {
         // console.log(res);
         setUser(res);
+        setGender(res.gender);
       })
       .catch((err) => {
         let errDetails: ErrorDetails = err?.response?.data;
@@ -54,10 +57,16 @@ const MemberEdit = () => {
   // Formik validation schema
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required."),
+    genderId: Yup.string(),
   });
 
+  const convertEmptyStringToNull = (obj: UserCreateReq) => {
+    obj.genderId = obj.genderId == "" ? undefined : obj.genderId;
+    return obj;
+  };
+
   const submitForm = (values: UserCreateReq) => {
-    // console.log(values);
+    values = convertEmptyStringToNull(values);
     MemberApi.updateMember(username, values)
       .then((res) => {
         // console.log("New Admin user created successfully.");
@@ -81,7 +90,7 @@ const MemberEdit = () => {
         validationSchema={validationSchema}
         enableReinitialize={true}
       >
-        {({ handleSubmit, errors, touched }) => (
+        {({ handleSubmit, errors, touched, setFieldValue }) => (
           <form onSubmit={handleSubmit}>
             <Stack spacing={4} as={Container} maxW={"3xl"}>
               <Heading fontSize={"xl"}>{updateText}</Heading>
@@ -89,6 +98,19 @@ const MemberEdit = () => {
                 <FormLabel htmlFor="fullName">Full Name</FormLabel>
                 <Field as={Input} id="fullName" name="fullName" type="text" />
                 <FormErrorMessage>{errors.fullName}</FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={!!errors.genderId && touched.genderId}>
+                <FormLabel htmlFor="genderId">Gender</FormLabel>
+                <Field as={Input} id="genderId" name="genderId" type="hidden" />
+                <FormErrorMessage>{errors.genderId}</FormErrorMessage>
+
+                <GenderDropdown
+                  selectedGender={gender}
+                  handleChange={(newValue?: GenderRes) => {
+                    setFieldValue("genderId", newValue?.genderId ?? "");
+                    setGender(newValue);
+                  }}
+                ></GenderDropdown>
               </FormControl>
               <Stack spacing={6}>
                 <SubmitButton text={updateText} />

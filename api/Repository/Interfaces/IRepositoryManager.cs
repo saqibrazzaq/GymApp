@@ -15,6 +15,7 @@
         IPlanRepository PlanRepository { get; }
         IUserTypeRepository UserTypeRepository { get; }
         ILeadStatusRepository LeadStatusRepository { get; }
+        IGenderRepository GenderRepository { get; }
         void Save();
     }
 }

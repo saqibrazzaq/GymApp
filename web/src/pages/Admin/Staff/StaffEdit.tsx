@@ -23,7 +23,8 @@ import { StaffApi } from "../../../api/StaffApi";
 import { toastNotify } from "../../../Helper";
 import { SubmitButton } from "../../../components/Buttons";
 import { ErrorDetails } from "../../../dtos/Error";
-import { UserCreateReq } from "../../../dtos/User";
+import { GenderRes, UserCreateReq } from "../../../dtos/User";
+import { GenderDropdown } from "../../../components/Dropdowns";
 
 YupPassword(Yup); // extend yup
 
@@ -31,10 +32,9 @@ const StaffEdit = () => {
   const params = useParams();
   const username = params.username;
   const updateText = username ? "Update User" : "Create User";
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
   const [user, setUser] = useState<UserCreateReq>(new UserCreateReq());
+  const [gender, setGender] = useState<GenderRes>();
 
   useEffect(() => {
     loadUser();
@@ -46,6 +46,7 @@ const StaffEdit = () => {
       .then((res) => {
         // console.log(res);
         setUser(res);
+        setGender(res.gender);
       })
       .catch((err) => {
         let errDetails: ErrorDetails = err?.response?.data;
@@ -56,23 +57,26 @@ const StaffEdit = () => {
   // Formik validation schema
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required."),
+    genderId: Yup.string(),
   });
 
+  const convertEmptyStringToNull = (obj: UserCreateReq) => {
+    obj.genderId = obj.genderId == "" ? undefined : obj.genderId;
+    return obj;
+  };
+
   const submitForm = (values: UserCreateReq) => {
-    setError("");
-    setSuccess("");
+    values = convertEmptyStringToNull(values);
     // console.log(values);
     StaffApi.updateStaff(username, values)
       .then((res) => {
         // console.log("New Admin user created successfully.");
-        setSuccess("User created successfully.");
         toastNotify("Staff updated successfully");
         navigate(-1);
       })
       .catch((err) => {
         let errDetails: ErrorDetails = err?.response?.data;
         // console.log("Error: " + err?.response?.data?.Message);
-        setError(errDetails?.Message || "User service failed.");
         toastNotify(errDetails?.Message || "User service failed.", "error");
       });
   };
@@ -87,28 +91,27 @@ const StaffEdit = () => {
         validationSchema={validationSchema}
         enableReinitialize={true}
       >
-        {({ handleSubmit, errors, touched }) => (
+        {({ handleSubmit, errors, touched, setFieldValue }) => (
           <form onSubmit={handleSubmit}>
             <Stack spacing={4} as={Container} maxW={"3xl"}>
               <Heading fontSize={"xl"}>{updateText}</Heading>
-              {error && (
-                <Alert status="error">
-                  <AlertIcon />
-                  <AlertTitle>Create user failed</AlertTitle>
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
-              {success && (
-                <Alert status="success">
-                  <AlertIcon />
-                  <AlertTitle>User created</AlertTitle>
-                  <AlertDescription>{success}</AlertDescription>
-                </Alert>
-              )}
               <FormControl isInvalid={!!errors.fullName && touched.fullName}>
                 <FormLabel htmlFor="fullName">Full Name</FormLabel>
                 <Field as={Input} id="fullName" name="fullName" type="text" />
                 <FormErrorMessage>{errors.fullName}</FormErrorMessage>
+              </FormControl>
+              <FormControl isInvalid={!!errors.genderId && touched.genderId}>
+                <FormLabel htmlFor="genderId">Gender</FormLabel>
+                <Field as={Input} id="genderId" name="genderId" type="hidden" />
+                <FormErrorMessage>{errors.genderId}</FormErrorMessage>
+
+                <GenderDropdown
+                  selectedGender={gender}
+                  handleChange={(newValue?: GenderRes) => {
+                    setFieldValue("genderId", newValue?.genderId ?? "");
+                    setGender(newValue);
+                  }}
+                ></GenderDropdown>
               </FormControl>
               <Stack spacing={6}>
                 <SubmitButton text={updateText} />

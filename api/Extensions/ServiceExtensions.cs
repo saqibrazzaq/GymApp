@@ -73,6 +73,8 @@ namespace api.Extensions
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IVerificationEmailSenderService, VerificationEmailSenderService>();
             services.AddScoped<IMyProfileService, MyProfileService>();
+            services.AddScoped<IGenderService, GenderService>();
+            services.AddScoped<IGenderSeedService, GenderSeedService>();
 
             services.AddScoped<IStaffService, StaffService>();
             services.AddScoped<IMemberService, MemberService>();

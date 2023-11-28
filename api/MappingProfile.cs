@@ -26,6 +26,9 @@ namespace api
             // AccountType
             CreateMap<AccountType, AccountTypeRes>();
 
+            // Gender
+            CreateMap<Gender, GenderRes>();
+
             // Currency
             CreateMap<Currency, CurrencyRes>();
             CreateMap<CurrencyEditReq, Currency>();

@@ -12,6 +12,7 @@ import { LeadStatusApi } from "./LeadStatusApi";
 import { UserAddressApi } from "./UserAddressApi";
 import { MyProfileApi } from "./MyProfileApi";
 import { MemberApi } from "./MemberApi";
+import { GenderApi } from "./GenderApi";
 
 export {
   AuthApi,
@@ -28,4 +29,5 @@ export {
   UserAddressApi,
   MyProfileApi,
   MemberApi,
+  GenderApi,
 };
