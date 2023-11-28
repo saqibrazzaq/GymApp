@@ -12,6 +12,7 @@ namespace api.Services.Implementations
         private readonly ILeadStatusDataSeedService _leadStatusDataSeedService;
         private readonly IGenderSeedService _genderSeedService;
         private readonly IDiscountTypeDataSeedService _discountTypeDataSeedService;
+        private readonly IInvoiceStatusDataSeedService _invoiceStatusDataSeedService;
         public DataSeedService(IAccountTypeDataSeedService accountTypeSeedService,
             IRoleDataSeedService roleDataSeedService,
             IAccountDataSeedService accountDataSeedService,
@@ -19,7 +20,8 @@ namespace api.Services.Implementations
             IUserTypeDataSeedService userTypeDataSeedService,
             ILeadStatusDataSeedService leadStatusDataSeedService,
             IGenderSeedService genderSeedService,
-            IDiscountTypeDataSeedService discountTypeDataSeedService)
+            IDiscountTypeDataSeedService discountTypeDataSeedService,
+            IInvoiceStatusDataSeedService invoiceStatusDataSeedService)
         {
             _accountTypeSeedService = accountTypeSeedService;
             _roleDataSeedService = roleDataSeedService;
@@ -29,6 +31,7 @@ namespace api.Services.Implementations
             _leadStatusDataSeedService = leadStatusDataSeedService;
             _genderSeedService = genderSeedService;
             _discountTypeDataSeedService = discountTypeDataSeedService;
+            _invoiceStatusDataSeedService = invoiceStatusDataSeedService;
         }
 
         public async Task SeedData()
@@ -50,6 +53,8 @@ namespace api.Services.Implementations
             _genderSeedService.SeedData();
             // Create default discount types e.g. fixed, percentage
             _discountTypeDataSeedService.SeedData();
+            // Create default invoice status e.g. draft, sent
+            _invoiceStatusDataSeedService.SeedData();
         }
     }
 }

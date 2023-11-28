@@ -17,6 +17,7 @@
         ILeadStatusRepository LeadStatusRepository { get; }
         IGenderRepository GenderRepository { get; }
         IDiscountTypeRepository DiscountTypeRepository { get; }
+        IInvoiceStatusRepository InvoiceStatusRepository { get; }
         void Save();
     }
 }

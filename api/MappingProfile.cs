@@ -68,6 +68,9 @@ namespace api
 
             // DiscountType
             CreateMap<DiscountType, DiscountTypeRes>();
+
+            // InvoiceStatus
+            CreateMap<InvoiceStatus, InvoiceStatusRes>();
         }
     }
 }

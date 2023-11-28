@@ -87,6 +87,8 @@ namespace api.Extensions
             services.AddScoped<ILeadStatusDataSeedService, LeadStatusDataSeedService>();
             services.AddScoped<IDiscountTypeDataSeedService, DiscountTypeDataSeedService>();
             services.AddScoped<IDiscountTypeService, DiscountTypeService>();
+            services.AddScoped<IInvoiceStatusService, InvoiceStatusService>();
+            services.AddScoped<IInvoiceStatusDataSeedService, InvoiceStatusDataSeedService>();
         }
 
         public static void MigrateDatabase(this IServiceCollection services)

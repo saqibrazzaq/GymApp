@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231128130219_i4")]
+    partial class i4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -439,20 +442,6 @@ namespace api.Migrations
                     b.HasKey("GenderId");
 
                     b.ToTable("Gender");
-                });
-
-            modelBuilder.Entity("api.Entities.InvoiceStatus", b =>
-                {
-                    b.Property<int>("InvoiceStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("InvoiceStatusId");
-
-                    b.ToTable("InvoiceStatus");
                 });
 
             modelBuilder.Entity("api.Entities.LeadStatus", b =>
