@@ -18,6 +18,7 @@
         IGenderRepository GenderRepository { get; }
         IDiscountTypeRepository DiscountTypeRepository { get; }
         IInvoiceStatusRepository InvoiceStatusRepository { get; }
+        IPaymentMethodRepository PaymentMethodRepository { get; }
         void Save();
     }
 }

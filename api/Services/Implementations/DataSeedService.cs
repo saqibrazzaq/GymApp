@@ -13,6 +13,7 @@ namespace api.Services.Implementations
         private readonly IGenderSeedService _genderSeedService;
         private readonly IDiscountTypeDataSeedService _discountTypeDataSeedService;
         private readonly IInvoiceStatusDataSeedService _invoiceStatusDataSeedService;
+        private readonly IPaymentMethodDataSeedService _paymentMethodDataSeedService;
         public DataSeedService(IAccountTypeDataSeedService accountTypeSeedService,
             IRoleDataSeedService roleDataSeedService,
             IAccountDataSeedService accountDataSeedService,
@@ -21,7 +22,8 @@ namespace api.Services.Implementations
             ILeadStatusDataSeedService leadStatusDataSeedService,
             IGenderSeedService genderSeedService,
             IDiscountTypeDataSeedService discountTypeDataSeedService,
-            IInvoiceStatusDataSeedService invoiceStatusDataSeedService)
+            IInvoiceStatusDataSeedService invoiceStatusDataSeedService,
+            IPaymentMethodDataSeedService paymentMethodDataSeedService)
         {
             _accountTypeSeedService = accountTypeSeedService;
             _roleDataSeedService = roleDataSeedService;
@@ -32,6 +34,7 @@ namespace api.Services.Implementations
             _genderSeedService = genderSeedService;
             _discountTypeDataSeedService = discountTypeDataSeedService;
             _invoiceStatusDataSeedService = invoiceStatusDataSeedService;
+            _paymentMethodDataSeedService = paymentMethodDataSeedService;
         }
 
         public async Task SeedData()
@@ -55,6 +58,8 @@ namespace api.Services.Implementations
             _discountTypeDataSeedService.SeedData();
             // Create default invoice status e.g. draft, sent
             _invoiceStatusDataSeedService.SeedData();
+            // Create default payment methods e.g. cash, card
+            _paymentMethodDataSeedService.SeedData();
         }
     }
 }

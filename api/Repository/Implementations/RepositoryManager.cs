@@ -23,6 +23,7 @@ namespace api.Repository.Implementations
         private readonly Lazy<IGenderRepository> _genderRepository;
         private readonly Lazy<IDiscountTypeRepository> _discountTypeRepository;
         private readonly Lazy<IInvoiceStatusRepository> _invoiceStatusRepository;
+        private readonly Lazy<IPaymentMethodRepository> _paymentMethodRepository;
         public RepositoryManager(AppDbContext context)
         {
             _context = context;
@@ -44,6 +45,7 @@ namespace api.Repository.Implementations
             _genderRepository = new Lazy<IGenderRepository>(() => new GenderRepository(context));
             _discountTypeRepository = new Lazy<IDiscountTypeRepository>(() => new DiscountTypeRepository(context));
             _invoiceStatusRepository = new Lazy<IInvoiceStatusRepository>(() => new InvoiceStatusRepository(context));
+            _paymentMethodRepository = new Lazy<IPaymentMethodRepository>(() => new PaymentMethodRepository(context));
         }
 
         public IUserRepository UserRepository => _userRepository.Value;
@@ -62,6 +64,7 @@ namespace api.Repository.Implementations
         public IGenderRepository GenderRepository => _genderRepository.Value;
         public IDiscountTypeRepository DiscountTypeRepository => _discountTypeRepository.Value;
         public IInvoiceStatusRepository InvoiceStatusRepository => _invoiceStatusRepository.Value;
+        public IPaymentMethodRepository PaymentMethodRepository => _paymentMethodRepository.Value;
         public void Save()
         {
             _context.SaveChanges();

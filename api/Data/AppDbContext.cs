@@ -29,5 +29,6 @@ namespace api.Data
         public DbSet<Gender>? Genders { get; set; }
         public DbSet<DiscountType>? DiscountTypes { get; set; }
         public DbSet<InvoiceStatus>? InvoiceStatuses { get; set; }
+        public DbSet<PaymentMethod>? PaymentMethods { get; set; }
     }
 }

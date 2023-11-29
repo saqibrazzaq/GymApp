@@ -25,8 +25,16 @@ namespace api.Entities
         public State? State { get; set; }
         public DateTime IssueDate { get; set; } = DateTime.UtcNow;
         [Required]
-        public int? StatusId { get; set; }
-
-
+        public int? StatusId { get; set; } = (int)InvoiceStatusNames.Draft;
+        [ForeignKey(nameof(StatusId))]
+        public InvoiceStatus? Status { get; set; }
+        [Required]
+        public int? PlanId { get; set; }
+        [ForeignKey(nameof(PlanId))]
+        public Plan? Plan { get; set; }
+        public int PlanPrice { get; set; }
+        public int DiscountTotal { get; set; }
+        public int AmountPayable { get; set; }
+        public int AmountDue { get; set; }
     }
 }

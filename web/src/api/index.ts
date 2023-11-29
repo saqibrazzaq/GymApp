@@ -15,6 +15,7 @@ import { MemberApi } from "./MemberApi";
 import { GenderApi } from "./GenderApi";
 import { DiscountTypeApi } from "./DiscountTypeApi";
 import { InvoiceStatusApi } from "./InvoiceStatusApi";
+import { PaymentMethodApi } from "./PaymentMethodApi";
 
 export {
   AuthApi,
@@ -34,4 +35,5 @@ export {
   GenderApi,
   DiscountTypeApi,
   InvoiceStatusApi,
+  PaymentMethodApi,
 };

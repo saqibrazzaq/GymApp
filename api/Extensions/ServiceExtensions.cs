@@ -89,6 +89,8 @@ namespace api.Extensions
             services.AddScoped<IDiscountTypeService, DiscountTypeService>();
             services.AddScoped<IInvoiceStatusService, InvoiceStatusService>();
             services.AddScoped<IInvoiceStatusDataSeedService, InvoiceStatusDataSeedService>();
+            services.AddScoped<IPaymentMethodService, PaymentMethodService>();
+            services.AddScoped<IPaymentMethodDataSeedService, PaymentMethodDataSeedService>();
         }
 
         public static void MigrateDatabase(this IServiceCollection services)

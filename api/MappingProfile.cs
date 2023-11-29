@@ -3,6 +3,7 @@ using api.Dtos.Address;
 using api.Dtos.Country;
 using api.Dtos.Currency;
 using api.Dtos.Invoice;
+using api.Dtos.Payment;
 using api.Dtos.Plan;
 using api.Dtos.PlanCategory;
 using api.Dtos.User;
@@ -71,6 +72,9 @@ namespace api
 
             // InvoiceStatus
             CreateMap<InvoiceStatus, InvoiceStatusRes>();
+
+            // PaymentMethod
+            CreateMap<PaymentMethod, PaymentMethodRes>();
         }
     }
 }

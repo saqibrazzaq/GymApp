@@ -6,11 +6,11 @@ namespace api.Services.Implementations
 {
     public class AccountTypeDataSeedService : IAccountTypeDataSeedService
     {
-        private readonly IRepositoryManager _repositoryManager;
+        private readonly IRepositoryManager _rep;
 
-        public AccountTypeDataSeedService(IRepositoryManager repositoryManager)
+        public AccountTypeDataSeedService(IRepositoryManager rep)
         {
-            _repositoryManager = repositoryManager;
+            _rep = rep;
         }
 
         public void SeedData()
@@ -21,11 +21,11 @@ namespace api.Services.Implementations
             var accountTypes = Enum.GetValues(typeof(AccountTypeNames)).Cast<AccountTypeNames>();
             foreach (var accountType in accountTypes)
             {
-                var entity = _repositoryManager.AccountTypeRepository.FindByCondition(
+                var entity = _rep.AccountTypeRepository.FindByCondition(
                     x => x.AccountTypeId == (int)accountType, false).FirstOrDefault();
                 if (entity == null)
                 {
-                    _repositoryManager.AccountTypeRepository.Create(new AccountType
+                    _rep.AccountTypeRepository.Create(new AccountType
                     {
                         AccountTypeId = (int)accountType,
                         Name = Enum.GetName(typeof(AccountTypeNames), accountType)
@@ -36,7 +36,7 @@ namespace api.Services.Implementations
 
             if (rowsAdded > 0)
             {
-                _repositoryManager.Save();
+                _rep.Save();
             }
         }
     }

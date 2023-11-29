@@ -5,6 +5,7 @@ import PlanTypeDropdown from "./PlanTypeDropdown";
 import PlanCategoryDropdown from "./PlanCategoryDropdown";
 import GenderDropdown from "./GenderDropdown";
 import DiscountTypeDropdown from "./DiscountTypeDropdown";
+import PaymentMethodDropdown from "./PaymentMethodDropdown";
 
 export {
   RoleDropdown,
@@ -14,4 +15,5 @@ export {
   PlanCategoryDropdown,
   GenderDropdown,
   DiscountTypeDropdown,
+  PaymentMethodDropdown,
 };
