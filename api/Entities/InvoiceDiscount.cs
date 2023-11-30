@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Entities
@@ -11,6 +12,7 @@ namespace api.Entities
         [Required]
         public int? InvoiceId { get; set; }
         [ForeignKey(nameof(InvoiceId))]
+        [DeleteBehavior(DeleteBehavior.Restrict)]
         public Invoice? Invoice { get; set; }
         [Required]
         public int DiscountId { get; set; }

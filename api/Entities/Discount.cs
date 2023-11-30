@@ -9,6 +9,10 @@ namespace api.Entities
         [Key]
         public int DiscountId { get; set; }
         [Required]
+        public int? AccountId { get; set; }
+        [ForeignKey(nameof(AccountId))]
+        public Account? Account { get; set; }
+        [Required]
         public string? Code { get; set; }
         [Required]
         public string? Name { get; set; }

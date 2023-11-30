@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace api.Entities
@@ -9,8 +10,12 @@ namespace api.Entities
         [Key]
         public int InvoiceId { get; set; }
         [Required]
+        public int? AccountId { get; set; }
+        [ForeignKey(nameof(AccountId))]
+        public Account? Account { get; set; }
         public int? SubscriptionId { get; set; }
         [ForeignKey(nameof(SubscriptionId))]
+        [DeleteBehavior(DeleteBehavior.Restrict)]
         public Subscription? Subscription { get; set; }
         [Required]
         public string? Email { get; set; }
@@ -28,9 +33,9 @@ namespace api.Entities
         public int? StatusId { get; set; } = (int)InvoiceStatusNames.Draft;
         [ForeignKey(nameof(StatusId))]
         public InvoiceStatus? Status { get; set; }
-        [Required]
         public int? PlanId { get; set; }
         [ForeignKey(nameof(PlanId))]
+        [DeleteBehavior(DeleteBehavior.Restrict)]
         public Plan? Plan { get; set; }
         public int PlanPrice { get; set; }
         public int DiscountTotal { get; set; }
