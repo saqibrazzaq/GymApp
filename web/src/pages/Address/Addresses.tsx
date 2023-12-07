@@ -30,13 +30,13 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import { UserAddressRes } from "../../../dtos/User";
-import { ErrorDetails } from "../../../dtos/Error";
-import { toastNotify } from "../../../Helper";
-import { BackButton, RegularButton } from "../../../components/Buttons";
-import { DeleteIconButton, EditIconButton } from "../../../components/Icons";
-import { AddressBlock } from "../../../components/Text";
-import { UserAddressApi } from "../../../api";
+import { UserAddressRes } from "../../dtos/User";
+import { ErrorDetails } from "../../dtos/Error";
+import { toastNotify } from "../../Helper";
+import { BackButton, RegularButton } from "../../components/Buttons";
+import { DeleteIconButton, EditIconButton } from "../../components/Icons";
+import { AddressBlock } from "../../components/Text";
+import { UserAddressApi } from "../../api";
 
 const Addresses = () => {
   const params = useParams();

@@ -19,6 +19,7 @@
         IDiscountTypeRepository DiscountTypeRepository { get; }
         IInvoiceStatusRepository InvoiceStatusRepository { get; }
         IPaymentMethodRepository PaymentMethodRepository { get; }
+        ISubscriptionRepository SubscriptionRepository { get; }
         void Save();
     }
 }

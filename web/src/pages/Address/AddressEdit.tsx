@@ -17,12 +17,12 @@ import { useState, useEffect } from "react";
 import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { Field, Formik } from "formik";
-import { toastNotify } from "../../../Helper";
-import { ErrorDetails } from "../../../dtos/Error";
-import { AddressEditReq } from "../../../dtos/Address";
-import { StateRes } from "../../../dtos/Country";
-import { StateDropdown } from "../../../components/Dropdowns";
-import { UserAddressApi } from "../../../api";
+import { toastNotify } from "../../Helper";
+import { ErrorDetails } from "../../dtos/Error";
+import { AddressEditReq } from "../../dtos/Address";
+import { StateRes } from "../../dtos/Country";
+import { StateDropdown } from "../../components/Dropdowns";
+import { UserAddressApi } from "../../api";
 
 const AddressEdit = () => {
   const params = useParams();

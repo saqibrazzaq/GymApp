@@ -28,14 +28,14 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { PagedResponse } from "../../../dtos/Request";
-import { SearchUsersReq, UserRes } from "../../../dtos/User";
-import { Common } from "../../../utility";
-import { toastNotify } from "../../../Helper";
-import { BackButton, RegularButton } from "../../../components/Buttons";
+import { PagedResponse } from "../../dtos/Request";
+import { SearchUsersReq, UserRes } from "../../dtos/User";
+import { Common } from "../../utility";
+import { toastNotify } from "../../Helper";
+import { BackButton, RegularButton } from "../../components/Buttons";
 import { CiMenuKebab } from "react-icons/ci";
-import { MemberApi } from "../../../api";
-import { ErrorDetails } from "../../../dtos/Error";
+import { MemberApi } from "../../api";
+import { ErrorDetails } from "../../dtos/Error";
 
 const Members = () => {
   const location = useLocation();

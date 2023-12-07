@@ -30,12 +30,12 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useNavigate, useParams } from "react-router-dom";
-import { StaffApi } from "../../../api/StaffApi";
-import { ErrorAlert } from "../../../dtos/Error/AlertBoxes";
-import { UserRes } from "../../../dtos/User";
-import ErrorDetails from "../../../dtos/Error/ErrorDetails";
-import { toastNotify } from "../../../Helper";
-import { CancelButton, DeleteButton, BackButton } from "../../../components/Buttons";
+import { StaffApi } from "../../api/StaffApi";
+import { ErrorAlert } from "../../dtos/Error/AlertBoxes";
+import { UserRes } from "../../dtos/User";
+import ErrorDetails from "../../dtos/Error/ErrorDetails";
+import { toastNotify } from "../../Helper";
+import { CancelButton, DeleteButton, BackButton } from "../../components/Buttons";
 
 const StaffDelete = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -93,7 +93,7 @@ namespace api.Services.Implementations
             await _verificationEmailSenerService.SendEmail(userEntity.Email);
         }
 
-        public async Task<ApiOkPagedResponse<IList<UserRes>, MetaData>> SearchUsers(
+        public async Task<ApiOkPagedResponse<IList<UserRes>, MetaData>> SearchStaff(
             SearchUsersReq dto, bool trackChanges)
         {
             var userEntity = await _userManager.FindByNameAsync(UserName ?? "");

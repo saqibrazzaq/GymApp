@@ -7,7 +7,7 @@ namespace api.Services.Interfaces
     {
         Task CreateStaff(StaffCreateReq dto);
         Task<ApiOkPagedResponse<IList<UserRes>, MetaData>>
-            SearchUsers(SearchUsersReq dto, bool trackChanges);
+            SearchStaff(SearchUsersReq dto, bool trackChanges);
         Task AddRoleToStaff(AddRoleReq dto);
         Task RemoveRoleFromStaff(RemoveRoleReq dto);
         IList<RoleRes> GetAllRoles();

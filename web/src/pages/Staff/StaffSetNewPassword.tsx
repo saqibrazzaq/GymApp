@@ -19,11 +19,11 @@ import YupPassword from "yup-password";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { Field, Formik } from "formik";
-import { SetNewPasswordReq } from "../../../dtos/User";
-import { StaffApi } from "../../../api";
-import { toastNotify } from "../../../Helper";
-import { ErrorDetails } from "../../../dtos/Error";
-import { SubmitButton } from "../../../components/Buttons";
+import { SetNewPasswordReq } from "../../dtos/User";
+import { StaffApi } from "../../api";
+import { toastNotify } from "../../Helper";
+import { ErrorDetails } from "../../dtos/Error";
+import { SubmitButton } from "../../components/Buttons";
 
 YupPassword(Yup); // extend yup
 

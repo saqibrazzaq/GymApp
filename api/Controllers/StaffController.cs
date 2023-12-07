@@ -26,7 +26,7 @@ namespace api.Controllers
         public async Task<IActionResult> SearchUsers(
             [FromQuery] SearchUsersReq dto)
         {
-            var res = await _staffService.SearchUsers(
+            var res = await _staffService.SearchStaff(
                 dto, trackChanges: false);
             return Ok(res);
         }

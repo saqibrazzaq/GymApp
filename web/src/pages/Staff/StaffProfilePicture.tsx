@@ -18,11 +18,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Common } from "../../../utility";
-import { StaffApi } from "../../../api";
-import { ErrorAlert, ErrorDetails } from "../../../dtos/Error";
-import { toastNotify } from "../../../Helper";
-import { SubmitButton } from "../../../components/Buttons";
+import { Common } from "../../utility";
+import { StaffApi } from "../../api";
+import { ErrorAlert, ErrorDetails } from "../../dtos/Error";
+import { toastNotify } from "../../Helper";
+import { SubmitButton } from "../../components/Buttons";
 
 const StaffProfilePicture = () => {
   const params = useParams();

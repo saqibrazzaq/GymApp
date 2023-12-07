@@ -28,14 +28,14 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link as RouteLink, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { StaffApi } from "../../../api/StaffApi";
-import { PagedResponse } from "../../../dtos/Request";
-import { SearchUsersReq, UserRes } from "../../../dtos/User";
-import { Common } from "../../../utility";
-import ErrorDetails from "../../../dtos/Error/ErrorDetails";
-import { toastNotify } from "../../../Helper";
-import { BackButton, RegularButton } from "../../../components/Buttons";
-import { DeleteIconButton, EditIconButton, RoleIconButton } from "../../../components/Icons";
+import { StaffApi } from "../../api/StaffApi";
+import { PagedResponse } from "../../dtos/Request";
+import { SearchUsersReq, UserRes } from "../../dtos/User";
+import { Common } from "../../utility";
+import ErrorDetails from "../../dtos/Error/ErrorDetails";
+import { toastNotify } from "../../Helper";
+import { BackButton, RegularButton } from "../../components/Buttons";
+import { DeleteIconButton, EditIconButton, RoleIconButton } from "../../components/Icons";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { CiMenuKebab } from "react-icons/ci";
 

@@ -26,32 +26,31 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useParams, Link as RouteLink, useNavigate } from "react-router-dom";
-import { toastNotify } from "../../../Helper";
-import { AddressRes } from "../../../dtos/Address";
-import { UserAddressApi } from "../../../api";
-import { ErrorDetails } from "../../../dtos/Error";
+import { toastNotify } from "../../Helper";
+import { ErrorDetails } from "../../dtos/Error";
+import { SubscriptionRes } from "../../dtos/Subscription";
+import { SubscriptionApi } from "../../api";
 
-const AddressDelete = () => {
+const SubscriptionDelete = () => {
   let params = useParams();
-  const userAddressId = params.userAddressId;
-  const [address, setAddress] = useState<AddressRes>();
+  const subscriptionId = params.subscriptionId;
+  const [subscription, setSubscription] = useState<SubscriptionRes>();
   const navigate = useNavigate();
   const toast = useToast();
-  const [error, setError] = useState("");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
-    loadUserAddress();
-  }, [userAddressId]);
+    loadSubscription();
+  }, [subscriptionId]);
 
-  const loadUserAddress = () => {
-    if (!userAddressId) return;
-    UserAddressApi.get(userAddressId)
+  const loadSubscription = () => {
+    if (!subscriptionId) return;
+    SubscriptionApi.get(subscriptionId)
       .then((res) => {
+        setSubscription(res);
         // console.log(res);
-        setAddress(res.address);
       })
       .catch((err) => {
         let errDetails: ErrorDetails = err?.response?.data;
@@ -59,11 +58,10 @@ const AddressDelete = () => {
       });
   };
 
-  const deleteUserAddress = () => {
-    setError("");
-    UserAddressApi.delete(userAddressId)
+  const deleteSubscription = () => {
+    SubscriptionApi.delete(subscriptionId)
       .then((res) => {
-        toastNotify(address?.address1 + " deleted successfully.");
+        toastNotify(subscription?.plan?.name + " deleted successfully.");
         navigate(-1);
       })
       .catch((err) => {
@@ -75,7 +73,7 @@ const AddressDelete = () => {
   const displayHeading = () => (
     <Flex>
       <Box>
-        <Heading fontSize={"xl"}>Delete Address</Heading>
+        <Heading fontSize={"xl"}>Delete Subscription</Heading>
       </Box>
       <Spacer />
       <Box>
@@ -86,20 +84,20 @@ const AddressDelete = () => {
     </Flex>
   );
 
-  const showAddressInfo = () => (
+  const showSubscriptionInfo = () => (
     <div>
-      <Text fontSize="xl">Are you sure you want to delete the following Address?</Text>
+      <Text fontSize="xl">Are you sure you want to delete the following Subscription?</Text>
       <TableContainer>
         <Table variant="simple">
           <Tbody>
             <Tr>
-              <Th>Address</Th>
+              <Th>Subscription Plan</Th>
+              <Td>{subscription?.plan?.name}</Td>
+            </Tr>
+            <Tr>
+              <Th>Member</Th>
               <Td>
-                {address?.address1}
-                <br />
-                {address?.address2}
-                <br />
-                {address?.city}, {address?.state?.stateName}, {address?.state?.country?.countryName}
+                {subscription?.user?.fullName} - {subscription?.user?.email}
               </Td>
             </Tr>
           </Tbody>
@@ -107,7 +105,7 @@ const AddressDelete = () => {
       </TableContainer>
       <HStack pt={4} spacing={4}>
         <Button onClick={onOpen} type="button" colorScheme={"red"}>
-          YES, I WANT TO DELETE THIS ADDRESS
+          YES, I WANT TO DELETE THIS SUBSCRIPTION
         </Button>
       </HStack>
     </div>
@@ -118,7 +116,7 @@ const AddressDelete = () => {
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Delete Address
+            Delete Subscription
           </AlertDialogHeader>
 
           <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
@@ -129,9 +127,9 @@ const AddressDelete = () => {
                 Cancel
               </Button>
             </Link>
-            <Link onClick={deleteUserAddress} ml={3}>
+            <Link onClick={deleteSubscription} ml={3}>
               <Button type="submit" colorScheme={"red"}>
-                Delete Address
+                Delete Subscription
               </Button>
             </Link>
           </AlertDialogFooter>
@@ -144,11 +142,11 @@ const AddressDelete = () => {
     <Box p={4}>
       <Stack spacing={4} as={Container} maxW={"3xl"}>
         {displayHeading()}
-        {showAddressInfo()}
+        {showSubscriptionInfo()}
         {showAlertDialog()}
       </Stack>
     </Box>
   );
 };
 
-export default AddressDelete;
+export default SubscriptionDelete;

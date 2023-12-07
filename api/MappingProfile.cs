@@ -6,6 +6,7 @@ using api.Dtos.Invoice;
 using api.Dtos.Payment;
 using api.Dtos.Plan;
 using api.Dtos.PlanCategory;
+using api.Dtos.Subscription;
 using api.Dtos.User;
 using api.Entities;
 
@@ -75,6 +76,10 @@ namespace api
 
             // PaymentMethod
             CreateMap<PaymentMethod, PaymentMethodRes>();
+
+            // Subscription
+            CreateMap<SubscriptionEditReq, Subscription>();
+            CreateMap<Subscription,  SubscriptionRes>();
         }
     }
 }

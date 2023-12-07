@@ -14,14 +14,15 @@ import {
   StaffEdit,
   StaffRoles,
   Staff,
-} from "../../pages/Admin/Staff";
+} from "../../pages/Staff";
 import { NotFound } from "../../pages/ZOther";
 import { withAdminAuth } from "../../hoc";
 import { BusinessLogo, SettingsHome } from "../../pages/Admin/Settings";
 import { PlanCategories, PlanCategoryDelete, PlanCategoryEdit } from "../../pages/Plans/Category";
 import { PlanDelete, PlanEdit, Plans } from "../../pages/Plans/Plan";
-import { AddressDelete, AddressEdit, Addresses } from "../../pages/Admin/Address";
-import { MemberCreate, MemberEdit, Members } from "../../pages/Admin/Member";
+import { AddressDelete, AddressEdit, Addresses } from "../../pages/Address";
+import { MemberCreate, MemberEdit, Members } from "../../pages/Member";
+import { SubscriptionDelete, SubscriptionEdit, Subscriptions } from "../../pages/Subscription";
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, href: "/admin" },
@@ -30,6 +31,11 @@ const LinkItems: Array<LinkItemProps> = [
     icon: AiOutlineUnlock,
     href: "",
     children: [
+      {
+        name: "Subscriptions",
+        icon: AiOutlineUnlock,
+        href: "/admin/subscriptions",
+      },
       {
         name: "Members",
         icon: AiOutlineUnlock,
@@ -91,6 +97,10 @@ const AdminLayout = () => {
           <Route path="/members" element={<Members />} />
           <Route path="/members/create" element={<MemberCreate />} />
           <Route path="/members/:username/edit" element={<MemberEdit />} />
+          <Route path="/subscriptions" element={<Subscriptions />} />
+          <Route path="/subscriptions/edit" element={<SubscriptionEdit />} />
+          <Route path="/subscriptions/:subscriptionId/edit" element={<SubscriptionEdit />} />
+          <Route path="/subscriptions/:subscriptionId/delete" element={<SubscriptionDelete />} />
           <Route path="/settings" element={<SettingsHome />} />
           <Route path="/settings/logo" element={<BusinessLogo />} />
           <Route path="/plans/categories" element={<PlanCategories />} />
