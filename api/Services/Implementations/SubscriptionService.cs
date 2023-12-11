@@ -36,6 +36,7 @@ namespace api.Services.Implementations
                 throw new Exception("User does not belong to this account " + user.FullName);
 
             var entity = _mapper.Map<Subscription>(dto);
+            entity.Status = IsActive(entity.ActiveTo);
             _rep.SubscriptionRepository.Create(entity);
             _rep.Save();
 
@@ -89,8 +90,17 @@ namespace api.Services.Implementations
         {
             var entity = await FindSubscriptionIfExists(subscriptionId, true);
             _mapper.Map(dto, entity);
+            entity.Status = IsActive(entity.ActiveTo);
             _rep.Save();
             return _mapper.Map<SubscriptionRes>(entity);
+        }
+
+        private bool IsActive(DateTime activeTo)
+        {
+            if (DateTime.Compare(activeTo, DateTime.UtcNow) > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

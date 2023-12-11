@@ -20,6 +20,7 @@
         IInvoiceStatusRepository InvoiceStatusRepository { get; }
         IPaymentMethodRepository PaymentMethodRepository { get; }
         ISubscriptionRepository SubscriptionRepository { get; }
+        ITimeUnitRepository TimeUnitRepository { get; }
         void Save();
     }
 }

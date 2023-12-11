@@ -10,4 +10,5 @@ export default class SubscriptionRes {
   user?: UserRes;
   activeFrom?: string = "";
   activeTo?: string = "";
+  status?: boolean = false;
 }

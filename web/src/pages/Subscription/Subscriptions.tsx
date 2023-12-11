@@ -115,7 +115,7 @@ const Subscriptions = () => {
                 <Td>
                   {Common.formatDate(item.activeFrom)} / {Common.formatDate(item.activeTo)}
                 </Td>
-                <Td></Td>
+                <Td>{item.status ? "Active" : "Inactive"}</Td>
                 <Td>
                   <Link as={RouteLink} ms={2} to={item.subscriptionId + "/edit"}>
                     <EditIconButton />

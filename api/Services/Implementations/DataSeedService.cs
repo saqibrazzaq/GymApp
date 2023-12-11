@@ -14,6 +14,7 @@ namespace api.Services.Implementations
         private readonly IDiscountTypeDataSeedService _discountTypeDataSeedService;
         private readonly IInvoiceStatusDataSeedService _invoiceStatusDataSeedService;
         private readonly IPaymentMethodDataSeedService _paymentMethodDataSeedService;
+        private readonly ITimeUnitDataSeedService _timeUnitDataSeedService;
         public DataSeedService(IAccountTypeDataSeedService accountTypeSeedService,
             IRoleDataSeedService roleDataSeedService,
             IAccountDataSeedService accountDataSeedService,
@@ -23,7 +24,8 @@ namespace api.Services.Implementations
             IGenderSeedService genderSeedService,
             IDiscountTypeDataSeedService discountTypeDataSeedService,
             IInvoiceStatusDataSeedService invoiceStatusDataSeedService,
-            IPaymentMethodDataSeedService paymentMethodDataSeedService)
+            IPaymentMethodDataSeedService paymentMethodDataSeedService,
+            ITimeUnitDataSeedService timeUnitDataSeedService)
         {
             _accountTypeSeedService = accountTypeSeedService;
             _roleDataSeedService = roleDataSeedService;
@@ -35,6 +37,7 @@ namespace api.Services.Implementations
             _discountTypeDataSeedService = discountTypeDataSeedService;
             _invoiceStatusDataSeedService = invoiceStatusDataSeedService;
             _paymentMethodDataSeedService = paymentMethodDataSeedService;
+            _timeUnitDataSeedService = timeUnitDataSeedService;
         }
 
         public async Task SeedData()
@@ -60,6 +63,8 @@ namespace api.Services.Implementations
             _invoiceStatusDataSeedService.SeedData();
             // Create default payment methods e.g. cash, card
             _paymentMethodDataSeedService.SeedData();
+            // Create defualt time units e.g. day, week, month
+            _timeUnitDataSeedService.SeedData();
         }
     }
 }

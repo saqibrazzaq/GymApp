@@ -35,6 +35,7 @@ namespace api.Data
         public DbSet<InvoiceDiscount>? InvoiceDiscounts { get; set; }
         public DbSet<Payment>? Payments { get; set; }
         public DbSet<Subscription>? Subscriptions { get; set; }
+        public DbSet<TimeUnit>? TimeUnits { get; set; }
 
     }
 }

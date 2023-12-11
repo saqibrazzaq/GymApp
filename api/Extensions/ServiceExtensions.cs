@@ -92,6 +92,8 @@ namespace api.Extensions
             services.AddScoped<IPaymentMethodService, PaymentMethodService>();
             services.AddScoped<IPaymentMethodDataSeedService, PaymentMethodDataSeedService>();
             services.AddScoped<ISubscriptionService, SubscriptionService>();
+            services.AddScoped<ITimeUnitService, TimeUnitService>();
+            services.AddScoped<ITimeUnitDataSeedService, TimeUnitDataSeedService>();
         }
 
         public static void MigrateDatabase(this IServiceCollection services)

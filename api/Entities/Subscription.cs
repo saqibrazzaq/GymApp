@@ -18,5 +18,6 @@ namespace api.Entities
         public AppIdentityUser? User { get; set; }
         public DateTime ActiveFrom { get; set; } = DateTime.MinValue;
         public DateTime ActiveTo { get; set; } = DateTime.MinValue;
+        public bool Status { get; set; } = false;
     }
 }

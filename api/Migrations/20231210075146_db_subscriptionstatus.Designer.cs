@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231210075146_db_subscriptionstatus")]
+    partial class db_subscriptionstatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -667,9 +670,6 @@ namespace api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -686,9 +686,6 @@ namespace api.Migrations
                     b.Property<int>("SetupFee")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TimeUnitId")
-                        .HasColumnType("int");
-
                     b.HasKey("PlanId");
 
                     b.HasIndex("AccountId");
@@ -696,8 +693,6 @@ namespace api.Migrations
                     b.HasIndex("PlanCategoryId");
 
                     b.HasIndex("PlanTypeId");
-
-                    b.HasIndex("TimeUnitId");
 
                     b.ToTable("Plan");
                 });
@@ -803,20 +798,6 @@ namespace api.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Subscription");
-                });
-
-            modelBuilder.Entity("api.Entities.TimeUnit", b =>
-                {
-                    b.Property<int>("TimeUnitId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TimeUnitId");
-
-                    b.ToTable("TimeUnit");
                 });
 
             modelBuilder.Entity("api.Entities.UserAddress", b =>
@@ -1109,17 +1090,11 @@ namespace api.Migrations
                         .WithMany()
                         .HasForeignKey("PlanTypeId");
 
-                    b.HasOne("api.Entities.TimeUnit", "TimeUnit")
-                        .WithMany()
-                        .HasForeignKey("TimeUnitId");
-
                     b.Navigation("Account");
 
                     b.Navigation("PlanCategory");
 
                     b.Navigation("PlanType");
-
-                    b.Navigation("TimeUnit");
                 });
 
             modelBuilder.Entity("api.Entities.PlanCategory", b =>

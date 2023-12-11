@@ -61,8 +61,8 @@ const SubscriptionEdit = () => {
   const validationSchema = Yup.object({
     activeFrom: Yup.date(),
     activeTo: Yup.date(),
-    planId: Yup.string(),
-    userId: Yup.string(),
+    planId: Yup.string().required(),
+    userId: Yup.string().required(),
   });
 
   const submitForm = (values: SubscriptionEditReq) => {

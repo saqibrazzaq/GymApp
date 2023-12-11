@@ -16,5 +16,6 @@
         public const string RefreshTokenCookieName = "refreshToken";
 
         public const string TempFolderName = "temp";
+        public static readonly string[] TimeUnitNameList = {"Day(s)", "Week(s)", "Month(s)", "Year(s)"};
     }
 }
