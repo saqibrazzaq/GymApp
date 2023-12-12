@@ -15,6 +15,9 @@ namespace api.Dtos.Plan
         public PlanCategoryRes? planCategory { get; set; }
         public string? PlanTypeId { get; set; }
         public PlanType? PlanType { get; set; }
+        public int Duration { get; set; }
+        public int? TimeUnitId { get; set; }
+        public TimeUnit? TimeUnit { get; set; }
         public int SetupFee { get; set; }
         public int Price { get; set; }
     }

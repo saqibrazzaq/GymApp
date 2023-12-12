@@ -16,6 +16,7 @@ namespace api.Repository.Implementations
             var itemsToReturn = items
                 .Include(x => x.PlanCategory)
                 .Include(x => x.PlanType)
+                .Include(x => x.TimeUnit)
                 .Where(x => x.AccountId == searchParams.AccountId)
                 ;
             

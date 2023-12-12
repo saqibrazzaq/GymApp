@@ -53,6 +53,7 @@ namespace api.Services.Implementations
                 include: i => i
                 .Include(x => x.PlanCategory)
                 .Include(x => x.PlanType)
+                .Include(x => x.TimeUnit)
                 )
                 .FirstOrDefault();
             if (entity == null) { throw new Exception("No plan found with id " + planId); }

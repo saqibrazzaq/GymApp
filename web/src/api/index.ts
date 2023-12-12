@@ -17,6 +17,7 @@ import { DiscountTypeApi } from "./DiscountTypeApi";
 import { InvoiceStatusApi } from "./InvoiceStatusApi";
 import { PaymentMethodApi } from "./PaymentMethodApi";
 import { SubscriptionApi } from "./SubscriptionApi";
+import { TimeUnitApi } from "./TimeUnitApi";
 
 export {
   AuthApi,
@@ -38,4 +39,5 @@ export {
   InvoiceStatusApi,
   PaymentMethodApi,
   SubscriptionApi,
+  TimeUnitApi,
 };

@@ -7,6 +7,7 @@ import GenderDropdown from "./GenderDropdown";
 import DiscountTypeDropdown from "./DiscountTypeDropdown";
 import PaymentMethodDropdown from "./PaymentMethodDropdown";
 import MemberDropdown from "./MemberDropdown";
+import TimeUnitDropdown from "./TimeUnitDropdown";
 
 export {
   RoleDropdown,
@@ -18,4 +19,5 @@ export {
   DiscountTypeDropdown,
   PaymentMethodDropdown,
   MemberDropdown,
+  TimeUnitDropdown,
 };

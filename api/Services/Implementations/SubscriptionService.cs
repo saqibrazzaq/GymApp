@@ -36,11 +36,40 @@ namespace api.Services.Implementations
                 throw new Exception("User does not belong to this account " + user.FullName);
 
             var entity = _mapper.Map<Subscription>(dto);
+            entity.ActiveTo = CalculateExpiryDate(entity);
             entity.Status = IsActive(entity.ActiveTo);
             _rep.SubscriptionRepository.Create(entity);
             _rep.Save();
 
             return _mapper.Map<SubscriptionRes>(entity);
+        }
+
+        private DateTime CalculateExpiryDate(Subscription sub)
+        {
+            var plan = _rep.PlanRepository.FindByCondition(
+                x => x.PlanId == sub.PlanId,
+                false)
+                .FirstOrDefault();
+            if (plan == null || plan.TimeUnitId == null) return DateTime.UtcNow;
+
+            int daysToAdd = plan.Duration;
+            TimeUnitNames timeUnit = (TimeUnitNames)plan.TimeUnitId;
+
+            switch(timeUnit)
+            {
+                case TimeUnitNames.Day:
+                    daysToAdd *= 1; break;
+                case TimeUnitNames.Week:
+                    daysToAdd *= 7; break;
+                case TimeUnitNames.Month:
+                    daysToAdd *= 30; break;
+                case TimeUnitNames.Year:
+                    daysToAdd *= 365; break;
+                default:
+                    daysToAdd = 0; break;
+            }
+
+            return sub.ActiveFrom.AddDays(daysToAdd);
         }
 
         public async Task Delete(int subscriptionId)
@@ -90,6 +119,7 @@ namespace api.Services.Implementations
         {
             var entity = await FindSubscriptionIfExists(subscriptionId, true);
             _mapper.Map(dto, entity);
+            entity.ActiveTo = CalculateExpiryDate(entity);
             entity.Status = IsActive(entity.ActiveTo);
             _rep.Save();
             return _mapper.Map<SubscriptionRes>(entity);

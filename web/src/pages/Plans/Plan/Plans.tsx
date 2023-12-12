@@ -102,6 +102,7 @@ const Plans = () => {
             <Th>Name</Th>
             <Th>Category</Th>
             <Th>Type</Th>
+            <Th>Duration</Th>
             <Th>Price</Th>
             <Th></Th>
           </Tr>
@@ -113,6 +114,9 @@ const Plans = () => {
                 <Td>{item.name}</Td>
                 <Td>{item.planCategory?.name}</Td>
                 <Td>{item.planType?.name}</Td>
+                <Td>
+                  {item.duration} {item.timeUnit?.name}
+                </Td>
                 <Td>{item.price}</Td>
                 <Td>
                   <Link as={RouteLink} ms={2} to={item.planId + "/edit"}>

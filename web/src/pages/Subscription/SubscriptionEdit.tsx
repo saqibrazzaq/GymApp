@@ -60,7 +60,6 @@ const SubscriptionEdit = () => {
   // Formik validation schema
   const validationSchema = Yup.object({
     activeFrom: Yup.date(),
-    activeTo: Yup.date(),
     planId: Yup.string().required(),
     userId: Yup.string().required(),
   });
@@ -124,13 +123,6 @@ const SubscriptionEdit = () => {
                 </InputGroup>
                 <FormErrorMessage>{errors.activeFrom}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={!!errors.activeTo && touched.activeTo}>
-                <InputGroup size={Common.DEFAULT_FONT_SIZE}>
-                  <InputLeftAddon children="Active To" />
-                  <Field as={Input} id="activeTo" name="activeTo" type="datetime-local" />
-                </InputGroup>
-                <FormErrorMessage>{errors.activeTo}</FormErrorMessage>
-              </FormControl>
               <FormControl mr={2} isInvalid={!!errors.planId && touched.planId}>
                 <FormLabel fontSize={"sm"} htmlFor="planId">
                   Plan
@@ -176,7 +168,9 @@ const SubscriptionEdit = () => {
   const displayHeading = () => (
     <Flex>
       <Box>
-        <Heading fontSize={"lg"}>{updateText + " - " + subscription?.user?.fullName}</Heading>
+        <Heading fontSize={"lg"}>
+          {updateText + " - " + (subscription?.user?.fullName ?? "")}
+        </Heading>
       </Box>
       <Spacer />
       <Box>

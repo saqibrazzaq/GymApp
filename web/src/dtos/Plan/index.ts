@@ -6,6 +6,8 @@ import PlanTypeSearchReq from "./PlanTypeSearchReq";
 import PlanRes from "./PlanRes";
 import PlanEditReq from "./PlanEditReq";
 import PlanSearchReq from "./PlanSearchReq";
+import TimeUnitRes from "./TimeUnitRes";
+import TimeUnitSearchReq from "./TimeUnitSearchReq";
 
 export {
   PlanCategoryRes,
@@ -16,4 +18,6 @@ export {
   PlanRes,
   PlanEditReq,
   PlanSearchReq,
+  TimeUnitRes,
+  TimeUnitSearchReq,
 };

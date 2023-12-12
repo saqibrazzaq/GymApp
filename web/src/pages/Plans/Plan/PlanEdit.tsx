@@ -19,9 +19,13 @@ import * as Yup from "yup";
 import { Field, Formik } from "formik";
 import { toastNotify } from "../../../Helper";
 import { ErrorDetails } from "../../../dtos/Error";
-import { PlanCategoryRes, PlanEditReq, PlanTypeRes } from "../../../dtos/Plan";
+import { PlanCategoryRes, PlanEditReq, PlanTypeRes, TimeUnitRes } from "../../../dtos/Plan";
 import { PlanApi } from "../../../api";
-import { PlanCategoryDropdown, PlanTypeDropdown } from "../../../components/Dropdowns";
+import {
+  PlanCategoryDropdown,
+  PlanTypeDropdown,
+  TimeUnitDropdown,
+} from "../../../components/Dropdowns";
 
 const PlanEdit = () => {
   const params = useParams();
@@ -30,6 +34,7 @@ const PlanEdit = () => {
   const [plan, setPlan] = useState<PlanEditReq>(new PlanEditReq());
   const [planCategory, setPlanCategory] = useState<PlanCategoryRes>();
   const [planType, setPlanType] = useState<PlanTypeRes>();
+  const [timeUnit, setTimeUnit] = useState<TimeUnitRes>();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +49,7 @@ const PlanEdit = () => {
         setPlan(res);
         setPlanCategory(res.planCategory);
         setPlanType(res.planType);
+        setTimeUnit(res.timeUnit);
       })
       .catch((err) => {
         let errDetails: ErrorDetails = err?.response?.data;
@@ -57,6 +63,8 @@ const PlanEdit = () => {
     description: Yup.string(),
     planCategoryId: Yup.string(),
     planTypeId: Yup.string(),
+    duration: Yup.number(),
+    timeUnitId: Yup.string(),
     setupFee: Yup.number(),
     price: Yup.number(),
   });
@@ -70,9 +78,17 @@ const PlanEdit = () => {
     }
   };
 
+  const convertNullToEmptyString = (obj: PlanEditReq) => {
+    obj.planCategoryId ??= "";
+    obj.planTypeId ??= "";
+    obj.timeUnitId ??= "";
+    return obj;
+  };
+
   const convertEmptyStringToNull = (obj: PlanEditReq) => {
     obj.planCategoryId = obj.planCategoryId == "" ? undefined : obj.planCategoryId;
     obj.planTypeId = obj.planTypeId == "" ? undefined : obj.planTypeId;
+    obj.timeUnitId = obj.timeUnitId == "" ? undefined : obj.timeUnitId;
     return obj;
   };
 
@@ -103,7 +119,7 @@ const PlanEdit = () => {
   const showUpdateForm = () => (
     <Box p={0}>
       <Formik
-        initialValues={plan}
+        initialValues={convertNullToEmptyString(plan)}
         onSubmit={(values) => {
           submitForm(values);
         }}
@@ -157,6 +173,30 @@ const PlanEdit = () => {
                       // console.log(newValue);
                     }}
                   ></PlanTypeDropdown>
+                </FormControl>
+              </Flex>
+              <Flex>
+                <FormControl mr={2} isInvalid={!!errors.duration && touched.duration}>
+                  <FormLabel fontSize={"sm"} htmlFor="duration">
+                    Duration
+                  </FormLabel>
+                  <Field size={"sm"} as={Input} id="duration" name="duration" type="text" />
+                  <FormErrorMessage>{errors.duration}</FormErrorMessage>
+                </FormControl>
+                <FormControl isInvalid={!!errors.timeUnitId && touched.timeUnitId}>
+                  <FormLabel fontSize={"sm"} htmlFor="timeUnitId">
+                    Time Unit
+                  </FormLabel>
+                  <Field as={Input} id="timeUnitId" name="timeUnitId" type="hidden" />
+                  <FormErrorMessage>{errors.timeUnitId}</FormErrorMessage>
+                  <TimeUnitDropdown
+                    selectedTimeUnit={timeUnit}
+                    handleChange={(newValue?: TimeUnitRes) => {
+                      setFieldValue("timeUnitId", newValue?.timeUnitId ?? "");
+                      setTimeUnit(newValue);
+                      // console.log(newValue);
+                    }}
+                  ></TimeUnitDropdown>
                 </FormControl>
               </Flex>
               <Flex>

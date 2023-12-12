@@ -77,6 +77,9 @@ namespace api
             // PaymentMethod
             CreateMap<PaymentMethod, PaymentMethodRes>();
 
+            // TimeUnit
+            CreateMap<TimeUnit, TimeUnitRes>();
+
             // Subscription
             CreateMap<SubscriptionEditReq, Subscription>();
             CreateMap<Subscription,  SubscriptionRes>();
