@@ -101,7 +101,7 @@ const Subscriptions = () => {
           <Tr>
             <Th>Name</Th>
             <Th>Plan</Th>
-            <Th>Active From/To</Th>
+            <Th>Duration</Th>
             <Th>Status</Th>
             <Th></Th>
           </Tr>
@@ -111,9 +111,9 @@ const Subscriptions = () => {
             pagedRes.pagedList.map((item) => (
               <Tr key={item.subscriptionId}>
                 <Td>{item.user?.fullName}</Td>
-                <Td>{item.plan?.name}</Td>
+                <Td>{item.planName}</Td>
                 <Td>
-                  {Common.formatDate(item.activeFrom)} / {Common.formatDate(item.activeTo)}
+                  {Common.formatDate(item.activeFrom)} to <br /> {Common.formatDate(item.activeTo)}
                 </Td>
                 <Td>{item.status ? "Active" : "Inactive"}</Td>
                 <Td>

@@ -11,4 +11,7 @@ export default class SubscriptionRes {
   activeFrom?: string = "";
   activeTo?: string = "";
   status?: boolean = false;
+  planName?: string = "";
+  duration?: number;
+  price?: number;
 }

@@ -21,7 +21,7 @@ import { BusinessLogo, SettingsHome } from "../../pages/Admin/Settings";
 import { PlanCategories, PlanCategoryDelete, PlanCategoryEdit } from "../../pages/Plans/Category";
 import { PlanDelete, PlanEdit, Plans } from "../../pages/Plans/Plan";
 import { AddressDelete, AddressEdit, Addresses } from "../../pages/Address";
-import { MemberCreate, MemberEdit, Members } from "../../pages/Member";
+import { MemberCreate, MemberDelete, MemberEdit, Members } from "../../pages/Member";
 import { SubscriptionDelete, SubscriptionEdit, Subscriptions } from "../../pages/Subscription";
 
 const LinkItems: Array<LinkItemProps> = [
@@ -97,6 +97,7 @@ const AdminLayout = () => {
           <Route path="/members" element={<Members />} />
           <Route path="/members/create" element={<MemberCreate />} />
           <Route path="/members/:username/edit" element={<MemberEdit />} />
+          <Route path="/members/:username/delete" element={<MemberDelete />} />
           <Route path="/subscriptions" element={<Subscriptions />} />
           <Route path="/subscriptions/edit" element={<SubscriptionEdit />} />
           <Route path="/subscriptions/:subscriptionId/edit" element={<SubscriptionEdit />} />

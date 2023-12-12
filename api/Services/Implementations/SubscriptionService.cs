@@ -36,7 +36,8 @@ namespace api.Services.Implementations
                 throw new Exception("User does not belong to this account " + user.FullName);
 
             var entity = _mapper.Map<Subscription>(dto);
-            entity.ActiveTo = CalculateExpiryDate(entity);
+            entity = savePlanInformation(entity);
+            entity = CalculateExpiryDate(entity);
             entity.Status = IsActive(entity.ActiveTo);
             _rep.SubscriptionRepository.Create(entity);
             _rep.Save();
@@ -44,13 +45,40 @@ namespace api.Services.Implementations
             return _mapper.Map<SubscriptionRes>(entity);
         }
 
-        private DateTime CalculateExpiryDate(Subscription sub)
+        public async Task<SubscriptionRes> Update(int subscriptionId, SubscriptionEditReq dto)
+        {
+            var entity = await FindSubscriptionIfExists(subscriptionId, true);
+            _mapper.Map(dto, entity);
+            entity = savePlanInformation(entity);
+            entity = CalculateExpiryDate(entity);
+            entity.Status = IsActive(entity.ActiveTo);
+            _rep.Save();
+            return _mapper.Map<SubscriptionRes>(entity);
+        }
+
+        private Subscription savePlanInformation(Subscription sub)
         {
             var plan = _rep.PlanRepository.FindByCondition(
                 x => x.PlanId == sub.PlanId,
                 false)
                 .FirstOrDefault();
-            if (plan == null || plan.TimeUnitId == null) return DateTime.UtcNow;
+            if (plan == null) throw new Exception("No plan found");
+
+            sub.PlanName = plan.Name;
+            sub.Duration = plan.Duration;
+            sub.Price = plan.Price;
+
+            return sub;
+        }
+
+        private Subscription CalculateExpiryDate(Subscription sub)
+        {
+            var plan = _rep.PlanRepository.FindByCondition(
+                x => x.PlanId == sub.PlanId,
+                false)
+                .FirstOrDefault();
+            if (plan == null || plan.TimeUnitId == null) 
+                throw new Exception("No plan found");
 
             int daysToAdd = plan.Duration;
             TimeUnitNames timeUnit = (TimeUnitNames)plan.TimeUnitId;
@@ -69,7 +97,10 @@ namespace api.Services.Implementations
                     daysToAdd = 0; break;
             }
 
-            return sub.ActiveFrom.AddDays(daysToAdd);
+            sub.ActiveTo = sub.ActiveFrom.AddDays(daysToAdd);
+            sub.Duration = daysToAdd;
+
+            return sub;
         }
 
         public async Task Delete(int subscriptionId)
@@ -113,16 +144,6 @@ namespace api.Services.Implementations
             var dtos = _mapper.Map<IEnumerable<SubscriptionRes>>(pagedEntities);
             return new ApiOkPagedResponse<IEnumerable<SubscriptionRes>, MetaData>(dtos,
                 pagedEntities.MetaData);
-        }
-
-        public async Task<SubscriptionRes> Update(int subscriptionId, SubscriptionEditReq dto)
-        {
-            var entity = await FindSubscriptionIfExists(subscriptionId, true);
-            _mapper.Map(dto, entity);
-            entity.ActiveTo = CalculateExpiryDate(entity);
-            entity.Status = IsActive(entity.ActiveTo);
-            _rep.Save();
-            return _mapper.Map<SubscriptionRes>(entity);
         }
 
         private bool IsActive(DateTime activeTo)

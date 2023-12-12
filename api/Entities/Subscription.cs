@@ -19,5 +19,8 @@ namespace api.Entities
         public DateTime ActiveFrom { get; set; } = DateTime.MinValue;
         public DateTime ActiveTo { get; set; } = DateTime.MinValue;
         public bool Status { get; set; } = false;
+        public string? PlanName { get; set; }
+        public int Duration { get; set; }
+        public int Price { get; set; }
     }
 }

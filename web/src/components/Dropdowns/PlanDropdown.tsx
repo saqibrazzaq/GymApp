@@ -37,7 +37,7 @@ const PlanDropdown = ({ handleChange, selectedPlan }: PlanDropdownParams) => {
 
   return (
     <Select
-      getOptionLabel={(c) => c.name || ""}
+      getOptionLabel={(c) => c.name + " - " + c.price || ""}
       getOptionValue={(c) => c.planId || ""}
       options={items}
       onChange={handleChange}
