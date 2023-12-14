@@ -26,6 +26,8 @@ namespace api.Repository.Implementations
         private readonly Lazy<IPaymentMethodRepository> _paymentMethodRepository;
         private readonly Lazy<ISubscriptionRepository> _subscriptionRepository;
         private readonly Lazy<ITimeUnitRepository> _timeUnitRepository;
+        private readonly Lazy<IInvoiceRepository> _invoiceRepository;
+        private readonly Lazy<IInvoiceItemRepository> _invoiceItemRepository;
         public RepositoryManager(AppDbContext context)
         {
             _context = context;
@@ -50,6 +52,8 @@ namespace api.Repository.Implementations
             _paymentMethodRepository = new Lazy<IPaymentMethodRepository>(() => new PaymentMethodRepository(context));
             _subscriptionRepository = new Lazy<ISubscriptionRepository>(() => new SubscriptionRepository(context));
             _timeUnitRepository = new Lazy<ITimeUnitRepository>(() => new TimeUnitRepository(context));
+            _invoiceRepository = new Lazy<IInvoiceRepository>(() => new InvoiceRepository(context));
+            _invoiceItemRepository = new Lazy<IInvoiceItemRepository>(() => new InvoiceItemRepository(context));
         }
 
         public IUserRepository UserRepository => _userRepository.Value;
@@ -71,6 +75,8 @@ namespace api.Repository.Implementations
         public IPaymentMethodRepository PaymentMethodRepository => _paymentMethodRepository.Value;
         public ISubscriptionRepository SubscriptionRepository => _subscriptionRepository.Value;
         public ITimeUnitRepository TimeUnitRepository => _timeUnitRepository.Value;
+        public IInvoiceRepository InvoiceRepository => _invoiceRepository.Value;
+        public IInvoiceItemRepository InvoiceItemRepository => _invoiceItemRepository.Value;
         public void Save()
         {
             _context.SaveChanges();

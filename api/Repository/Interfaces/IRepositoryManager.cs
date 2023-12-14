@@ -21,6 +21,8 @@
         IPaymentMethodRepository PaymentMethodRepository { get; }
         ISubscriptionRepository SubscriptionRepository { get; }
         ITimeUnitRepository TimeUnitRepository { get; }
+        IInvoiceRepository InvoiceRepository { get; }
+        IInvoiceItemRepository InvoiceItemRepository { get; }
         void Save();
     }
 }

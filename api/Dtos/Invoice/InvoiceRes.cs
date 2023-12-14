@@ -1,38 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using api.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using api.Dtos.Country;
 
-namespace api.Entities
+namespace api.Dtos.Invoice
 {
-    [Table("Invoice")]
-    public class Invoice
+    public class InvoiceRes
     {
-        [Key]
         public int InvoiceId { get; set; }
-        [Required]
         public int? AccountId { get; set; }
-        [ForeignKey(nameof(AccountId))]
-        public Account? Account { get; set; }
-        [Required]
         public string? Email { get; set; }
-        [Required]
         public string? FullName { get; set; }
         public string? Phone { get; set; } = "";
         public string? Address1 { get; set; } = "";
         public string? Address2 { get; set; } = "";
         public string? City { get; set; } = "";
         public int? StateId { get; set; }
-        [ForeignKey(nameof(StateId))]
-        public State? State { get; set; }
+        public StateRes State { get; set; }
         public DateTime IssueDate { get; set; } = DateTime.UtcNow;
-        [Required]
         public int? StatusId { get; set; } = (int)InvoiceStatusNames.Draft;
-        [ForeignKey(nameof(StatusId))]
-        public InvoiceStatus? Status { get; set; }
+        public InvoiceStatusRes Status { get; set; }
         public int AmountPayable { get; set; }
         public int AmountDue { get; set; }
-
-        // Child tables
-        public IList<InvoiceItem>? InvoiceItems { get; set; }
+        public IList<InvoiceItemRes>? InvoiceItems { get; set; }
     }
 }

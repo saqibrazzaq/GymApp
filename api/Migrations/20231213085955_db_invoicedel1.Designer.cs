@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231213085955_db_invoicedel1")]
+    partial class db_invoicedel1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -477,100 +480,6 @@ namespace api.Migrations
                     b.ToTable("Gender");
                 });
 
-            modelBuilder.Entity("api.Entities.Invoice", b =>
-                {
-                    b.Property<int>("InvoiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceId"));
-
-                    b.Property<int?>("AccountId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Address1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Address2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("AmountDue")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AmountPayable")
-                        .HasColumnType("int");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("IssueDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("StateId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StatusId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.HasKey("InvoiceId");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("StateId");
-
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("Invoice");
-                });
-
-            modelBuilder.Entity("api.Entities.InvoiceItem", b =>
-                {
-                    b.Property<int>("InvoiceItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceItemId"));
-
-                    b.Property<int?>("InvoiceId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Qty")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
-
-                    b.HasKey("InvoiceItemId");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.ToTable("InvoiceItem");
-                });
-
             modelBuilder.Entity("api.Entities.InvoiceStatus", b =>
                 {
                     b.Property<int>("InvoiceStatusId")
@@ -976,42 +885,6 @@ namespace api.Migrations
                     b.Navigation("Account");
 
                     b.Navigation("DiscountType");
-                });
-
-            modelBuilder.Entity("api.Entities.Invoice", b =>
-                {
-                    b.HasOne("api.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("api.Entities.State", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId");
-
-                    b.HasOne("api.Entities.InvoiceStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("State");
-
-                    b.Navigation("Status");
-                });
-
-            modelBuilder.Entity("api.Entities.InvoiceItem", b =>
-                {
-                    b.HasOne("api.Entities.Invoice", "Invoice")
-                        .WithMany()
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Invoice");
                 });
 
             modelBuilder.Entity("api.Entities.Plan", b =>

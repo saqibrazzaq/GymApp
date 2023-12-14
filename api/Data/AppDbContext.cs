@@ -32,8 +32,9 @@ namespace api.Data
         public DbSet<PaymentMethod>? PaymentMethods { get; set; }
         public DbSet<Discount>? Discounts { get; set; }
         public DbSet<Invoice>? Invoices { get; set; }
-        public DbSet<InvoiceDiscount>? InvoiceDiscounts { get; set; }
-        public DbSet<Payment>? Payments { get; set; }
+        public DbSet<InvoiceItem>? InvoiceItems { get; set; }
+        //public DbSet<InvoiceDiscount>? InvoiceDiscounts { get; set; }
+        //public DbSet<Payment>? Payments { get; set; }
         public DbSet<Subscription>? Subscriptions { get; set; }
         public DbSet<TimeUnit>? TimeUnits { get; set; }
 

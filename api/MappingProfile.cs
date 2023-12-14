@@ -83,6 +83,14 @@ namespace api
             // Subscription
             CreateMap<SubscriptionEditReq, Subscription>();
             CreateMap<Subscription,  SubscriptionRes>();
+
+            // Invoice
+            CreateMap<Invoice, InvoiceRes>();
+            CreateMap<InvoiceEditReq, Invoice>();
+
+            // InvoiceItem
+            CreateMap<InvoiceItem, InvoiceItemRes>();
+            CreateMap<InvoiceItemEditReq, InvoiceItem>();
         }
     }
 }

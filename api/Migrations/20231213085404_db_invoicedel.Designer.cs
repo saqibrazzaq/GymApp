@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231213085404_db_invoicedel")]
+    partial class db_invoicedel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -504,6 +507,9 @@ namespace api.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DiscountTotal")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -518,6 +524,12 @@ namespace api.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PlanId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlanPrice")
+                        .HasColumnType("int");
+
                     b.Property<int?>("StateId")
                         .HasColumnType("int");
 
@@ -525,50 +537,46 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("int");
 
+                    b.Property<int?>("SubscriptionId")
+                        .HasColumnType("int");
+
                     b.HasKey("InvoiceId");
 
                     b.HasIndex("AccountId");
+
+                    b.HasIndex("PlanId");
 
                     b.HasIndex("StateId");
 
                     b.HasIndex("StatusId");
 
+                    b.HasIndex("SubscriptionId");
+
                     b.ToTable("Invoice");
                 });
 
-            modelBuilder.Entity("api.Entities.InvoiceItem", b =>
+            modelBuilder.Entity("api.Entities.InvoiceDiscount", b =>
                 {
-                    b.Property<int>("InvoiceItemId")
+                    b.Property<int>("InvoiceDiscountId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceItemId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceDiscountId"));
+
+                    b.Property<int>("DiscountId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("InvoiceId")
                         .IsRequired()
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
+                    b.HasKey("InvoiceDiscountId");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Qty")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
-
-                    b.HasKey("InvoiceItemId");
+                    b.HasIndex("DiscountId");
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("InvoiceItem");
+                    b.ToTable("InvoiceDiscount");
                 });
 
             modelBuilder.Entity("api.Entities.InvoiceStatus", b =>
@@ -597,6 +605,40 @@ namespace api.Migrations
                     b.HasKey("LeadStatusId");
 
                     b.ToTable("LeadStatus");
+                });
+
+            modelBuilder.Entity("api.Entities.Payment", b =>
+                {
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"));
+
+                    b.Property<int?>("AccountId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AmountPaid")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InvoiceId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PaymentMethodId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("PaymentId");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("api.Entities.PaymentMethod", b =>
@@ -986,6 +1028,11 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("api.Entities.Plan", "Plan")
+                        .WithMany()
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("api.Entities.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId");
@@ -996,22 +1043,66 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("api.Entities.Subscription", "Subscription")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("Account");
+
+                    b.Navigation("Plan");
 
                     b.Navigation("State");
 
                     b.Navigation("Status");
+
+                    b.Navigation("Subscription");
                 });
 
-            modelBuilder.Entity("api.Entities.InvoiceItem", b =>
+            modelBuilder.Entity("api.Entities.InvoiceDiscount", b =>
                 {
-                    b.HasOne("api.Entities.Invoice", "Invoice")
+                    b.HasOne("api.Entities.Discount", "Discount")
                         .WithMany()
-                        .HasForeignKey("InvoiceId")
+                        .HasForeignKey("DiscountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("api.Entities.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Discount");
+
                     b.Navigation("Invoice");
+                });
+
+            modelBuilder.Entity("api.Entities.Payment", b =>
+                {
+                    b.HasOne("api.Entities.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("api.Entities.Invoice", "Invoice")
+                        .WithMany()
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("api.Entities.PaymentMethod", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Invoice");
+
+                    b.Navigation("PaymentMethod");
                 });
 
             modelBuilder.Entity("api.Entities.Plan", b =>
