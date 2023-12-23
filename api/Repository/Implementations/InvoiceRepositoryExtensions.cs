@@ -15,6 +15,9 @@ namespace api.Repository.Implementations
             InvoiceSearchReq searchParams)
         {
             var itemsToReturn = items
+                .Include(x => x.State)
+                .Include(x => x.Status)
+                .Include(x => x.User)
                 .Where(x => x.AccountId == searchParams.AccountId)
                 ;
             

@@ -14,7 +14,13 @@ namespace api.Entities
         [ForeignKey(nameof(AccountId))]
         public Account? Account { get; set; }
         [Required]
+        public string? UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public AppIdentityUser? User { get; set; }
         public string? Email { get; set; }
+        public int? ShippingAddressId { get; set; }
+        [ForeignKey(nameof(ShippingAddressId))]
+        public Address? ShippingAddress { get; set; }
         [Required]
         public string? FullName { get; set; }
         public string? Phone { get; set; } = "";

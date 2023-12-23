@@ -68,7 +68,7 @@ namespace api.Controllers
 
         [HttpGet("search")]
         [Authorize(Roles = Constants.AllManagerRoles)]
-        public async Task<IActionResult> Search(InvoiceSearchReq dto)
+        public async Task<IActionResult> Search([FromQuery]InvoiceSearchReq dto)
         {
             var res = await _invoiceService.Search(dto);
             return Ok(res);
@@ -76,7 +76,7 @@ namespace api.Controllers
 
         [HttpGet("items/search")]
         [Authorize(Roles = Constants.AllManagerRoles)]
-        public async Task<IActionResult> SearchItems(InvoiceItemSearchReq dto)
+        public async Task<IActionResult> SearchItems([FromQuery]InvoiceItemSearchReq dto)
         {
             var res = await _invoiceService.SearchItems(dto);
             return Ok(res);

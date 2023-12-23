@@ -5,6 +5,7 @@ using api.Repository.Interfaces;
 using api.Services.Interfaces;
 using api.Utility.Paging;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Services.Implementations
 {
@@ -57,7 +58,12 @@ namespace api.Services.Implementations
             var entity = _rep.InvoiceRepository.FindByCondition(
                 x => x.AccountId == user.AccountId &&
                 x.InvoiceId == invoiceId,
-                false)
+                false,
+                include: i => i
+                    .Include(x => x.User)
+                    .Include(x => x.Status)
+                    .Include(x => x.State)
+                    )
                 .FirstOrDefault();
             if (entity == null) { throw new Exception("Invoice not found " + invoiceId); }
 
@@ -123,7 +129,7 @@ namespace api.Services.Implementations
         public async Task<InvoiceRes> Update(int invoiceId, InvoiceEditReq dto)
         {
             var entity = await FindInvoiceIfExists(invoiceId);
-            _mapper.Map(entity, dto);
+            _mapper.Map(dto, entity);
             _rep.Save();
             return _mapper.Map<InvoiceRes>(entity);
         }
@@ -131,7 +137,7 @@ namespace api.Services.Implementations
         public async Task<InvoiceItemRes> UpdateItem(int invoiceItemId, InvoiceItemEditReq dto)
         {
             var entity = await FindInvoiceItemIfExists(invoiceItemId);
-            _mapper.Map(entity, dto);
+            _mapper.Map(dto, entity);
             _rep.Save();
             return _mapper.Map<InvoiceItemRes>(entity);
         }

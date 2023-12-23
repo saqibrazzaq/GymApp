@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using api.Data;
 
@@ -11,9 +12,11 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231215115945_db_invoice_User")]
+    partial class db_invoice_User
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -517,9 +520,6 @@ namespace api.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ShippingAddressId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("StateId")
                         .HasColumnType("int");
 
@@ -534,8 +534,6 @@ namespace api.Migrations
                     b.HasKey("InvoiceId");
 
                     b.HasIndex("AccountId");
-
-                    b.HasIndex("ShippingAddressId");
 
                     b.HasIndex("StateId");
 
@@ -996,10 +994,6 @@ namespace api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("api.Entities.Address", "ShippingAddress")
-                        .WithMany()
-                        .HasForeignKey("ShippingAddressId");
-
                     b.HasOne("api.Entities.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId");
@@ -1017,8 +1011,6 @@ namespace api.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
-
-                    b.Navigation("ShippingAddress");
 
                     b.Navigation("State");
 

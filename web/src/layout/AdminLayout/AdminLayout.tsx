@@ -23,6 +23,7 @@ import { PlanDelete, PlanEdit, Plans } from "../../pages/Plans/Plan";
 import { AddressDelete, AddressEdit, Addresses } from "../../pages/Address";
 import { MemberCreate, MemberDelete, MemberEdit, Members } from "../../pages/Member";
 import { SubscriptionDelete, SubscriptionEdit, Subscriptions } from "../../pages/Subscription";
+import { InvoiceEdit, Invoices } from "../../pages/Invoice";
 
 const LinkItems: Array<LinkItemProps> = [
   { name: "Home", icon: FiHome, href: "/admin" },
@@ -49,18 +50,6 @@ const LinkItems: Array<LinkItemProps> = [
     ],
   },
   {
-    name: "Settings",
-    icon: MdOutlineVerifiedUser,
-    href: "/admin/settings",
-    children: [
-      {
-        name: "Settings",
-        icon: MdOutlineVerifiedUser,
-        href: "/admin/settings",
-      },
-    ],
-  },
-  {
     name: "Plans",
     icon: MdPerson,
     href: "/admin/3",
@@ -74,6 +63,30 @@ const LinkItems: Array<LinkItemProps> = [
         name: "Categories",
         icon: MdOutlineVerifiedUser,
         href: "/admin/plans/categories",
+      },
+    ],
+  },
+  {
+    name: "Payments",
+    icon: MdPerson,
+    href: "/admin/3",
+    children: [
+      {
+        name: "Invoices",
+        icon: MdOutlineVerifiedUser,
+        href: "/admin/invoices",
+      },
+    ],
+  },
+  {
+    name: "Settings",
+    icon: MdOutlineVerifiedUser,
+    href: "/admin/settings",
+    children: [
+      {
+        name: "Settings",
+        icon: MdOutlineVerifiedUser,
+        href: "/admin/settings",
       },
     ],
   },
@@ -102,6 +115,9 @@ const AdminLayout = () => {
           <Route path="/subscriptions/edit" element={<SubscriptionEdit />} />
           <Route path="/subscriptions/:subscriptionId/edit" element={<SubscriptionEdit />} />
           <Route path="/subscriptions/:subscriptionId/delete" element={<SubscriptionDelete />} />
+          <Route path="/invoices" element={<Invoices />} />
+          <Route path="/invoices/edit" element={<InvoiceEdit />} />
+          <Route path="/invoices/:invoiceId/edit" element={<InvoiceEdit />} />
           <Route path="/settings" element={<SettingsHome />} />
           <Route path="/settings/logo" element={<BusinessLogo />} />
           <Route path="/plans/categories" element={<PlanCategories />} />

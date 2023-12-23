@@ -8,6 +8,8 @@ import DiscountTypeDropdown from "./DiscountTypeDropdown";
 import PaymentMethodDropdown from "./PaymentMethodDropdown";
 import MemberDropdown from "./MemberDropdown";
 import TimeUnitDropdown from "./TimeUnitDropdown";
+import PlanDropdown from "./PlanDropdown";
+import InvoiceStatusDropdown from "./InvoiceStatusDropdown";
 
 export {
   RoleDropdown,
@@ -20,4 +22,6 @@ export {
   PaymentMethodDropdown,
   MemberDropdown,
   TimeUnitDropdown,
+  PlanDropdown,
+  InvoiceStatusDropdown,
 };
